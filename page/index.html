@@ -461,7 +461,7 @@
             img.className = 'code-more-img';
 
    
-            img.src = 'http:\/\/localhost:1313\/icons\/codeMore.png';
+            img.src = '/icons/codeMore.png';
 
             btn.appendChild(img);
             box.appendChild(btn);
@@ -501,115 +501,149 @@ var typed = new Typed('#typed', {
 </script>
 
 <style>
-  body {
-    background-color: #f5f5f5;
-    background-image: url('/background/E517B06CCC3BC4F14D284CAD40BDB345.jpg');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
-    background-attachment: fixed;
-  }
+ body {
+   background-color: #f5f5f5;
+   background-image: url('/background/E517B06CCC3BC4F14D284CAD40BDB345.jpg');
+   background-repeat: no-repeat;
+   background-position: center top;
+   background-size: cover;
+   background-attachment: fixed;
+ }
 
-   
-  #welcome-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: url('/background/E517B06CCC3BC4F14D284CAD40BDB345.jpg') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    transition: opacity 0.8s ease-out;
-  }
+  
+ #welcome-screen {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background: url('/background/E517B06CCC3BC4F14D284CAD40BDB345.jpg') no-repeat center center;
+   background-size: cover;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 10000;
+   transition: opacity 0.8s ease-out;
+ }
 
-  #welcome-screen.fade-out {
-    opacity: 0;
-    pointer-events: none;
-  }
+ #welcome-text {
+   font-size: 3rem;
+   color: #FFE66D;
+   font-weight: bold;
+   text-shadow: 2px 2px 8px rgba(255,255,255,0.9);
+   white-space: nowrap;
+   margin-top: -15vh;  
+ }
 
-  #welcome-text {
-    font-size: 3rem;
-    color: #FFE66D;
-    font-weight: bold;
-    text-shadow: 2px 2px 8px rgba(255,255,255,0.9);
-    white-space: nowrap;
-  }
+ #welcome-screen.fade-out {
+   opacity: 0;
+   pointer-events: none;
+ }
 
-   
-  body.welcome-active {
-    overflow: hidden;
-  }
+  
+ body.welcome-active {
+   overflow: hidden;
+ }
 </style>
 
 <div id="welcome-screen">
-  <div id="welcome-text"></div>
+ <div id="welcome-text"></div>
 </div>
 
 <script>
-  if (!sessionStorage.getItem('hasScrolled')) {
-    const text = "flag{}orz";
-    const welcomeScreen = document.getElementById('welcome-screen');
-    const welcomeEl = document.getElementById('welcome-text');
-    let index = 0;
+ if (!sessionStorage.getItem('hasScrolled')) {
+   const text = "flag{}orz";
+   const welcomeScreen = document.getElementById('welcome-screen');
+   const welcomeEl = document.getElementById('welcome-text');
+   let index = 0;
 
-    
-    document.body.classList.add('welcome-active');
-    
-    
-    window.scrollTo(0, 0);
+   
+   document.body.classList.add('welcome-active');
+   
+   
+   window.scrollTo(0, 0);
 
-    function typeWriter() {
-      if (index < text.length) {
-        welcomeEl.textContent += text.charAt(index);
-        index++;
-        setTimeout(typeWriter, 150);
-      } else {
-        
-        setTimeout(function() {
-          
-          welcomeScreen.classList.add('fade-out');
-          
-          
-          setTimeout(function() {
-            welcomeScreen.remove();
-            document.body.classList.remove('welcome-active');
-            
-            
-            const mainContainer = document.querySelector('.container.main-container');
-            if (mainContainer) {
-              window.scrollTo({
-                top: mainContainer.offsetTop,
-                behavior: 'smooth'
-              });
-            } else {
-              window.scrollTo({
-                top: window.innerHeight * 0.9,
-                behavior: 'smooth'
-              });
-            }
-            
-            sessionStorage.setItem('hasScrolled', 'true');
-          }, 800);
-        }, 1500);
-      }
-    }
+   function typeWriter() {
+     if (index < text.length) {
+       welcomeEl.textContent += text.charAt(index);
+       index++;
+       setTimeout(typeWriter, 150);
+     } else {
+       
+       setTimeout(function() {
+         
+         welcomeScreen.classList.add('fade-out');
+         
+         
+         setTimeout(function() {
+           welcomeScreen.remove();
+           document.body.classList.remove('welcome-active');
+           
+           
+           const mainContainer = document.querySelector('.container.main-container');
+           if (mainContainer) {
+             window.scrollTo({
+               top: mainContainer.offsetTop,
+               behavior: 'smooth'
+             });
+           } else {
+             window.scrollTo({
+               top: window.innerHeight * 0.9,
+               behavior: 'smooth'
+             });
+           }
+           
+           sessionStorage.setItem('hasScrolled', 'true');
+         }, 800);
+       }, 1500);
+     }
+   }
 
-    
-    window.addEventListener('load', function() {
-      setTimeout(typeWriter, 500);
-    });
-  } else {
-    
-    const welcomeScreen = document.getElementById('welcome-screen');
-    if (welcomeScreen) {
-      welcomeScreen.remove();
-    }
-  }
+   
+   window.addEventListener('load', function() {
+     setTimeout(typeWriter, 500);
+   });
+ } else {
+   
+   const welcomeScreen = document.getElementById('welcome-screen');
+   if (welcomeScreen) {
+     welcomeScreen.remove();
+   }
+ }
 </script>
+
+
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+
+<script>
+L2Dwidget.init({
+    "model": {
+        jsonPath: "https://unpkg.com/live2d-widget-model-z16@1.0.5/assets/z16.model.json",
+        "scale": 1
+    },
+    "display": {
+        "position": "left",
+        "width": 220,      
+        "height": 320,     
+        "hOffset": 0,
+        "vOffset": -20
+    },
+    "mobile": {
+        "show": false
+    },
+    "react": {
+        "opacity": 0.9
+    }
+});
+</script>
+
+<style>
+@media (max-width: 768px) {
+    #landlord {
+        display: none;
+    }
+}
+</style>
 
 
     </body>
