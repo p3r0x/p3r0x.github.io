@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on Perox</title>
-        <link>https://p3r0x.github.io/post/</link>
+        <link>http://localhost:1313/post/</link>
         <description>Recent content in Posts on Perox</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Perox</copyright>
-        <lastBuildDate>Wed, 31 Dec 2025 12:24:05 +0800</lastBuildDate><atom:link href="https://p3r0x.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 31 Dec 2025 12:24:05 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Test</title>
-        <link>https://p3r0x.github.io/p/test/</link>
+        <link>http://localhost:1313/p/test/</link>
         <pubDate>Wed, 31 Dec 2025 12:24:05 +0800</pubDate>
         
-        <guid>https://p3r0x.github.io/p/test/</guid>
+        <guid>http://localhost:1313/p/test/</guid>
         <description>&lt;h1 id=&#34;ez_xor-xor_revenge&#34;&gt;ez_xor xor_revenge
 &lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
