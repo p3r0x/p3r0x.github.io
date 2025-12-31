@@ -1002,12 +1002,9 @@ $$t_{n+1}t_{n-1}-t_n^2=a^2t_{n-1}^2-a^2t_{n-1}^2\equiv0\pmod{m}$$<p>,所以可�
     <section class="copyright">
         &copy; 
         
-        2025 Perox
-    </section>
-    
-    <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+            2025 - 
+        
+        2026 Perox
     </section>
 </footer>
 
@@ -1263,7 +1260,6 @@ var typed = new Typed('#typed', {
    background-attachment: fixed;
  }
 
-  
  #welcome-screen {
    position: fixed;
    top: 0;
@@ -1281,11 +1277,11 @@ var typed = new Typed('#typed', {
 
  #welcome-text {
    font-size: 3rem;
-   color: #e815ac;
+   color: #15b7e8;
    font-weight: bold;
    text-shadow: 2px 2px 8px rgba(255,255,255,0.9);
    white-space: nowrap;
-   margin-top: -15vh;  
+   margin-top: -15vh;
  }
 
  #welcome-screen.fade-out {
@@ -1293,7 +1289,6 @@ var typed = new Typed('#typed', {
    pointer-events: none;
  }
 
-  
  body.welcome-active {
    overflow: hidden;
  }
@@ -1305,34 +1300,26 @@ var typed = new Typed('#typed', {
 
 <script>
  if (!sessionStorage.getItem('hasScrolled')) {
-   const text = "嘻提诶福里不是这样的QAQ";
+   const text = "现在就让我用所拥有的一切去爱你 听不懂吗？";
    const welcomeScreen = document.getElementById('welcome-screen');
    const welcomeEl = document.getElementById('welcome-text');
    let index = 0;
 
-   
    document.body.classList.add('welcome-active');
-   
-   
    window.scrollTo(0, 0);
 
    function typeWriter() {
      if (index < text.length) {
        welcomeEl.textContent += text.charAt(index);
        index++;
-       setTimeout(typeWriter, 150);
+       setTimeout(typeWriter, 100);
      } else {
-       
        setTimeout(function() {
-         
          welcomeScreen.classList.add('fade-out');
-         
-         
          setTimeout(function() {
            welcomeScreen.remove();
            document.body.classList.remove('welcome-active');
-           
-           
+
            const mainContainer = document.querySelector('.container.main-container');
            if (mainContainer) {
              window.scrollTo({
@@ -1345,19 +1332,17 @@ var typed = new Typed('#typed', {
                behavior: 'smooth'
              });
            }
-           
+
            sessionStorage.setItem('hasScrolled', 'true');
          }, 800);
        }, 1500);
      }
    }
 
-   
    window.addEventListener('load', function() {
      setTimeout(typeWriter, 500);
    });
  } else {
-   
    const welcomeScreen = document.getElementById('welcome-screen');
    if (welcomeScreen) {
      welcomeScreen.remove();
@@ -1695,6 +1680,18 @@ setInterval(createBubble, 500);
    });
 })();
 </script>
+
+<style>
+  @font-face {
+    font-family: 'WenYuanRoundedSC-Medium.otf';
+    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'WenYuanRoundedSC-Medium.otf';
+    --code-font-family: 'WenYuanRoundedSC-Medium.otf';
+  }
+</style>
 
     </body>
 </html>
