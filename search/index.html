@@ -412,7 +412,7 @@ var typed = new Typed('#typed', {
 
  #welcome-text {
    font-size: 3rem;
-   color: #FFE66D;
+   color: #e815ac;
    font-weight: bold;
    text-shadow: 2px 2px 8px rgba(255,255,255,0.9);
    white-space: nowrap;
@@ -436,7 +436,7 @@ var typed = new Typed('#typed', {
 
 <script>
  if (!sessionStorage.getItem('hasScrolled')) {
-   const text = "flag{}orz";
+   const text = "嘻提诶福里不是这样的QAQ";
    const welcomeScreen = document.getElementById('welcome-screen');
    const welcomeEl = document.getElementById('welcome-text');
    let index = 0;
@@ -529,6 +529,303 @@ L2Dwidget.init({
 }
 </style>
 
+<style>
+.bubble {
+    position: fixed;
+    bottom: -100px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+    z-index: -1;
+    pointer-events: none;
+    animation: rise linear infinite;
+}
+
+@keyframes rise {
+    to {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+</style>
+
+<script>
+function createBubble() {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.style.left = Math.random() * 100 + '%';
+    bubble.style.width = bubble.style.height = (Math.random() * 60 + 20) + 'px';
+    bubble.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    document.body.appendChild(bubble);
+    
+    setTimeout(() => bubble.remove(), 10000);
+}
+
+setInterval(createBubble, 500);
+</script>
+
+
+<style>
+#mouse-line-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;   
+    z-index: 99999;         
+}
+</style>
+
+<canvas id="mouse-line-canvas"></canvas>
+
+<script>
+(function() {
+    const canvas = document.getElementById('mouse-line-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    const points = [];
+    const maxPoints = 20;
+    let hue = 0;
+    
+    class Point {
+        constructor(x, y, hue) {
+            this.x = x;
+            this.y = y;
+            this.alpha = 1;
+            this.radius = 3;
+            this.hue = hue;
+        }
+        
+        update() {
+            this.alpha -= 0.015;
+            this.radius += 0.2;
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
+            ctx.fill();
+        }
+    }
+    
+    
+    document.addEventListener('click', function(e) {
+        const point = new Point(e.clientX, e.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    
+    document.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        const point = new Point(touch.clientX, touch.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        
+        if (points.length > 1) {
+            for (let i = 0; i < points.length - 1; i++) {
+                const gradient = ctx.createLinearGradient(
+                    points[i].x, points[i].y,
+                    points[i + 1].x, points[i + 1].y
+                );
+                gradient.addColorStop(0, `hsla(${points[i].hue}, 70%, 60%, ${points[i].alpha})`);
+                gradient.addColorStop(1, `hsla(${points[i + 1].hue}, 70%, 60%, ${points[i + 1].alpha})`);
+                
+                ctx.beginPath();
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+        
+        for (let i = points.length - 1; i >= 0; i--) {
+            points[i].update();
+            points[i].draw();
+            
+            if (points[i].alpha <= 0) {
+                points.splice(i, 1);
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+})();
+</script>
+
+<style>
+.highlight {
+   position: relative;
+   max-height: 400px;
+   overflow: hidden;
+}
+
+.highlight.code-show {
+   max-height: none !important;
+}
+
+.code-more-box {
+   width: 100%;
+   padding-top: 78px;
+   background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: 2;
+}
+
+.code-more-btn {
+   display: block;
+   margin: auto;
+   width: 44px;
+   height: 22px;
+   background: #f0f0f5;
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+   padding-top: 6px;
+   cursor: pointer;
+}
+
+.code-more-img {
+   display: block;
+   margin: auto;
+   width: 22px;
+   height: 16px;
+   transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+   transform: rotate(180deg);
+}
+
+ 
+.progress-bar-container {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 4px;
+   background: rgba(0,0,0,0.05);
+   z-index: 99999;   
+   pointer-events: none;   
+}
+
+.progress-bar {
+   height: 100%;
+   width: 0%;
+   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+   transition: width 0.2s ease-out;
+   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+</style>
+
+
+<div class="progress-bar-container">
+   <div class="progress-bar" id="progress-bar"></div>
+</div>
+
+<script>
+(function () {
+   
+   function initCodeMoreBox() {
+       document.querySelectorAll('.highlight').forEach(function (block) {
+           if (block.dataset.codemoreInit) return;
+           block.dataset.codemoreInit = '1';
+
+           if (block.scrollHeight <= block.clientHeight) return;
+
+           const box = document.createElement('div');
+           box.className = 'code-more-box';
+
+           const btn = document.createElement('span');
+           btn.className = 'code-more-btn';
+
+           btn.onclick = function () {
+               block.classList.toggle('code-show');
+           };
+
+           const img = document.createElement('img');
+           img.className = 'code-more-img';
+           img.src = '/icons/codeMore.png';
+
+           btn.appendChild(img);
+           box.appendChild(btn);
+           block.appendChild(box);
+       });
+   }
+
+   
+   function updateProgressBar() {
+       const progressBar = document.getElementById('progress-bar');
+       if (!progressBar) return;
+
+       const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+       
+       if (height > 0) {
+           const scrolled = (winScroll / height) * 100;
+           progressBar.style.width = Math.min(scrolled, 100) + '%';
+       }
+   }
+
+   
+   if (document.readyState === 'loading') {
+       document.addEventListener('DOMContentLoaded', function() {
+           initCodeMoreBox();
+           updateProgressBar();
+       });
+   } else {
+       initCodeMoreBox();
+       updateProgressBar();
+   }
+
+   
+   let ticking = false;
+   window.addEventListener('scroll', function() {
+       if (!ticking) {
+           window.requestAnimationFrame(function() {
+               updateProgressBar();
+               ticking = false;
+           });
+           ticking = true;
+       }
+   });
+
+   
+   document.addEventListener('pjax:complete', function() {
+       initCodeMoreBox();
+       updateProgressBar();
+   });
+})();
+</script>
 
     </body>
 </html>
