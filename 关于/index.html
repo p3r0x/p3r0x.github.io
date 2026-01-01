@@ -598,7 +598,7 @@ const messages = [
   "就这么点东西，你就滑到这里了"
 ];
 
-const easterMessage = "good boy，this si way";
+const easterMessage = "你发现了我的彩蛋，这就带你去na";
 
 const jumpUrls = [
   "https://ys.mihoyo.com/",
@@ -738,7 +738,7 @@ window.addEventListener('scroll', handleScroll);
      if (index < text.length) {
        welcomeEl.textContent += text.charAt(index);
        index++;
-       setTimeout(typeWriter, 100);
+       setTimeout(typeWriter, 80);
      } else {
        setTimeout(function() {
          welcomeScreen.classList.add('fade-out');
