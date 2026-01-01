@@ -1,0 +1,40 @@
+/* =======================================================
+   Hugo Stack Theme - Sidebar Black Font (JS 控制覆盖方法)
+   ======================================================= */
+
+/* 强制侧边栏名字黑色 */
+aside.sidebar .sidebar-avatar > .avatar-name {
+    color: #000000 !important;
+}
+
+/* 强制侧边栏个性签名黑色 */
+aside.sidebar .sidebar-avatar > .sidebar-subtitle {
+    color: #000000 !important;
+}
+
+/* 强制 emoji 黑色（可选） */
+aside.sidebar .sidebar-avatar > .sidebar-emoji {
+    color: #000000 !important;
+    filter: brightness(0); /* 强制变黑，可选 */
+}
+
+/* 侧边栏其他文字 */
+aside.sidebar,
+aside.sidebar * {
+    color: #000000 !important;
+}
+
+/* 侧边栏链接 */
+aside.sidebar a {
+    color: #000000 !important;
+}
+
+/* 鼠标悬停链接 */
+aside.sidebar a:hover {
+    color: #333333 !important;
+}
+
+/* 分割线颜色 */
+aside.sidebar hr {
+    border-color: #999999 !important;
+}
