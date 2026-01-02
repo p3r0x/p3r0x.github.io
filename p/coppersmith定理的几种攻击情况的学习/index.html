@@ -282,6 +282,11 @@
 
 </header>
 
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <div style="color: #999; font-size: 14px; margin-bottom: 20px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 5px;">
+        阅读量: <span id="busuanzi_value_page_pv">0</span>
+    </div>
+
     <section class="article-content">
     
     
@@ -667,6 +672,7 @@ $$<p>
     
 </article>
 
+
     
 
     
@@ -674,6 +680,57 @@ $$<p>
      
     
         
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="p3r0x/p3r0x.github.io"
+    data-repo-id="R_kgDOQxf5tg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQxf5ts4C0f3D"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
     
 
     <footer class="site-footer">
