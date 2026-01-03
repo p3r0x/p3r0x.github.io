@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="coppersmith定理的几种攻击情况的学习 Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数N（通常很大，如RSA模数） 模N的多项式 f(x)（通常为单变量） 边界X 寻找所有满足 f(x0) ≡ 0 (mod N)且∣x0∣&lt;X的整数根x0\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="coppersmith 定理的几种攻击情况的学习 Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n">
 <title>Coppersmith定理的几种攻击情况的学习</title>
 
 <link rel='canonical' href='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
 
 <link rel="stylesheet" href="/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Coppersmith定理的几种攻击情况的学习">
-<meta property='og:description' content="coppersmith定理的几种攻击情况的学习 Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数N（通常很大，如RSA模数） 模N的多项式 f(x)（通常为单变量） 边界X 寻找所有满足 f(x0) ≡ 0 (mod N)且∣x0∣&lt;X的整数根x0\n">
+<meta property='og:description' content="coppersmith 定理的几种攻击情况的学习 Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n">
 <meta property='og:url' content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='Perox'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='article:modified_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
 <meta name="twitter:title" content="Coppersmith定理的几种攻击情况的学习">
-<meta name="twitter:description" content="coppersmith定理的几种攻击情况的学习 Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数N（通常很大，如RSA模数） 模N的多项式 f(x)（通常为单变量） 边界X 寻找所有满足 f(x0) ≡ 0 (mod N)且∣x0∣&lt;X的整数根x0\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="coppersmith 定理的几种攻击情况的学习 Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -69,7 +69,7 @@
         
         <div class="site-meta">
             <h1 class="site-name"><a href="/">Perox</a></h1>
-            <h2 class="site-description">用一辈子去听</h2>
+            <h2 class="site-description">轻度崩溃(1)</h2>
         </div>
     </header><ol class="menu" id="main-menu">
         
@@ -202,20 +202,25 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#1basic-boradcast-attack广播攻击">1.basic boradcast attack广播攻击</a>
+    <li><a href="#1basic-boradcast-attack-广播攻击">1.basic boradcast attack 广播攻击</a>
       <ol>
         <li><a href="#攻击原理">攻击原理</a></li>
-        <li><a href="#rsa高位攻击">RSA高位攻击</a>
-          <ol>
-            <li><a href="#已知p高位">已知p高位</a></li>
-            <li><a href="#已知p高位q低位">已知p高位，q低位</a></li>
-            <li><a href="#已知密文m高位">已知密文m高位</a></li>
-            <li><a href="#已知d的低位求pq">已知d的低位求pq</a></li>
-          </ol>
-        </li>
       </ol>
     </li>
-    <li><a href="#要补充的知识">要补充的知识</a></li>
+    <li><a href="#rsa-高位攻击">RSA 高位攻击</a>
+      <ol>
+        <li><a href="#已知-p-高位">已知 p 高位</a></li>
+        <li><a href="#已知-p-高位q-低位">已知 p 高位，q 低位</a></li>
+        <li><a href="#已知密文-m-高位">已知密文 m 高位</a></li>
+        <li><a href="#已知-d-的低位求-pq">已知 d 的低位求 pq</a></li>
+      </ol>
+    </li>
+    <li><a href="#franklin-reiter-相关消息攻击--coppersmiths-short-pad-attack-短填充攻击">Franklin-Reiter 相关消息攻击 &amp; Coppersmith&rsquo;s Short Pad Attack 短填充攻击</a>
+      <ol>
+        <li><a href="#攻击原理-1">攻击原理</a></li>
+        <li><a href="#做下例题">做下例题</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -290,16 +295,22 @@
     <section class="article-content">
     
     
-    <h1 id="coppersmith定理的几种攻击情况的学习">coppersmith定理的几种攻击情况的学习
+    <h1 id="coppersmith-定理的几种攻击情况的学习">coppersmith 定理的几种攻击情况的学习
 </h1><p>Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题</p>
 <p>给定：</p>
 <ul>
-<li>模数N（通常很大，如RSA模数）</li>
-<li>模N的多项式 f(x)（通常为单变量）</li>
-<li>边界X</li>
+<li>模数 N（通常很大，如 RSA 模数）</li>
+<li>模 N 的多项式 f(x)（通常为单变量）</li>
+<li>边界 X</li>
 </ul>
-<p>寻找所有满足 f(x0) ≡ 0 (mod N)且∣x0∣&lt;X的整数根x0</p>
-<h2 id="1basic-boradcast-attack广播攻击">1.basic boradcast attack广播攻击
+<p>寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0</p>
+<p>成立的条件：
+</p>
+$$
+|x_0|\ <\ N^{1/deg(f)}\\
+$$<p>
+deg(f)为多项式最高项系数</p>
+<h2 id="1basic-boradcast-attack-广播攻击">1.basic boradcast attack 广播攻击
 </h2><h3 id="攻击原理">攻击原理
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -309,7 +320,7 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Broadcast attack 是 Håstad attack，不是 Coppersmith，只是经常一起出现
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>使用同一个指数e加密同一个密文m，产生e个明文，形如：
+</div><p>使用同一个指数 e 加密同一个密文 m，产生 e 个明文，形如：
 </p>
 $$
 c_1 \equiv m^e \pmod{n_1} \\
@@ -317,24 +328,24 @@ c_2 \equiv m^e \pmod{n_2} \\
 \vdots \\
 c_e \equiv m^e \pmod{n_e}
 $$<p>
-n1,n2&hellip;互素，</p>
-<p>是m ≤ min(n₁, n₂, …, nₑ)，即明文 m 必须小于等于所有模数中的最小值</p>
+n1, n2&hellip;互素，</p>
+<p>是 m ≤ min(n₁, n₂, …, nₑ)，即明文 m 必须小于等于所有模数中的最小值</p>
 <p>然后解中国剩余定理</p>
 <p>根据中国剩余定理（CRT），可以求解：</p>
 <p>mᵉ ≡ C (mod N)</p>
 <p>其中 N = n₁ × n₂ × … × nₑ</p>
-<p>因为m ≤ min(n₁, n₂, …, nₑ)，m^e^ &lt; n₁ × n₂ × … × nₑ</p>
+<p>因为 m ≤ min(n₁, n₂, …, nₑ)，m^e^ &lt; n₁ × n₂ × … × nₑ</p>
 <p>mᵉ &lt; N，则可以直接对 C 开 e 次方根得到明文 m：m = ᵉ√C</p>
-<h3 id="rsa高位攻击">RSA高位攻击
-</h3><p>内容参考：</p>
+<h2 id="rsa-高位攻击">RSA 高位攻击
+</h2><p>内容参考：</p>
 <p><a class="link" href="https://blog.csdn.net/lc9992023/article/details/141112336"  target="_blank" rel="noopener"
-    >RSA_高位攻击学习记录_rsa已知高位攻击-CSDN博客</a></p>
+    >RSA_高位攻击学习记录_rsa 已知高位攻击-CSDN 博客</a></p>
 <p><a class="link" href="https://blog.csdn.net/qq_51999772/article/details/123620932"  target="_blank" rel="noopener"
-    >RSA中coppersmith定理的应用条件-CSDN博客</a></p>
+    >RSA 中 coppersmith 定理的应用条件-CSDN 博客</a></p>
 <p><a class="link" href="https://www.ruanx.net/coppersmith/"  target="_blank" rel="noopener"
     >Coppersmith 攻击</a></p>
-<p>知道部分二进制位，求剩余二进制位，<strong>只有未知的bit位满足unknown_bits / p_bits &lt;= 0.44（即coppersmith定理）时，才能通过small_roots()方法求出未知的bit位，进而求解flag</strong></p>
-<p>small_roots(X= ,beta= )的使用方法：</p>
+<p>知道部分二进制位，求剩余二进制位，<strong>只有未知的 bit 位满足 unknown_bits / p_bits &lt;= 0.44（即 coppersmith 定理）时，才能通过 small_roots()方法求出未知的 bit 位，进而求解 flag</strong></p>
+<p>small_roots(X = , beta = )的使用方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -347,29 +358,29 @@ n1,n2&hellip;互素，</p>
 </span></span><span class="line"><span class="cl"><span class="n">roots</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">small_roots</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>看不懂，让ai细说了一下</p>
-<p>边界因素X：</p>
+</div><p>看不懂，让 ai 细说了一下</p>
+<p>边界因素 X：</p>
 <ol>
-<li>已知根的比特k的情况下，X = 2^k^</li>
-<li>已知根的大致范围[0,1000]，X = 1000</li>
-<li>理论边界：根据coppersmith: X &lt; N^1/e^，所以X=floor(N^1/e^)</li>
-<li>因子的部分比特攻击，知道了p的高位，p=p_high+x，所以X=2^unknown_bits^</li>
+<li>已知根的比特 k 的情况下，X = 2^k^</li>
+<li>已知根的大致范围 [0,1000]，X = 1000</li>
+<li>理论边界：根据 coppersmith: X &lt; N^1/e^，所以 X = floor(N^1/e^)</li>
+<li>因子的部分比特攻击，知道了 p 的高位，p = p_high+x，所以 X = 2^unknown_bits^</li>
 </ol>
-<p>beta参数（β）：当p,q二进制位数相同时一般只能取0.4</p>
+<p>beta 参数（β）：当 p, q 二进制位数相同时一般只能取 0.4</p>
 <ol>
 <li>
-<p>在模N上寻找根，如果根满足f(x) ≡ 0 (mod N)，beta = 1</p>
+<p>在模 N 上寻找根，如果根满足 f(x) ≡ 0 (mod N)，beta = 1</p>
 </li>
 <li>
-<p>在模p上寻找根，且p约等于N^0.5^（RSA情况），p是N的一个因子，p ≈ √N ≈ N^0.5，beta = 0.5，因为p ≈ N^0.5，所以β=0.5</p>
+<p>在模 p 上寻找根，且 p 约等于 N^0.5^（RSA 情况），p 是 N 的一个因子，p ≈ √N ≈ N^0.5，beta = 0.5，因为 p ≈ N^0.5，所以 β = 0.5</p>
 </li>
 <li>
-<p>在模p上寻找根，但p的大小不同：</p>
-<p>如果p ≈ N^0.3^：beta = 0.3</p>
-<p>如果p ≈ N^0.25：beta = 0.25</p>
+<p>在模 p 上寻找根，但 p 的大小不同：</p>
+<p>如果 p ≈ N^0.3^：beta = 0.3</p>
+<p>如果 p ≈ N^0.25：beta = 0.25</p>
 </li>
 <li>
-<p>寻找模N的小根：beta = 1.0</p>
+<p>寻找模 N 的小根：beta = 1.0</p>
 </li>
 </ol>
 <div class="table-wrapper"><table>
@@ -398,8 +409,8 @@ n1,n2&hellip;互素，</p>
       </tr>
   </tbody>
 </table></div>
-<h4 id="已知p高位">已知p高位
-</h4><p>知道p的前k位，记低位为x，所以p = p_high * 2^k^ + x，算出p的低位x后直接用small_roots</p>
+<h3 id="已知-p-高位">已知 p 高位
+</h3><p>知道 p 的前 k 位，记低位为 x，所以 p = p_high * 2^k^ + x，算出 p 的低位 x 后直接用 small_roots</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -432,14 +443,14 @@ n1,n2&hellip;互素，</p>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p0</span><span class="o">+</span><span class="n">p_high</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="已知p高位q低位">已知p高位，q低位
-</h4><p>已知的p高位不满足unknown_bits / p_bits &lt;= 0.44，且知道q的低位，低位数x</p>
+</div><h3 id="已知-p-高位q-低位">已知 p 高位，q 低位
+</h3><p>已知的 p 高位不满足 unknown_bits / p_bits &lt;= 0.44，且知道 q 的低位，低位数 x</p>
 <p>解题方法省个流就是：
 </p>
 $$
 p_{\text{low}} = p \bmod 2^{x} = \left( n \cdot q_{\text{low}}^{-1} \right) \bmod 2^{x}
 $$<p>
-然后用small_roots算出中间的未知数然后加起来就可以了</p>
+然后用 small_roots 算出中间的未知数然后加起来就可以了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -472,7 +483,7 @@ $$<p>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>q的低位q_low
+</div><p>q 的低位 q_low
 </p>
 $$
 q \bmod 2^{265} = q_{\text{low}}
@@ -482,17 +493,17 @@ $$<p>
 $$
 q = k \cdot 2^{265} + q_{\text{low}}
 $$<p>
-两边同时乘q可以得到：
+两边同时乘 q 可以得到：
 </p>
 $$
 n = p \cdot \left( k \cdot 2^{265} + q_{\text{low}} \right) = k \cdot 2^{265} \cdot p + q_{\text{low}} \cdot p
 $$<p>
-同时除以q_low：
+同时除以 q_low：
 </p>
 $$
 n \cdot q_{\text{low}}^{-1} = k \cdot 2^{265} \cdot p \cdot q_{\text{low}}^{-1} + p
 $$<p>
-同时取模2^265^得到：
+同时取模 2^265^得到：
 </p>
 $$
 p_{\text{low}} = p \bmod 2^{265} = \left( n \cdot q_{\text{low}}^{-1} \right) \bmod 2^{265}
@@ -518,7 +529,7 @@ $$<div class="highlight"><div class="chroma">
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p_low</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>现在有低位256和高位300，所以目前未知位为459，最多未知位为1024 * 0.44=454，所以要暴力枚举五位</p>
+</div><p>现在有低位 256 和高位 300，所以目前未知位为 459，最多未知位为 1024 * 0.44 = 454，所以要暴力枚举五位</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -573,10 +584,10 @@ $$<div class="highlight"><div class="chroma">
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)))</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>md看到了平时看不到的报错😓，阴完了</p>
-<h4 id="已知密文m高位">已知密文m高位
-</h4><p>怎么感觉像照着抄啊我干</p>
-<p>m和c的关系是
+</div><p>md 还能有这种报错的，夸张哦 😓</p>
+<h3 id="已知密文-m-高位">已知密文 m 高位
+</h3><p>怎么感觉像照着抄啊我干</p>
+<p>m 和 c 的关系是
 </p>
 $$
 c = m^e \mod n
@@ -586,48 +597,365 @@ $$<p>
 $$
 m = m_{\text{high}} + x \quad (\text{$x$ 是低位未知})
 $$<p>
-所以把c移过来可以变成：
+所以把 c 移过来可以变成：
 </p>
 $$
 f(x) = (m_{\text{high}} + x)^e - c \equiv 0 \mod n
 $$<p>
 然后直接套公式秒了</p>
-<h4 id="已知d的低位求pq">已知d的低位求pq
-</h4><p>已知了d的低位d_low和低位bits数x还有e</p>
+<h3 id="已知-d-的低位求-pq">已知 d 的低位求 pq
+</h3><p>已知了 d 的低位 d_low 和低位 bits 数 x 还有 e</p>
 <p>因为：
 </p>
 $$
 ed \equiv 1 \pmod{(p-1)(q-1)}
 $$<p>
 所以：ed = 1 + k * (p-1) * (q-1)</p>
-<p>然后对两边取模2^x^，所以:
+<p>然后对两边取模 2^x^，所以:
 </p>
 $$
 ed_{\text{low}} \equiv 1 + k(p-1)(q-1) \pmod{2^x}
 $$<p>
-把q换成n/p，这个式子就为
+把 q 换成 n/p，这个式子就为
 </p>
 $$
 p \cdot ed_{low} \equiv p + k(n \cdot p - p^{2} - n + p) \pmod{2^{x}}
 $$<p>
-然后solve_mod解模方程（sagemath太好用了家人们）</p>
-<h2 id="要补充的知识">要补充的知识
-</h2><p>把要学的留在这，期待补完计划：</p>
-<ul>
-<li>
-<p>为什么0.44是极限</p>
-</li>
-<li>
-<p>LLL在small_roots里具体干了什么</p>
-</li>
-<li>
-<p>什么时候small_roots必失败</p>
-</li>
-<li>
-<p>剩下的攻击类型</p>
-</li>
-</ul>
-
+然后 solve_mod 解模方程（sagemath 太好用了家人们）</p>
+<h2 id="franklin-reiter-相关消息攻击--coppersmiths-short-pad-attack-短填充攻击">Franklin-Reiter 相关消息攻击 &amp; Coppersmith&rsquo;s Short Pad Attack 短填充攻击
+</h2><h3 id="攻击原理-1">攻击原理
+</h3><p>由于 m1 和 m2 存在线性关系并且在相同 N 下进行的 RSA 加密，</p>
+<p>假设
+</p>
+$$
+m_1 = k\ * \ m_2 \ +\ b
+$$<p>
+且
+</p>
+$$
+m_1\ \equiv \ a\ mod \ N\\
+m_2\ \equiv \ a\ mod \ N
+$$<p>
+这样就可以列出两个和 m2 相关的方程
+</p>
+$$
+f(x)\ =\ x\ -\ a\\f(x)= k\ * \ x \ +\ b\ -\ a
+$$<p>
+这样这两个式子取 <strong>x = m2</strong> 时都会等于 0，在数学意义下有个 <strong>(x-m2)</strong> 的因式，所以直接取这两个方程的公因数就可以找到 m2</p>
+<p>顺便学习一下 sagemath</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">n</span><span class="p">)[]</span><span class="c1">#定义多项式环</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">coefficients</span><span class="p">()</span><span class="c1">#以列表形式返回多项式的常数项（从低项到高项的升序排列，即7x^5+3x^4+4返回[4,3,7]）</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">monic</span><span class="p">()</span><span class="c1">#除以最高项的系数</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">4x^3+2x^2+x
+</span></span></span><span class="line"><span class="cl"><span class="s1">返回：
+</span></span></span><span class="line"><span class="cl"><span class="s1">x^3+1/2x^2+1/4x
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#多项式求公因数用欧几里得算法递归</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="做下例题">做下例题
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">m1</span> <span class="o">=</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span><span class="o">*</span><span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">17</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">c1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">getRandomNBitInteger</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">getRandomNBitInteger</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">m2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;a=</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;b=</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;c1=</span><span class="si">{</span><span class="n">c1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;c2=</span><span class="si">{</span><span class="n">c2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">N</span><span class="o">=</span><span class="mi">123659932061175480826793608011321410436349950741155126876095701055301878519455031361569954900678263326118459719432097093055918891948664714258046001339215600541946755989049122600427628642622036472692779340339300158628581419220590868242848311473965406365501747491282544140645468809520929307937285660479491241363</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="mi">12795184347649957548397347648657609712242281197428253341891395348966629724842748696386579533843100833039565312645558384706282291396553602742473087674306336</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="o">=</span><span class="mi">12652561268961103936837420866306660440380907636430718507525953046969196471975210807471094652190751376751348655252244311630569860771118936181419956587387282</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span><span class="o">=</span><span class="mi">51991948160397341594095534046308905334052328129886214140433481879034095448631790463996064234310860642758645828216350970768732856439017324754993220774971081882007838091737307185049230846102962234452369235186705221800322142645874117556212685451861172069436515378795560228077509937484022552758984136308761496373</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span><span class="o">=</span><span class="mi">102367269426206577837660468860715696190840895268468904172938303357188227693435122799965957675733814903345970317009686706066325312156008609593926539768689081990544088825413585508055156925413722623286655819700429518477974133941543843635128782119973290018886257977205103150970429699110833604623614038282346303825</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">=</span><span class="mi">17</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">N</span><span class="p">)[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f1</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="n">e</span> <span class="o">-</span> <span class="n">c1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">a</span><span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">^</span><span class="n">e</span> <span class="o">-</span> <span class="n">c2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Integer</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">))</span><span class="o">.</span><span class="n">coefficients</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">m</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">num1</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">num2</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">num1</span><span class="o">&lt;</span><span class="n">num2</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num2</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ring</span> <span class="o">=</span> <span class="n">RealField</span><span class="p">(</span><span class="mi">1050</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">num3</span> <span class="o">=</span> <span class="n">ring</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span> <span class="o">/</span><span class="n">ring</span><span class="p">(</span><span class="n">num2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;num3=&#34;</span><span class="p">,</span><span class="n">num3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">=</span><span class="n">p</span><span class="o">*</span><span class="n">q</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">=</span><span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;n=&#34;</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;c=&#34;</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">n2</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span> <span class="o">*</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e1</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e2</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">num1</span><span class="p">,</span><span class="n">e1</span><span class="p">,</span><span class="n">n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">num2</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">q1</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">q1</span><span class="p">,</span><span class="mi">2024</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">q1</span><span class="o">+</span><span class="mi">2024</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;n2=&#34;</span><span class="p">,</span><span class="n">n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;e1=&#34;</span><span class="p">,</span><span class="n">e1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;e2=&#34;</span><span class="p">,</span><span class="n">e2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;c1=&#34;</span><span class="p">,</span><span class="n">c1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;c2=&#34;</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;leak1=&#34;</span><span class="p">,</span><span class="n">leak1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;leak2=&#34;</span><span class="p">,</span><span class="n">leak2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">num3= 1.36557212221826657073387899060669771982679822943621690677450888408226656788387273887547841291114809989272635809810564202247340711087479554863446719786359395466961253205133910506682801159622545780721946115442033391600881399634390008053822158098121985270501317972263356522400827768601773721146954464269212959784543085
+</span></span></span><span class="line"><span class="cl"><span class="s2">n= 85105083975491693151454182116844944807066048677068373328227644321539783064315677834754866742549592569194223084173286381150626593510265361114796714226058887906219454795525438819082646860141163940340082006344850825956811992304447978369108606993344902286569100146695092703383844402883938506877787042873586279543
+</span></span></span><span class="line"><span class="cl"><span class="s2">c= 8090472119640930864901421058741085326954308673260202542020919764880488559370287585797498390920330336595858609617432370825503480936376306766495089200286004922821787548265246289552343468177624634434613746605553770994437785042510225956023382347023663125411103947669109085411939772215657220674436476279268458980
+</span></span></span><span class="line"><span class="cl"><span class="s2">n2= 101642316595332652021348165259853423287787139517550249986161819826180514401858258316466101056877182367161299111697465439636861942636526396547011727147471566130633614685728563576613692851860684686033186826342178072882901576159305747639645374751566751967096281105148714033096611618024355982220235949274576036321
+</span></span></span><span class="line"><span class="cl"><span class="s2">e1= 1630
+</span></span></span><span class="line"><span class="cl"><span class="s2">e2= 1866
+</span></span></span><span class="line"><span class="cl"><span class="s2">c1= 8857135083997055103287497833179378469532619748945804429057682575070405217145941944821968708809563240261403711644389684947851643865895254406194464015430673347359589677809515117412321862622147634752091324365628790687343748145339949310696116239361890881096088375070083053010564890401663562726144984405628773323
+</span></span></span><span class="line"><span class="cl"><span class="s2">c2= 44531030636557714647477473185500183066851251320453194953972504422367649302810396344051696851757189817391648356459225688318373454949578822468293099948132700460437006478679492801335689493431764882835346904225119630026545592437198370606462285405519745361570058335573353886454277790277663038008240372746639859253
+</span></span></span><span class="line"><span class="cl"><span class="s2">leak1= 82301473255013183706458389946960254392188270550712533886416705365418418731488346328643954589202172816597173052792573628245245948345810581701878535280775967863966009605872386693838526935762655380705962833467046779524956212498594045378770790026387120339093736625186401934354434702063802537686761251873173518029
+</span></span></span><span class="line"><span class="cl"><span class="s2">leak2= 43580171648136008789232340619597144591536098696024883687397347933098380327258730482377138309020375265135558484586783368757872008322883985094403855691297725907800406097129735499961231236473313141257901326737291586051506797429883866846199683028143924054925109557329949641367848264351523500925115860458645738192
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>DASTF 的题，先连分数逼近来解开 num1 和 num2，然后用相关消息攻击，情报有误，这是短填充攻击</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num3</span><span class="o">=</span> <span class="mf">1.36557212221826657073387899060669771982679822943621690677450888408226656788387273887547841291114809989272635809810564202247340711087479554863446719786359395466961253205133910506682801159622545780721946115442033391600881399634390008053822158098121985270501317972263356522400827768601773721146954464269212959784543085</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">=</span> <span class="mi">85105083975491693151454182116844944807066048677068373328227644321539783064315677834754866742549592569194223084173286381150626593510265361114796714226058887906219454795525438819082646860141163940340082006344850825956811992304447978369108606993344902286569100146695092703383844402883938506877787042873586279543</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span> <span class="mi">8090472119640930864901421058741085326954308673260202542020919764880488559370287585797498390920330336595858609617432370825503480936376306766495089200286004922821787548265246289552343468177624634434613746605553770994437785042510225956023382347023663125411103947669109085411939772215657220674436476279268458980</span>
+</span></span><span class="line"><span class="cl"><span class="n">n2</span><span class="o">=</span> <span class="mi">101642316595332652021348165259853423287787139517550249986161819826180514401858258316466101056877182367161299111697465439636861942636526396547011727147471566130633614685728563576613692851860684686033186826342178072882901576159305747639645374751566751967096281105148714033096611618024355982220235949274576036321</span>
+</span></span><span class="line"><span class="cl"><span class="n">e1</span><span class="o">=</span> <span class="mi">1630</span>
+</span></span><span class="line"><span class="cl"><span class="n">e2</span><span class="o">=</span> <span class="mi">1866</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">=</span><span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span><span class="o">=</span> <span class="mi">8857135083997055103287497833179378469532619748945804429057682575070405217145941944821968708809563240261403711644389684947851643865895254406194464015430673347359589677809515117412321862622147634752091324365628790687343748145339949310696116239361890881096088375070083053010564890401663562726144984405628773323</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span><span class="o">=</span> <span class="mi">44531030636557714647477473185500183066851251320453194953972504422367649302810396344051696851757189817391648356459225688318373454949578822468293099948132700460437006478679492801335689493431764882835346904225119630026545592437198370606462285405519745361570058335573353886454277790277663038008240372746639859253</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak1</span><span class="o">=</span> <span class="mi">82301473255013183706458389946960254392188270550712533886416705365418418731488346328643954589202172816597173052792573628245245948345810581701878535280775967863966009605872386693838526935762655380705962833467046779524956212498594045378770790026387120339093736625186401934354434702063802537686761251873173518029</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak2</span><span class="o">=</span> <span class="mi">43580171648136008789232340619597144591536098696024883687397347933098380327258730482377138309020375265135558484586783368757872008322883985094403855691297725907800406097129735499961231236473313141257901326737291586051506797429883866846199683028143924054925109557329949641367848264351523500925115860458645738192</span>
+</span></span><span class="line"><span class="cl"><span class="n">t</span><span class="o">=</span><span class="n">continued_fraction</span><span class="p">(</span><span class="n">num3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num1</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">numerator</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">num1</span><span class="o">.</span><span class="n">nbits</span><span class="p">()</span><span class="o">==</span><span class="mi">512</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num2</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">denominator</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">num2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">n</span><span class="p">)[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">+</span><span class="n">num1</span><span class="p">)</span><span class="o">**</span><span class="n">e1</span> <span class="o">-</span> <span class="n">c1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">+</span><span class="n">num2</span><span class="p">)</span><span class="o">**</span><span class="n">e2</span> <span class="o">-</span> <span class="n">c2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Integer</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">))</span><span class="o">.</span><span class="n">coefficients</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span><span class="o">=</span><span class="n">n</span><span class="o">//</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
