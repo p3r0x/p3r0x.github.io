@@ -6,13 +6,14 @@
         <description>Recent content in Categories on Perox</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Perox</copyright><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Test</title>
-        <link>http://localhost:1313/categories/test/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        <copyright>Perox</copyright>
+        <lastBuildDate>Fri, 02 Jan 2026 20:47:05 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Crypto</title>
+        <link>http://localhost:1313/categories/crypto/</link>
+        <pubDate>Fri, 02 Jan 2026 20:47:05 +0800</pubDate>
         
-        <guid>http://localhost:1313/categories/test/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/test/hutomo-abrianto-l2jk-uxb1BY-unsplash.jpg" alt="Featured image of post Test" /&gt;</description>
+        <guid>http://localhost:1313/categories/crypto/</guid>
+        <description>&lt;img src="http://localhost:1313/categories/crypto/968B5CD2FC0A1EFAEDF9278B00B82132.jpg" alt="Featured image of post Crypto" /&gt;</description>
         </item>
         
     </channel>
