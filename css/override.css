@@ -1,0 +1,42 @@
+body .sidebar,
+body .left-sidebar,
+body .right-sidebar,
+body .sidebar a,
+body .left-sidebar a,
+body .right-sidebar a,
+body .sidebar span,
+body .left-sidebar span,
+body .right-sidebar span,
+body .sidebar p,
+body .left-sidebar p,
+body .right-sidebar p,
+body .sidebar li,
+body .left-sidebar li,
+body .right-sidebar li,
+body .sidebar .site-name,
+body .left-sidebar .site-name,
+body .right-sidebar .site-name,
+body .sidebar .menu a,
+body .left-sidebar .menu a,
+body .right-sidebar .menu a,
+body .sidebar .menu span,
+body .left-sidebar .menu span,
+body .right-sidebar .menu span,
+body .sidebar .widget,
+body .left-sidebar .widget,
+body .right-sidebar .widget,
+body .sidebar .widget *,
+body .left-sidebar .widget *,
+body .right-sidebar .widget * {
+  color: #000 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+body .sidebar svg,
+body .left-sidebar svg,
+body .right-sidebar svg {
+  fill: #000 !important;
+  stroke: #000 !important;
+  opacity: 1 !important;
+}

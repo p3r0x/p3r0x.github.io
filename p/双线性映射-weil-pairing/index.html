@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="双线性映射\r定义\r$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群\n">
+<title>双线性映射 weil pairing</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/'>
+
+<link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="双线性映射 weil pairing">
+<meta property='og:description' content="双线性映射\r定义\r$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群\n">
+<meta property='og:url' content='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/'>
+<meta property='og:site_name' content='Perox'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-17T19:37:01&#43;08:00'/><meta property='article:modified_time' content='2026-04-17T19:37:01&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.gif' />
+<meta name="twitter:title" content="双线性映射 weil pairing">
+<meta name="twitter:description" content="双线性映射\r定义\r$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.gif' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_9093c608f3f56ca.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Perox</a></h1>
+            <h2 class="site-description">崩溃风险（高）</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#定义">定义</a></li>
+    <li><a href="#线性映射">线性映射</a></li>
+    <li><a href="#weil配对">weil配对</a>
+      <ol>
+        <li><a href="#定义-1">定义</a></li>
+      </ol>
+    </li>
+    <li><a href="#题">题</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/">
+                <img src="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13_hu_e278523735ebd90f.gif"
+                        srcset="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13_hu_e278523735ebd90f.gif 800w, /p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13_hu_c2e366d2dc76d459.gif 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post 双线性映射 weil pairing" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/crypto/" style="background-color: #00e3bdff; color: #51c48aff;">
+                Crypto
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/">双线性映射 weil pairing</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-04-17T19:37:01&#43;08:00'>2026-04-17</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="双线性映射">双线性映射
+</h1><h2 id="定义">定义
+</h2><p>$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群</p>
+<p>有$g_1∈G_1,g_2∈G_2,a,b∈Z$，满足：</p>
+<ol>
+<li>
+<p>双线性性：$e(a*g_1,b*g_2)=e(g_1,g_2)^{ab}$​</p>
+<p>或者定义为：$e(P,Q+R)=e(P,Q)*e(P,R) \\ e(P+S,Q)=e(P,Q)*e(S,Q)$</p>
+</li>
+<li>
+<p>非退化性：满足$e(g_1,g_2)≠e_{G_T}$，$e_{G_T}$代表 $G_T$的单位元</p>
+</li>
+<li>
+<p>可计算性：存在有效算法$e(g_1,g_2)$​</p>
+</li>
+</ol>
+<h2 id="线性映射">线性映射
+</h2><p>线性映射如:
+</p>
+$$
+f(x+y)=f(x)+f(y)\\
+f(ax)=af(x)
+$$<p>对两个变量，分别单独看都是线性的，合在一起就叫双线性</p>
+<p>如果有变量<strong>x,y</strong>，函数<strong>F(x,y)</strong>：</p>
+<ul>
+<li><strong>固定x,变化y</strong>：函数对y是线性的</li>
+<li><strong>固定y,变化x</strong>：函数对x是线性的</li>
+</ul>
+<h2 id="weil配对">weil配对
+</h2><p><strong>Weil对可将椭圆曲线的挠群上的两个点，映射到一个特殊有限域的乘法子群上，借此可将椭圆曲线离散对数问题（ECDLP）投射到一般的离散对数问题（DLP）</strong></p>
+<p><strong>$n$-torsion点</strong>：如果一个点$P$被“加自己”若干次以后会回到单位元 $\mathcal O$，那它就是torsion点，表现为$nP=\mathcal O$</p>
+<p><strong>$E[n]$</strong>：所有满足$nP=\mathcal O$的点放在一起，形成一个子群，记作$E[n]$</p>
+<p><strong>单位根</strong>：满足$\zeta^n=1$的数叫$n$次单位根，比如复数里$1,-1,i,-i$ 是4次单位根</p>
+<p><strong>除子</strong>：记录函数在哪些点有零、哪些点有极点，以及它们各自重复多少次，记作$\operatorname{div}(f)=n(P)-n(\mathcal O)$，表示在$P$有$n$重零点，在$\mathcal O$有$n$重极点：
+</p>
+$$
+设有理函数f(X) = \frac{a_0 + a_1 X + \cdots + a_n X^n}{b_0 + b_1 X + \cdots + b_m X^m}\\
+在复数范围内进行因子分解：f(X) = \frac{a(X - \alpha_1)^{e_1} (X - \alpha_2)^{e_2} \cdots (X - \alpha_r)^{e_r}}
+{b(X - \beta_1)^{d_1} (X - \beta_2)^{d_2} \cdots (X - \beta_s)^{d_s}}\\
+$$<p>
+可写作：</p>
+<p>$\operatorname{div}(f(X)) \triangleq e_1[\alpha_1] + e_2[\alpha_2] + \cdots + e_r[\alpha_r]-d_1[\beta_1] - d_2[\beta_2] - \cdots - d_s[\beta_s]$</p>
+<p>$表示e_1个\alpha_1零点...在d_1有\beta_1个极点...$​</p>
+<h3 id="定义-1">定义
+</h3><p>设$P,Q \in E[n]$，选择函数$f_P,f_Q$，满足
+</p>
+$$
+\operatorname{div}(f_P) = n(P) - n(\mathcal O)\\
+\operatorname{div}(f_Q) = n(Q) - n(\mathcal O)
+$$<p>
+可定义为：
+</p>
+$$
+e_n(P,Q) =
+\frac{f_P(Q+S)}{f_P(S)}
+\bigg/
+\frac{f_Q(P-S)}{f_Q(-S)}.
+$$<p>S为辅助点，为E中任意元素，且满足$S \notin \{\mathcal{O}, P,-Q,P,-Q\}\,$</p>
+<p>只要输入的两个点P和Q都是n-torsion点，配对的输出$e_n(P,Q)$满足所有$x^n=1$的集合</p>
+<h2 id="题">题
+</h2><p>红名谷2025</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">pad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">numbers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272555731</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556223</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556437</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556749</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557237</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557459</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557687</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558627</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559523</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559787</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560169</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560343</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560433</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560751</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560969</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272561441</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562103</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562601</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563261</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563297</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563391</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563511</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563711</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pp</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">E</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">qwq</span> <span class="o">=</span> <span class="mh">0x320238b</span>
+</span></span><span class="line"><span class="cl"><span class="n">qaq</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">order</span><span class="p">()</span><span class="o">//</span><span class="n">qwq</span><span class="o">**</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;flag.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag_part</span> <span class="o">=</span> <span class="p">[</span><span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">flag</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">flag_part</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">P1</span> <span class="o">=</span> <span class="n">qaq</span><span class="o">*</span><span class="n">E</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">P2</span> <span class="o">=</span> <span class="n">qaq</span><span class="o">*</span><span class="n">E</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">=</span> <span class="n">P1</span><span class="o">.</span><span class="n">weil_pairing</span><span class="p">(</span><span class="n">P2</span><span class="p">,</span> <span class="n">qwq</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">c</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">qaq</span><span class="p">,</span> <span class="n">pp</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>E的阶为qaq*qwq^2^,因为flag_part的每个元素为两个字节，也就是16bit，所以表示的范围为（0，$2^{16}$）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    P1 = qaq*E.random_element()
+</span></span><span class="line"><span class="cl">    P2 = qaq*E.random_element()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这两行代码将p1和p2投影到了qwq^2^阶子群，然后对这两个点进行weil配对，所以输出结果应该为qwq次单位根：
+</p>
+$$
+e_{qwq}(p_1,p_2)^{qwq}=1
+$$<p>
+所以$output=(e_{qwq}(p_1,p_2)^3*c)^{qaq} \ mod \ pp$</p>
+<p>两边qwq次幂得到$output^{qwq}=c^{qwq*qaq}$</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272555731</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556223</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556437</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556749</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557237</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557459</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557687</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558627</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559523</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559787</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560169</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560343</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560433</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560751</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560969</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272561441</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562103</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562601</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563261</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563297</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563391</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563511</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563711</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pp</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">E</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">qwq</span> <span class="o">=</span> <span class="mh">0x320238b</span>
+</span></span><span class="line"><span class="cl"><span class="n">qaq</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">order</span><span class="p">()</span><span class="o">//</span><span class="n">qwq</span><span class="o">**</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2258729984869869545899085887518820011795880892632317458813070773270633871398785757696896679887453336507722151037267</span><span class="p">,</span> <span class="mi">1843407310728065127389586068976768146728145160643439144895915852634291722663455873979176336542780552480617232750208</span><span class="p">,</span> <span class="mi">1107061034832953338095294459542523703297843192927313275050958753437078121375795698115353665062727895555487155331316</span><span class="p">,</span> <span class="mi">460337686287218470707660572908024613140030922587867288532588857547792028112129697850035268228038619747643899804437</span><span class="p">,</span> <span class="mi">1659483062154723617504533638726171721668768657049197025961515070605996080663312140357834824850074607457421362000265</span><span class="p">,</span> <span class="mi">3150528329201636320206556304125544975332446992414777732425647667048147102509308959254762895094589762017857965981432</span><span class="p">,</span> <span class="mi">3338854035461286314545186888372727000962778038359519702308782495912356677650264814573463929190025956045491115654437</span><span class="p">,</span> <span class="mi">3042574495339632074308497406446851120362994432361876743901608172567070991832258762751304397604780567703759317642849</span><span class="p">,</span> <span class="mi">380771388315580393673388198522357440257018642337119013880143084485482127962577943753495690258532782147018511750175</span><span class="p">,</span> <span class="mi">507222017133457507399048159541059729302482262298099528096040456818913085187752925782279385808732260473494863290057</span><span class="p">,</span> <span class="mi">533663958640518878580794848474449572155795564171089765377581587253792204491009275840408579120376539757958097910250</span><span class="p">,</span> <span class="mi">2681145160205204287930367627648683111546318004811732016137828270063753300095675791698398080219566725174890793619305</span><span class="p">,</span> <span class="mi">3259478178021541801713314504097142165241891541242669456591074651894459393333167453811425864198267757724232689747676</span><span class="p">,</span> <span class="mi">3553147298452254907907643059383506744982654808021508866104139240155822133286673657139615950259800036058045049186173</span><span class="p">,</span> <span class="mi">1778776925369812510137824472396145391840300438509021838870105004154301861222612045533034046889878767915343446874895</span><span class="p">,</span> <span class="mi">3409071358092535255033136229525415652816479844958949032220987821989305575696869929136493897719813036034016228268240</span><span class="p">,</span> <span class="mi">571819148781137687997336847709735468532344087614483867682513640750800758034003212746545051127998686475933050072942</span><span class="p">,</span> <span class="mi">2676666310158795770609746651024766841212271213339384335651155407291004834251914242990757216402110096603729617413168</span><span class="p">,</span> <span class="mi">2557670339976470006330058052583841683167706755578266425502679937976714609864257535859316483527764340425703004883241</span><span class="p">,</span> <span class="mi">973319024062640263364951783086923560907216776835485042157036675663719529568519121997200478026304141184810597275543</span><span class="p">,</span> <span class="mi">1189768012357955450386827626693191057999220508190415783719135619271537446794904663649700073564180453068646130539863</span><span class="p">,</span> <span class="mi">790522915783756530835443034667719516913120763875831140857606265058871034793645280121113275798239222760522467771184</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag_part</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">qwq</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">65537</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">pow</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">qaq</span><span class="o">*</span><span class="n">qwq</span><span class="p">,</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="n">flag_part</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.e591a7a0ff82d5d3dd73bfc6598c38f7_hu_ea72718e02edf0d3.gif" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post RSA共私钥d攻击"
+                        
+                        data-hash="md5-5ZGnoP&#43;C1dPdc7/GWYw49w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">RSA共私钥d攻击</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/b6f6e34ac8bc0f07ff7cb0e0150a2404fa21a6329dd47e3b.d817948a8f95441d77f29f159acea330_hu_b4bf5a6766a385c9.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记2"
+                        
+                        data-hash="md5-2BeUio&#43;VRB138p8Vms6jMA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.92184d69c6833444daeb4fca27a5aba0_hu_507458049a26e48f.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记 1"
+                        
+                        data-hash="md5-khhNacaDNETa60/KJ6WroA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image.1998122f9e3337ae5f13e134234d1d96_hu_f7da1169b268676e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记"
+                        
+                        data-hash="md5-GZgSL54zN65fE&#43;E0I00dlg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.2fd00f7a3c14c7fb0a6abc47841dbb5c_hu_6f23a5d94bcb2d4c.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Coppersmith定理的几种攻击情况的学习"
+                        
+                        data-hash="md5-L9APejwUx/sKarxHhB27XA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Coppersmith定理的几种攻击情况的学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="p3r0x/p3r0x.github.io"
+    data-repo-id="R_kgDOQxf5tg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQxf5ts4C0f3D"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Perox
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.3f0660e16f46ed1544f4e216c2eb032398c2ec1b5abc424d80a1cbf71bf58f62.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    mutex: false,
+    preload: 'metadata',
+    order: 'random',
+    theme: '#1e3a8a',
+    audio: [
+        {
+            name: 'Somniomancer [null set]',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Crywolf - Somniomancer [null set].mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: 'Touch of the Law',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR,Alec Justice,Echos - Touch of the Law.mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: '赴大荒',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Kirara Magic - 赴大荒.mp3',
+            cover: '/music/a9327ac600568afeeea76e01b00959e024723044.png'
+        },
+        {
+            name: '天下一白',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; BaoUner - 天下一白.mp3',
+            cover: '/music/df72b29b5f78188aef2413b70b70054d420924396.jpg'
+        },
+        {
+            name: '天天天国地獄国',
+            artist: 'Aiobahn  81,ななひら,P丸様',
+            url: '/music/Aiobahn  81,ななひら,P丸様。 - 天天天国地獄国 (feat. ななひら & P丸様。).mp3',
+            cover: '/music/天天天国地狱国.png'
+        },
+        {
+            name: '妄想税',
+            artist: '初音ミク',
+            url: '/music/DECO27,初音ミク - 妄想税.mp3',
+            cover: '/music/妄想税.png'
+        },
+        {
+            name: '光るなら',
+            artist: 'Goose house',
+            url: '/music/Goose house - 光るなら.mp3',
+            cover: '/music/0bd162d9f2d3572c8c352ab48d13632763d0c387.webp'
+        },
+        {
+            name: '乐意效劳',
+            artist: 'こっちのけんと',
+            url: '/music/こっちのけんと - はいよろこんで.mp3',
+            cover: '/music/71cf3bc79f3df8dcd10063bc1d49658b4710b91282df.jpg'
+        }
+    ]
+});
+
+const container = document.getElementById('aplayer');
+container.addEventListener('dblclick', () => {
+    ap.skipForward();
+});
+</script>
+
+<style>
+#aplayer {
+    position: fixed;
+    right: 20px;
+    top: 70%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(30,58,138,.45);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+#aplayer:hover {
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 12px 35px rgba(30,58,138,.7);
+}
+
+#aplayer .aplayer-pic {
+    border-radius: 50% !important;
+}
+
+#aplayer .aplayer-info,
+#aplayer .aplayer-list,
+#aplayer .aplayer-time {
+    display: none !important;
+}
+
+#aplayer .aplayer-button {
+    width: 100%;
+    height: 100%;
+}
+
+#aplayer.aplayer-playing .aplayer-pic {
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    #aplayer {
+        width: 52px;
+        height: 52px;
+        right: 12px;
+    }
+}
+</style>
+
+<style>
+.highlight {
+    position: relative;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.highlight.code-show {
+    max-height: none !important;
+}
+
+.code-more-box {
+    width: 100%;
+    padding-top: 78px;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+.code-more-btn {
+    display: block;
+    margin: auto;
+    width: 44px;
+    height: 22px;
+    background: #f0f0f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding-top: 6px;
+    cursor: pointer;
+}
+
+.code-more-img {
+    display: block;
+    margin: auto;
+    width: 22px;
+    height: 16px;
+    transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+    transform: rotate(180deg);
+}
+</style>
+
+
+
+<script>
+(function () {
+    function initCodeMoreBox() {
+        document.querySelectorAll('.highlight').forEach(function (block) {
+            if (block.dataset.codemoreInit) return;
+            block.dataset.codemoreInit = '1';
+
+            if (block.scrollHeight <= block.clientHeight) return;
+
+            const box = document.createElement('div');
+            box.className = 'code-more-box';
+
+            const btn = document.createElement('span');
+            btn.className = 'code-more-btn';
+
+            btn.onclick = function () {
+                block.classList.toggle('code-show');
+            };
+
+            const img = document.createElement('img');
+            img.className = 'code-more-img';
+
+   
+            img.src = '/icons/codeMore.png';
+
+            btn.appendChild(img);
+            box.appendChild(btn);
+            block.appendChild(box);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+    } else {
+        initCodeMoreBox();
+    }
+
+    document.addEventListener('pjax:complete', initCodeMoreBox);
+})();
+</script>
+
+<style>
+  body {
+    background-color: #f5f5f5;
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Typed.js 彩蛋顺序跳转（首页不触发）</title>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<style>
+#typed {
+  font-size: 24px;
+  color: #09fb01;
+  min-height: 36px;
+  text-align: center;
+}
+</style>
+</head>
+<body style="height:2000px; margin:0;">
+
+<h1 id="typed"></h1>
+
+<script>
+const messages = [
+  "到底啦！别再往下滑了！",
+  "没有彩蛋，也没有隐藏内容…",
+  "就这么点东西，你就滑到这里了"
+];
+
+const easterMessage = "你发现了我的彩蛋，这就带你去na";
+
+const jumpUrls = [
+  "https://ys.mihoyo.com/",
+  "https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click",
+  "https://www.bilibili.com/video/BV1xx411c79H/?spm_id_from=333.337.search-card.all.click",
+];
+
+let animationRunning = false;
+let typed1, typed2;
+let jumpTimeout;
+
+function isScrolledToBottom() {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const windowHeight = window.innerHeight;
+  const docHeight = document.documentElement.scrollHeight;
+  return scrollTop + windowHeight >= docHeight - 10;
+}
+
+function handleScroll() {
+  const typedElement = document.getElementById('typed');
+
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') return;
+
+  if (animationRunning) {
+    if (!isScrolledToBottom()) {
+      if (typed1) typed1.destroy();
+      if (typed2) typed2.destroy();
+      if (jumpTimeout) clearTimeout(jumpTimeout);
+      typedElement.innerHTML = "";
+      animationRunning = false;
+    }
+    return;
+  }
+
+  if (!animationRunning && isScrolledToBottom()) {
+    animationRunning = true;
+
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    const randomUrl = jumpUrls[Math.floor(Math.random() * jumpUrls.length)];
+    typedElement.innerHTML = "";
+
+    typed1 = new Typed('#typed', {
+      strings: [randomMsg],
+      typeSpeed: 120,
+      backSpeed: 0,
+      loop: false,
+      showCursor: false,
+      onStringTyped: function() {
+        typed1.destroy();
+
+        typed2 = new Typed('#typed', {
+          strings: [easterMessage],
+          typeSpeed: 50,
+          backSpeed: 0,
+          loop: false,
+          showCursor: false,
+          onStringTyped: function() {
+            jumpTimeout = setTimeout(function() {
+              if (isScrolledToBottom()) {
+                window.location.href = randomUrl;
+              } else {
+                typedElement.innerHTML = "";
+                animationRunning = false;
+              }
+            }, 900);
+          }
+        });
+      }
+    });
+  }
+}
+
+window.addEventListener('scroll', handleScroll);
+</script>
+
+</body>
+</html>
+
+<canvas id="particle-line"></canvas>
+
+<style>
+#particle-line {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+</style>
+
+<script>
+const canvas = document.getElementById('particle-line');
+const ctx = canvas.getContext('2d');
+
+let w, h;
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COUNT = 100;        
+const MAX_DIST = 120;      
+const MOUSE_DIST = 180;   
+const COLOR = '15,30,90'; 
+
+const particles = [];
+const mouse = { x: null, y: null };
+
+window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+window.addEventListener('mouseleave', () => {
+    mouse.x = mouse.y = null;
+});
+
+function newParticle() {
+    return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.6 + 0.6
+    };
+}
+
+for (let i = 0; i < COUNT; i++) {
+    particles.push(newParticle());
+}
+
+function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${COLOR},0.8)`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    for (let i = 0; i < COUNT; i++) {
+        for (let j = i + 1; j < COUNT; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MAX_DIST) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MAX_DIST})`;
+                ctx.lineWidth = 0.6;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    if (mouse.x !== null) {
+        for (let p of particles) {
+            const dx = p.x - mouse.x;
+            const dy = p.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MOUSE_DIST) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MOUSE_DIST})`;
+                ctx.lineWidth = 0.8;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+
+<style>
+#mouse-line-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;   
+    z-index: 99999;         
+}
+</style>
+
+<canvas id="mouse-line-canvas"></canvas>
+
+<script>
+(function() {
+    const canvas = document.getElementById('mouse-line-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    const points = [];
+    const maxPoints = 20;
+    let hue = 0;
+    
+    class Point {
+        constructor(x, y, hue) {
+            this.x = x;
+            this.y = y;
+            this.alpha = 1;
+            this.radius = 3;
+            this.hue = hue;
+        }
+        
+        update() {
+            this.alpha -= 0.015;
+            this.radius += 0.2;
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
+            ctx.fill();
+        }
+    }
+    
+    
+    document.addEventListener('click', function(e) {
+        const point = new Point(e.clientX, e.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    
+    document.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        const point = new Point(touch.clientX, touch.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        
+        if (points.length > 1) {
+            for (let i = 0; i < points.length - 1; i++) {
+                const gradient = ctx.createLinearGradient(
+                    points[i].x, points[i].y,
+                    points[i + 1].x, points[i + 1].y
+                );
+                gradient.addColorStop(0, `hsla(${points[i].hue}, 70%, 60%, ${points[i].alpha})`);
+                gradient.addColorStop(1, `hsla(${points[i + 1].hue}, 70%, 60%, ${points[i + 1].alpha})`);
+                
+                ctx.beginPath();
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+        
+        for (let i = points.length - 1; i >= 0; i--) {
+            points[i].update();
+            points[i].draw();
+            
+            if (points[i].alpha <= 0) {
+                points.splice(i, 1);
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+})();
+</script>
+
+<style>
+.highlight {
+   position: relative;
+   max-height: 400px;
+   overflow: hidden;
+}
+
+.highlight.code-show {
+   max-height: none !important;
+}
+
+.code-more-box {
+   width: 100%;
+   padding-top: 78px;
+   background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: 2;
+}
+
+.code-more-btn {
+   display: block;
+   margin: auto;
+   width: 44px;
+   height: 22px;
+   background: #f0f0f5;
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+   padding-top: 6px;
+   cursor: pointer;
+}
+
+.code-more-img {
+   display: block;
+   margin: auto;
+   width: 22px;
+   height: 16px;
+   transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+   transform: rotate(180deg);
+}
+
+ 
+.progress-bar-container {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 4px;
+   background: rgba(0,0,0,0.05);
+   z-index: 99999;   
+   pointer-events: none;   
+}
+
+.progress-bar {
+   height: 100%;
+   width: 0%;
+   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+   transition: width 0.2s ease-out;
+   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+</style>
+
+
+<div class="progress-bar-container">
+   <div class="progress-bar" id="progress-bar"></div>
+</div>
+
+<script>
+(function () {
+   
+   function initCodeMoreBox() {
+       document.querySelectorAll('.highlight').forEach(function (block) {
+           if (block.dataset.codemoreInit) return;
+           block.dataset.codemoreInit = '1';
+
+           if (block.scrollHeight <= block.clientHeight) return;
+
+           const box = document.createElement('div');
+           box.className = 'code-more-box';
+
+           const btn = document.createElement('span');
+           btn.className = 'code-more-btn';
+
+           btn.onclick = function () {
+               block.classList.toggle('code-show');
+           };
+
+           const img = document.createElement('img');
+           img.className = 'code-more-img';
+           img.src = '/icons/codeMore.png';
+
+           btn.appendChild(img);
+           box.appendChild(btn);
+           block.appendChild(box);
+       });
+   }
+
+   
+   function updateProgressBar() {
+       const progressBar = document.getElementById('progress-bar');
+       if (!progressBar) return;
+
+       const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+       
+       if (height > 0) {
+           const scrolled = (winScroll / height) * 100;
+           progressBar.style.width = Math.min(scrolled, 100) + '%';
+       }
+   }
+
+   
+   if (document.readyState === 'loading') {
+       document.addEventListener('DOMContentLoaded', function() {
+           initCodeMoreBox();
+           updateProgressBar();
+       });
+   } else {
+       initCodeMoreBox();
+       updateProgressBar();
+   }
+
+   
+   let ticking = false;
+   window.addEventListener('scroll', function() {
+       if (!ticking) {
+           window.requestAnimationFrame(function() {
+               updateProgressBar();
+               ticking = false;
+           });
+           ticking = true;
+       }
+   });
+
+   
+   document.addEventListener('pjax:complete', function() {
+       initCodeMoreBox();
+       updateProgressBar();
+   });
+})();
+</script>
+
+<style>
+  @font-face {
+    font-family: 'WenYuanRoundedSC-Medium.otf';
+    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'WenYuanRoundedSC-Medium.otf';
+    --code-font-family: 'WenYuanRoundedSC-Medium.otf';
+  }
+</style>
+
+<script>
+(function () {
+
+  function ensureTip(blockEl, text) {
+    if (!text) return;                 
+    if (blockEl.dataset.tipInit) return;
+    blockEl.dataset.tipInit = "1";
+
+    const style = window.getComputedStyle(blockEl);
+    if (style.position === "static") {
+      blockEl.style.position = "relative";
+    }
+
+    const tip = document.createElement("div");
+    tip.className = "code-hover-tip";
+    tip.textContent = text;
+
+    blockEl.appendChild(tip);
+  }
+
+  function init() {
+    document.querySelectorAll(".code-fun").forEach(wrapper => {
+      const text = wrapper.dataset.tip; 
+
+   
+      wrapper.querySelectorAll(".highlight").forEach(block => {
+        ensureTip(block, text);
+      });
+
+      
+      wrapper.querySelectorAll("pre").forEach(pre => {
+        if (pre.closest(".highlight")) return;
+        ensureTip(pre, text);
+        
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  document.addEventListener("pjax:complete", init);
+})();
+</script>
+
+<style>
+:root[data-scheme] aside.sidebar.left-sidebar,
+:root[data-scheme] aside.sidebar.left-sidebar * {
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar svg {
+  stroke: #000 !important;
+  fill: none !important;
+  opacity: 1 !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner,
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::before,
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::after {
+  background-color: #000 !important;
+  opacity: 1 !important;
+}
+</style>
+<style>
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a,
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a > span,
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
+  stroke: #000 !important;
+  fill: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg * {
+  stroke: #000 !important;
+}
+</style>
+
+<script defer src="/js/random-bg.js"></script>
+<script defer src="/js/welcome-random-bg.js"></script>
+
+    </body>
+</html>

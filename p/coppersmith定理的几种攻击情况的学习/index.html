@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="coppersmith 定理的几种攻击情况的学习\rCoppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n">
+<title>Coppersmith定理的几种攻击情况的学习</title>
+
+<link rel='canonical' href='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
+
+<link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="Coppersmith定理的几种攻击情况的学习">
+<meta property='og:description' content="coppersmith 定理的几种攻击情况的学习\rCoppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n">
+<meta property='og:url' content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
+<meta property='og:site_name' content='Perox'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='article:modified_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
+<meta name="twitter:title" content="Coppersmith定理的几种攻击情况的学习">
+<meta name="twitter:description" content="coppersmith 定理的几种攻击情况的学习\rCoppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_9093c608f3f56ca.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Perox</a></h1>
+            <h2 class="site-description">崩溃风险（高）</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#1basic-boradcast-attack-广播攻击">1.basic boradcast attack 广播攻击</a>
+      <ol>
+        <li><a href="#攻击原理">攻击原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#rsa-高位攻击">RSA 高位攻击</a>
+      <ol>
+        <li><a href="#已知-p-高位">已知 p 高位</a></li>
+        <li><a href="#已知-p-高位q-低位">已知 p 高位，q 低位</a></li>
+        <li><a href="#已知密文-m-高位">已知密文 m 高位</a></li>
+        <li><a href="#已知-d-的低位求-pq">已知 d 的低位求 pq</a></li>
+      </ol>
+    </li>
+    <li><a href="#franklin-reiter-相关消息攻击--coppersmiths-short-pad-attack-短填充攻击">Franklin-Reiter 相关消息攻击 &amp; Coppersmith&rsquo;s Short Pad Attack 短填充攻击</a>
+      <ol>
+        <li><a href="#攻击原理-1">攻击原理</a></li>
+        <li><a href="#做下例题">做下例题</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+                <img src="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image_hu_4170bc19d00641b7.png"
+                        srcset="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image_hu_4170bc19d00641b7.png 800w, /p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image_hu_c62fed0446e21fe0.png 1600w"
+                        width="800" 
+                        height="503" 
+                        loading="lazy"
+                        alt="Featured image of post Coppersmith定理的几种攻击情况的学习" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/crypto/" style="background-color: #00e3bdff; color: #51c48aff;">
+                Crypto
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/">Coppersmith定理的几种攻击情况的学习</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-01-02T20:47:05&#43;08:00'>2026-01-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="coppersmith-定理的几种攻击情况的学习">coppersmith 定理的几种攻击情况的学习
+</h1><p>Coppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题</p>
+<p>给定：</p>
+<ul>
+<li>模数 N（通常很大，如 RSA 模数）</li>
+<li>模 N 的多项式 f(x)（通常为单变量）</li>
+<li>边界 X</li>
+</ul>
+<p>寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0</p>
+<p>成立的条件：
+</p>
+$$
+|x_0|\ <\ N^{1/deg(f)}\\
+$$<p>
+deg(f)为多项式最高项次数</p>
+<h2 id="1basic-boradcast-attack-广播攻击">1.basic boradcast attack 广播攻击
+</h2><h3 id="攻击原理">攻击原理
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Broadcast attack 是 Håstad attack，不是 Coppersmith，只是经常一起出现
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用同一个指数 e 加密同一个密文 m，产生 e 个明文，形如：
+</p>
+$$
+c_1 \equiv m^e \pmod{n_1} \\
+c_2 \equiv m^e \pmod{n_2} \\
+\vdots \\
+c_e \equiv m^e \pmod{n_e}
+$$<p>
+n1, n2&hellip;互素，</p>
+<p>是 m ≤ min(n₁, n₂, …, nₑ)，即明文 m 必须小于等于所有模数中的最小值</p>
+<p>然后解中国剩余定理</p>
+<p>根据中国剩余定理（CRT），可以求解：</p>
+<p>mᵉ ≡ C (mod N)</p>
+<p>其中 N = n₁ × n₂ × … × nₑ</p>
+<p>因为 m ≤ min(n₁, n₂, …, nₑ)，m^e^ &lt; n₁ × n₂ × … × nₑ</p>
+<p>mᵉ &lt; N，则可以直接对 C 开 e 次方根得到明文 m：m = ᵉ√C</p>
+<h2 id="rsa-高位攻击">RSA 高位攻击
+</h2><p>内容参考：</p>
+<p><a class="link" href="https://blog.csdn.net/lc9992023/article/details/141112336"  target="_blank" rel="noopener"
+    >RSA_高位攻击学习记录_rsa 已知高位攻击-CSDN 博客</a></p>
+<p><a class="link" href="https://blog.csdn.net/qq_51999772/article/details/123620932"  target="_blank" rel="noopener"
+    >RSA 中 coppersmith 定理的应用条件-CSDN 博客</a></p>
+<p><a class="link" href="https://www.ruanx.net/coppersmith/"  target="_blank" rel="noopener"
+    >Coppersmith 攻击</a></p>
+<p>知道部分二进制位，求剩余二进制位，<strong>只有未知的 bit 位满足 unknown_bits / p_bits &lt;= 0.44（即 coppersmith 定理）时，才能通过 small_roots()方法求出未知的 bit 位，进而求解 flag</strong></p>
+<p>small_roots(X = , beta = )的使用方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sage" data-lang="sage"><span class="line"><span class="cl"><span class="n">R</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">Zmod</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>      <span class="c1"># 定义模N的多项式环</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span><span class="o">^</span><span class="n">e</span> <span class="o">-</span> <span class="n">c</span>                     <span class="c1"># 定义多项式</span>
+</span></span><span class="line"><span class="cl"><span class="n">roots</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">small_roots</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>看不懂，让 ai 细说了一下</p>
+<p>边界因素 X：</p>
+<ol>
+<li>已知根的比特 k 的情况下，X = 2^k^</li>
+<li>已知根的大致范围 [0,1000]，X = 1000</li>
+<li>理论边界：根据 coppersmith: X &lt; N^1/e^，所以 X = floor(N^1/e^)</li>
+<li>因子的部分比特攻击，知道了 p 的高位，p = p_high+x，所以 X = 2^unknown_bits^</li>
+</ol>
+<p>beta 参数（β）：当 p, q 二进制位数相同时一般只能取 0.4</p>
+<ol>
+<li>
+<p>在模 N 上寻找根，如果根满足 f(x) ≡ 0 (mod N)，beta = 1</p>
+</li>
+<li>
+<p>在模 p 上寻找根，且 p 约等于 N^0.5^（RSA 情况），p 是 N 的一个因子，p ≈ √N ≈ N^0.5，beta = 0.5，因为 p ≈ N^0.5，所以 β = 0.5</p>
+</li>
+<li>
+<p>在模 p 上寻找根，但 p 的大小不同：</p>
+<p>如果 p ≈ N^0.3^：beta = 0.3</p>
+<p>如果 p ≈ N^0.25：beta = 0.25</p>
+</li>
+<li>
+<p>寻找模 N 的小根：beta = 1.0</p>
+</li>
+</ol>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>攻击目标</th>
+          <th>模数</th>
+          <th>β</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>模 N 求根</td>
+          <td>N</td>
+          <td>1.0</td>
+      </tr>
+      <tr>
+          <td>模 p（RSA）</td>
+          <td>p ≈ N^0.5</td>
+          <td>0.5</td>
+      </tr>
+      <tr>
+          <td>模 p ≈ N^0.3</td>
+          <td>p</td>
+          <td>0.3</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="已知-p-高位">已知 p 高位
+</h3><p>知道 p 的前 k 位，记低位为 x，所以 p = p_high * 2^k^ + x，算出 p 的低位 x 后直接用 small_roots</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_high</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&gt;&gt;</span> <span class="mi">300</span><span class="c1">#已知高位1024-300bits</span>
+</span></span><span class="line"><span class="cl"><span class="n">pbits</span> <span class="o">=</span> <span class="mi">1024</span>
+</span></span><span class="line"><span class="cl"><span class="n">kbits</span> <span class="o">=</span> <span class="n">pbits</span> <span class="o">-</span> <span class="n">p_high</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span><span class="c1">#低位300bits</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_high</span> <span class="o">=</span> <span class="n">p_high</span> <span class="o">&lt;&lt;</span> <span class="n">kbits</span><span class="c1">#移动回去把低位空出来</span>
+</span></span><span class="line"><span class="cl"><span class="n">PR</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">Zmod</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="c1">#多项式环</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">p_high</span>
+</span></span><span class="line"><span class="cl"><span class="n">p0</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">small_roots</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">kbits</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p0</span><span class="o">+</span><span class="n">p_high</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="已知-p-高位q-低位">已知 p 高位，q 低位
+</h3><p>已知的 p 高位不满足 unknown_bits / p_bits &lt;= 0.44，且知道 q 的低位，低位数 x</p>
+<p>解题方法省个流就是：
+</p>
+$$
+p_{\text{low}} = p \bmod 2^{x} = \left( n \cdot q_{\text{low}}^{-1} \right) \bmod 2^{x}
+$$<p>
+然后用 small_roots 算出中间的未知数然后加起来就可以了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="n">getPrime</span><span class="p">,</span> <span class="n">bytes_to_long</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">hint1</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&gt;&gt;</span> <span class="mi">724</span>
+</span></span><span class="line"><span class="cl"><span class="n">hint2</span> <span class="o">=</span> <span class="n">q</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">265</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">),</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">hint1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">hint2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>q 的低位 q_low
+</p>
+$$
+q \bmod 2^{265} = q_{\text{low}}
+$$<p>
+所以：
+</p>
+$$
+q = k \cdot 2^{265} + q_{\text{low}}
+$$<p>
+两边同时乘 q 可以得到：
+</p>
+$$
+n = p \cdot \left( k \cdot 2^{265} + q_{\text{low}} \right) = k \cdot 2^{265} \cdot p + q_{\text{low}} \cdot p
+$$<p>
+同时除以 q_low：
+</p>
+$$
+n \cdot q_{\text{low}}^{-1} = k \cdot 2^{265} \cdot p \cdot q_{\text{low}}^{-1} + p
+$$<p>
+同时取模 2^265^得到：
+</p>
+$$
+p_{\text{low}} = p \bmod 2^{265} = \left( n \cdot q_{\text{low}}^{-1} \right) \bmod 2^{265}
+$$<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_high</span> <span class="o">=</span> <span class="mi">1514296530850131082973956029074258536069144071110652176122006763622293335057110441067910479</span>
+</span></span><span class="line"><span class="cl"><span class="n">q_low</span> <span class="o">=</span> <span class="mi">40812438243894343296354573724131194431453023461572200856406939246297219541329623</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">21815431662065695412834116602474344081782093119269423403335882867255834302242945742413692949886248581138784199165404321893594820375775454774521554409598568793217997859258282700084148322905405227238617443766062207618899209593375881728671746850745598576485323702483634599597393910908142659231071532803602701147251570567032402848145462183405098097523810358199597631612616833723150146418889589492395974359466777040500971885443881359700735149623177757865032984744576285054725506299888069904106805731600019058631951255795316571242969336763938805465676269140733371287244624066632153110685509892188900004952700111937292221969</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="mi">19073695285772829730103928222962723784199491145730661021332365516942301513989932980896145664842527253998170902799883262567366661277268801440634319694884564820420852947935710798269700777126717746701065483129644585829522353341718916661536894041337878440111845645200627940640539279744348235772441988748977191513786620459922039153862250137904894008551515928486867493608757307981955335488977402307933930592035163126858060189156114410872337004784951228340994743202032248681976932591575016798640429231399974090325134545852080425047146251781339862753527319093938929691759486362536986249207187765947926921267520150073408188188</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_low</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="n">q_low</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">256</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p_low</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在有低位 256 和高位 300，所以目前未知位为 459，最多未知位为 1024 * 0.44 = 454，所以要暴力枚举五位</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_high</span> <span class="o">=</span> <span class="mi">1514296530850131082973956029074258536069144071110652176122006763622293335057110441067910479</span>
+</span></span><span class="line"><span class="cl"><span class="n">q_low</span> <span class="o">=</span> <span class="mi">40812438243894343296354573724131194431453023461572200856406939246297219541329623</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">21815431662065695412834116602474344081782093119269423403335882867255834302242945742413692949886248581138784199165404321893594820375775454774521554409598568793217997859258282700084148322905405227238617443766062207618899209593375881728671746850745598576485323702483634599597393910908142659231071532803602701147251570567032402848145462183405098097523810358199597631612616833723150146418889589492395974359466777040500971885443881359700735149623177757865032984744576285054725506299888069904106805731600019058631951255795316571242969336763938805465676269140733371287244624066632153110685509892188900004952700111937292221969</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="mi">19073695285772829730103928222962723784199491145730661021332365516942301513989932980896145664842527253998170902799883262567366661277268801440634319694884564820420852947935710798269700777126717746701065483129644585829522353341718916661536894041337878440111845645200627940640539279744348235772441988748977191513786620459922039153862250137904894008551515928486867493608757307981955335488977402307933930592035163126858060189156114410872337004784951228340994743202032248681976932591575016798640429231399974090325134545852080425047146251781339862753527319093938929691759486362536986249207187765947926921267520150073408188188</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">q_low_inv</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">q_low</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">**</span><span class="mi">265</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_low</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">q_low_inv</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">265</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p_low</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">PR</span><span class="o">.&lt;</span><span class="n">x</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">PolynomialRing</span><span class="p">(</span><span class="n">Zmod</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">p_high</span><span class="o">=</span><span class="n">p_high</span> <span class="o">&lt;&lt;</span> <span class="mi">724</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="n">p_high</span> <span class="o">+</span> <span class="n">p_low</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">32</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">265</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">small_roots</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">454</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">p</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x0</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="o">*</span><span class="mi">32</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">265</span><span class="p">)</span> <span class="o">+</span> <span class="n">p_high</span> <span class="o">+</span> <span class="n">p_low</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span><span class="o">=</span><span class="n">n</span><span class="o">//</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="n">phi</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>md 还能有这种报错的，夸张哦 😓</p>
+<h3 id="已知密文-m-高位">已知密文 m 高位
+</h3><p>怎么感觉像照着抄啊我干</p>
+<p>m 和 c 的关系是
+</p>
+$$
+c = m^e \mod n
+$$<p>
+又因为：
+</p>
+$$
+m = m_{\text{high}} + x \quad (\text{$x$ 是低位未知})
+$$<p>
+所以把 c 移过来可以变成：
+</p>
+$$
+f(x) = (m_{\text{high}} + x)^e - c \equiv 0 \mod n
+$$<p>
+然后直接套公式秒了</p>
+<h3 id="已知-d-的低位求-pq">已知 d 的低位求 pq
+</h3><p>已知了 d 的低位 d_low 和低位 bits 数 x 还有 e</p>
+<p>因为：
+</p>
+$$
+ed \equiv 1 \pmod{(p-1)(q-1)}
+$$<p>
+所以：ed = 1 + k * (p-1) * (q-1)</p>
+<p>然后对两边取模 2^x^，所以:
+</p>
+$$
+ed_{\text{low}} \equiv 1 + k(p-1)(q-1) \pmod{2^x}
+$$<p>
+把 q 换成 n/p，这个式子就为
+</p>
+$$
+p \cdot ed_{low} \equiv p + k(n \cdot p - p^{2} - n + p) \pmod{2^{x}}
+$$<p>
+然后 solve_mod 解模方程（sagemath 太好用了家人们）</p>
+<h2 id="franklin-reiter-相关消息攻击--coppersmiths-short-pad-attack-短填充攻击">Franklin-Reiter 相关消息攻击 &amp; Coppersmith&rsquo;s Short Pad Attack 短填充攻击
+</h2><h3 id="攻击原理-1">攻击原理
+</h3><p>由于 m1 和 m2 存在线性关系并且在相同 N 下进行的 RSA 加密，</p>
+<p>假设
+</p>
+$$
+m_1 = k\ * \ m_2 \ +\ b
+$$<p>
+且
+</p>
+$$
+m_1\ \equiv \ a\ mod \ N\\
+m_2\ \equiv \ a\ mod \ N
+$$<p>
+这样就可以列出两个和 m2 相关的方程
+</p>
+$$
+f(x)\ =\ x\ -\ a\\f(x)= k\ * \ x \ +\ b\ -\ a
+$$<p>
+这样这两个式子取 <strong>x = m2</strong> 时都会等于 0，在数学意义下有个 <strong>(x-m2)</strong> 的因式，所以直接取这两个方程的公因数就可以找到 m2</p>
+<p>顺便学习一下 sagemath</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">n</span><span class="p">)[]</span><span class="c1">#定义多项式环</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">coefficients</span><span class="p">()</span><span class="c1">#以列表形式返回多项式的常数项（从低项到高项的升序排列，即7x^5+3x^4+4返回[4,3,7]）</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">monic</span><span class="p">()</span><span class="c1">#除以最高项的系数</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">4x^3+2x^2+x
+</span></span></span><span class="line"><span class="cl"><span class="s1">返回：
+</span></span></span><span class="line"><span class="cl"><span class="s1">x^3+1/2x^2+1/4x
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#多项式求公因数用欧几里得算法递归</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="做下例题">做下例题
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">m1</span> <span class="o">=</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span><span class="o">*</span><span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">17</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">c1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="n">getRandomNBitInteger</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="n">getRandomNBitInteger</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">m2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;a=</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;b=</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;c1=</span><span class="si">{</span><span class="n">c1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;c2=</span><span class="si">{</span><span class="n">c2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">N</span><span class="o">=</span><span class="mi">123659932061175480826793608011321410436349950741155126876095701055301878519455031361569954900678263326118459719432097093055918891948664714258046001339215600541946755989049122600427628642622036472692779340339300158628581419220590868242848311473965406365501747491282544140645468809520929307937285660479491241363</span>
+</span></span><span class="line"><span class="cl"><span class="n">a</span><span class="o">=</span><span class="mi">12795184347649957548397347648657609712242281197428253341891395348966629724842748696386579533843100833039565312645558384706282291396553602742473087674306336</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span><span class="o">=</span><span class="mi">12652561268961103936837420866306660440380907636430718507525953046969196471975210807471094652190751376751348655252244311630569860771118936181419956587387282</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span><span class="o">=</span><span class="mi">51991948160397341594095534046308905334052328129886214140433481879034095448631790463996064234310860642758645828216350970768732856439017324754993220774971081882007838091737307185049230846102962234452369235186705221800322142645874117556212685451861172069436515378795560228077509937484022552758984136308761496373</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span><span class="o">=</span><span class="mi">102367269426206577837660468860715696190840895268468904172938303357188227693435122799965957675733814903345970317009686706066325312156008609593926539768689081990544088825413585508055156925413722623286655819700429518477974133941543843635128782119973290018886257977205103150970429699110833604623614038282346303825</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">=</span><span class="mi">17</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">N</span><span class="p">)[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f1</span> <span class="o">=</span> <span class="n">X</span><span class="o">^</span><span class="n">e</span> <span class="o">-</span> <span class="n">c1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">a</span><span class="o">+</span> <span class="n">b</span><span class="p">)</span><span class="o">^</span><span class="n">e</span> <span class="o">-</span> <span class="n">c2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Integer</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">))</span><span class="o">.</span><span class="n">coefficients</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">m</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">num1</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">num2</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="n">num1</span><span class="o">&lt;</span><span class="n">num2</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num2</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ring</span> <span class="o">=</span> <span class="n">RealField</span><span class="p">(</span><span class="mi">1050</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">num3</span> <span class="o">=</span> <span class="n">ring</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span> <span class="o">/</span><span class="n">ring</span><span class="p">(</span><span class="n">num2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;num3=&#34;</span><span class="p">,</span><span class="n">num3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">=</span><span class="n">p</span><span class="o">*</span><span class="n">q</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">=</span><span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;n=&#34;</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;c=&#34;</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">n2</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span> <span class="o">*</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e1</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">e2</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">2000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">num1</span><span class="p">,</span><span class="n">e1</span><span class="p">,</span><span class="n">n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">num2</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">q1</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">q</span><span class="o">+</span><span class="n">q1</span><span class="p">,</span><span class="mi">2024</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">q1</span><span class="o">+</span><span class="mi">2024</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;n2=&#34;</span><span class="p">,</span><span class="n">n2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;e1=&#34;</span><span class="p">,</span><span class="n">e1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;e2=&#34;</span><span class="p">,</span><span class="n">e2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;c1=&#34;</span><span class="p">,</span><span class="n">c1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;c2=&#34;</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;leak1=&#34;</span><span class="p">,</span><span class="n">leak1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;leak2=&#34;</span><span class="p">,</span><span class="n">leak2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">num3= 1.36557212221826657073387899060669771982679822943621690677450888408226656788387273887547841291114809989272635809810564202247340711087479554863446719786359395466961253205133910506682801159622545780721946115442033391600881399634390008053822158098121985270501317972263356522400827768601773721146954464269212959784543085
+</span></span></span><span class="line"><span class="cl"><span class="s2">n= 85105083975491693151454182116844944807066048677068373328227644321539783064315677834754866742549592569194223084173286381150626593510265361114796714226058887906219454795525438819082646860141163940340082006344850825956811992304447978369108606993344902286569100146695092703383844402883938506877787042873586279543
+</span></span></span><span class="line"><span class="cl"><span class="s2">c= 8090472119640930864901421058741085326954308673260202542020919764880488559370287585797498390920330336595858609617432370825503480936376306766495089200286004922821787548265246289552343468177624634434613746605553770994437785042510225956023382347023663125411103947669109085411939772215657220674436476279268458980
+</span></span></span><span class="line"><span class="cl"><span class="s2">n2= 101642316595332652021348165259853423287787139517550249986161819826180514401858258316466101056877182367161299111697465439636861942636526396547011727147471566130633614685728563576613692851860684686033186826342178072882901576159305747639645374751566751967096281105148714033096611618024355982220235949274576036321
+</span></span></span><span class="line"><span class="cl"><span class="s2">e1= 1630
+</span></span></span><span class="line"><span class="cl"><span class="s2">e2= 1866
+</span></span></span><span class="line"><span class="cl"><span class="s2">c1= 8857135083997055103287497833179378469532619748945804429057682575070405217145941944821968708809563240261403711644389684947851643865895254406194464015430673347359589677809515117412321862622147634752091324365628790687343748145339949310696116239361890881096088375070083053010564890401663562726144984405628773323
+</span></span></span><span class="line"><span class="cl"><span class="s2">c2= 44531030636557714647477473185500183066851251320453194953972504422367649302810396344051696851757189817391648356459225688318373454949578822468293099948132700460437006478679492801335689493431764882835346904225119630026545592437198370606462285405519745361570058335573353886454277790277663038008240372746639859253
+</span></span></span><span class="line"><span class="cl"><span class="s2">leak1= 82301473255013183706458389946960254392188270550712533886416705365418418731488346328643954589202172816597173052792573628245245948345810581701878535280775967863966009605872386693838526935762655380705962833467046779524956212498594045378770790026387120339093736625186401934354434702063802537686761251873173518029
+</span></span></span><span class="line"><span class="cl"><span class="s2">leak2= 43580171648136008789232340619597144591536098696024883687397347933098380327258730482377138309020375265135558484586783368757872008322883985094403855691297725907800406097129735499961231236473313141257901326737291586051506797429883866846199683028143924054925109557329949641367848264351523500925115860458645738192
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>DASTF 的题，先连分数逼近来解开 num1 和 num2，然后用相关消息攻击，情报有误，这是短填充攻击</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num3</span><span class="o">=</span> <span class="mf">1.36557212221826657073387899060669771982679822943621690677450888408226656788387273887547841291114809989272635809810564202247340711087479554863446719786359395466961253205133910506682801159622545780721946115442033391600881399634390008053822158098121985270501317972263356522400827768601773721146954464269212959784543085</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="o">=</span> <span class="mi">85105083975491693151454182116844944807066048677068373328227644321539783064315677834754866742549592569194223084173286381150626593510265361114796714226058887906219454795525438819082646860141163940340082006344850825956811992304447978369108606993344902286569100146695092703383844402883938506877787042873586279543</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span><span class="o">=</span> <span class="mi">8090472119640930864901421058741085326954308673260202542020919764880488559370287585797498390920330336595858609617432370825503480936376306766495089200286004922821787548265246289552343468177624634434613746605553770994437785042510225956023382347023663125411103947669109085411939772215657220674436476279268458980</span>
+</span></span><span class="line"><span class="cl"><span class="n">n2</span><span class="o">=</span> <span class="mi">101642316595332652021348165259853423287787139517550249986161819826180514401858258316466101056877182367161299111697465439636861942636526396547011727147471566130633614685728563576613692851860684686033186826342178072882901576159305747639645374751566751967096281105148714033096611618024355982220235949274576036321</span>
+</span></span><span class="line"><span class="cl"><span class="n">e1</span><span class="o">=</span> <span class="mi">1630</span>
+</span></span><span class="line"><span class="cl"><span class="n">e2</span><span class="o">=</span> <span class="mi">1866</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span><span class="o">=</span><span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">c1</span><span class="o">=</span> <span class="mi">8857135083997055103287497833179378469532619748945804429057682575070405217145941944821968708809563240261403711644389684947851643865895254406194464015430673347359589677809515117412321862622147634752091324365628790687343748145339949310696116239361890881096088375070083053010564890401663562726144984405628773323</span>
+</span></span><span class="line"><span class="cl"><span class="n">c2</span><span class="o">=</span> <span class="mi">44531030636557714647477473185500183066851251320453194953972504422367649302810396344051696851757189817391648356459225688318373454949578822468293099948132700460437006478679492801335689493431764882835346904225119630026545592437198370606462285405519745361570058335573353886454277790277663038008240372746639859253</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak1</span><span class="o">=</span> <span class="mi">82301473255013183706458389946960254392188270550712533886416705365418418731488346328643954589202172816597173052792573628245245948345810581701878535280775967863966009605872386693838526935762655380705962833467046779524956212498594045378770790026387120339093736625186401934354434702063802537686761251873173518029</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak2</span><span class="o">=</span> <span class="mi">43580171648136008789232340619597144591536098696024883687397347933098380327258730482377138309020375265135558484586783368757872008322883985094403855691297725907800406097129735499961231236473313141257901326737291586051506797429883866846199683028143924054925109557329949641367848264351523500925115860458645738192</span>
+</span></span><span class="line"><span class="cl"><span class="n">t</span><span class="o">=</span><span class="n">continued_fraction</span><span class="p">(</span><span class="n">num3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num1</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">numerator</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">is_prime</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">num1</span><span class="o">.</span><span class="n">nbits</span><span class="p">()</span><span class="o">==</span><span class="mi">512</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">num2</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">denominator</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">num2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span><span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">R</span><span class="o">.&lt;</span><span class="n">X</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">Zmod</span><span class="p">(</span><span class="n">n</span><span class="p">)[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f1</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">+</span><span class="n">num1</span><span class="p">)</span><span class="o">**</span><span class="n">e1</span> <span class="o">-</span> <span class="n">c1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f2</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span><span class="o">+</span><span class="n">num2</span><span class="p">)</span><span class="o">**</span><span class="n">e2</span> <span class="o">-</span> <span class="n">c2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Integer</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">))</span><span class="o">.</span><span class="n">coefficients</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">monic</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="o">=</span><span class="n">s</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span><span class="o">=</span><span class="n">n</span><span class="o">//</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span><span class="o">=</span><span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.49ef83ba8d7dcfe84845965490e9eb13_hu_60aea09b37b90e33.gif" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 双线性映射 weil pairing"
+                        
+                        data-hash="md5-Se&#43;Duo19z&#43;hIRZZUkOnrEw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">双线性映射 weil pairing</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.e591a7a0ff82d5d3dd73bfc6598c38f7_hu_ea72718e02edf0d3.gif" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post RSA共私钥d攻击"
+                        
+                        data-hash="md5-5ZGnoP&#43;C1dPdc7/GWYw49w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">RSA共私钥d攻击</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/b6f6e34ac8bc0f07ff7cb0e0150a2404fa21a6329dd47e3b.d817948a8f95441d77f29f159acea330_hu_b4bf5a6766a385c9.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记2"
+                        
+                        data-hash="md5-2BeUio&#43;VRB138p8Vms6jMA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.92184d69c6833444daeb4fca27a5aba0_hu_507458049a26e48f.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记 1"
+                        
+                        data-hash="md5-khhNacaDNETa60/KJ6WroA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image.1998122f9e3337ae5f13e134234d1d96_hu_f7da1169b268676e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记"
+                        
+                        data-hash="md5-GZgSL54zN65fE&#43;E0I00dlg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="p3r0x/p3r0x.github.io"
+    data-repo-id="R_kgDOQxf5tg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQxf5ts4C0f3D"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Perox
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.3f0660e16f46ed1544f4e216c2eb032398c2ec1b5abc424d80a1cbf71bf58f62.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    mutex: false,
+    preload: 'metadata',
+    order: 'random',
+    theme: '#1e3a8a',
+    audio: [
+        {
+            name: 'Somniomancer [null set]',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Crywolf - Somniomancer [null set].mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: 'Touch of the Law',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR,Alec Justice,Echos - Touch of the Law.mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: '赴大荒',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Kirara Magic - 赴大荒.mp3',
+            cover: '/music/a9327ac600568afeeea76e01b00959e024723044.png'
+        },
+        {
+            name: '天下一白',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; BaoUner - 天下一白.mp3',
+            cover: '/music/df72b29b5f78188aef2413b70b70054d420924396.jpg'
+        },
+        {
+            name: '天天天国地獄国',
+            artist: 'Aiobahn  81,ななひら,P丸様',
+            url: '/music/Aiobahn  81,ななひら,P丸様。 - 天天天国地獄国 (feat. ななひら & P丸様。).mp3',
+            cover: '/music/天天天国地狱国.png'
+        },
+        {
+            name: '妄想税',
+            artist: '初音ミク',
+            url: '/music/DECO27,初音ミク - 妄想税.mp3',
+            cover: '/music/妄想税.png'
+        },
+        {
+            name: '光るなら',
+            artist: 'Goose house',
+            url: '/music/Goose house - 光るなら.mp3',
+            cover: '/music/0bd162d9f2d3572c8c352ab48d13632763d0c387.webp'
+        },
+        {
+            name: '乐意效劳',
+            artist: 'こっちのけんと',
+            url: '/music/こっちのけんと - はいよろこんで.mp3',
+            cover: '/music/71cf3bc79f3df8dcd10063bc1d49658b4710b91282df.jpg'
+        }
+    ]
+});
+
+const container = document.getElementById('aplayer');
+container.addEventListener('dblclick', () => {
+    ap.skipForward();
+});
+</script>
+
+<style>
+#aplayer {
+    position: fixed;
+    right: 20px;
+    top: 70%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(30,58,138,.45);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+#aplayer:hover {
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 12px 35px rgba(30,58,138,.7);
+}
+
+#aplayer .aplayer-pic {
+    border-radius: 50% !important;
+}
+
+#aplayer .aplayer-info,
+#aplayer .aplayer-list,
+#aplayer .aplayer-time {
+    display: none !important;
+}
+
+#aplayer .aplayer-button {
+    width: 100%;
+    height: 100%;
+}
+
+#aplayer.aplayer-playing .aplayer-pic {
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    #aplayer {
+        width: 52px;
+        height: 52px;
+        right: 12px;
+    }
+}
+</style>
+
+<style>
+.highlight {
+    position: relative;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.highlight.code-show {
+    max-height: none !important;
+}
+
+.code-more-box {
+    width: 100%;
+    padding-top: 78px;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+.code-more-btn {
+    display: block;
+    margin: auto;
+    width: 44px;
+    height: 22px;
+    background: #f0f0f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding-top: 6px;
+    cursor: pointer;
+}
+
+.code-more-img {
+    display: block;
+    margin: auto;
+    width: 22px;
+    height: 16px;
+    transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+    transform: rotate(180deg);
+}
+</style>
+
+
+
+<script>
+(function () {
+    function initCodeMoreBox() {
+        document.querySelectorAll('.highlight').forEach(function (block) {
+            if (block.dataset.codemoreInit) return;
+            block.dataset.codemoreInit = '1';
+
+            if (block.scrollHeight <= block.clientHeight) return;
+
+            const box = document.createElement('div');
+            box.className = 'code-more-box';
+
+            const btn = document.createElement('span');
+            btn.className = 'code-more-btn';
+
+            btn.onclick = function () {
+                block.classList.toggle('code-show');
+            };
+
+            const img = document.createElement('img');
+            img.className = 'code-more-img';
+
+   
+            img.src = '/icons/codeMore.png';
+
+            btn.appendChild(img);
+            box.appendChild(btn);
+            block.appendChild(box);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+    } else {
+        initCodeMoreBox();
+    }
+
+    document.addEventListener('pjax:complete', initCodeMoreBox);
+})();
+</script>
+
+<style>
+  body {
+    background-color: #f5f5f5;
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Typed.js 彩蛋顺序跳转（首页不触发）</title>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<style>
+#typed {
+  font-size: 24px;
+  color: #09fb01;
+  min-height: 36px;
+  text-align: center;
+}
+</style>
+</head>
+<body style="height:2000px; margin:0;">
+
+<h1 id="typed"></h1>
+
+<script>
+const messages = [
+  "到底啦！别再往下滑了！",
+  "没有彩蛋，也没有隐藏内容…",
+  "就这么点东西，你就滑到这里了"
+];
+
+const easterMessage = "你发现了我的彩蛋，这就带你去na";
+
+const jumpUrls = [
+  "https://ys.mihoyo.com/",
+  "https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click",
+  "https://www.bilibili.com/video/BV1xx411c79H/?spm_id_from=333.337.search-card.all.click",
+];
+
+let animationRunning = false;
+let typed1, typed2;
+let jumpTimeout;
+
+function isScrolledToBottom() {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const windowHeight = window.innerHeight;
+  const docHeight = document.documentElement.scrollHeight;
+  return scrollTop + windowHeight >= docHeight - 10;
+}
+
+function handleScroll() {
+  const typedElement = document.getElementById('typed');
+
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') return;
+
+  if (animationRunning) {
+    if (!isScrolledToBottom()) {
+      if (typed1) typed1.destroy();
+      if (typed2) typed2.destroy();
+      if (jumpTimeout) clearTimeout(jumpTimeout);
+      typedElement.innerHTML = "";
+      animationRunning = false;
+    }
+    return;
+  }
+
+  if (!animationRunning && isScrolledToBottom()) {
+    animationRunning = true;
+
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    const randomUrl = jumpUrls[Math.floor(Math.random() * jumpUrls.length)];
+    typedElement.innerHTML = "";
+
+    typed1 = new Typed('#typed', {
+      strings: [randomMsg],
+      typeSpeed: 120,
+      backSpeed: 0,
+      loop: false,
+      showCursor: false,
+      onStringTyped: function() {
+        typed1.destroy();
+
+        typed2 = new Typed('#typed', {
+          strings: [easterMessage],
+          typeSpeed: 50,
+          backSpeed: 0,
+          loop: false,
+          showCursor: false,
+          onStringTyped: function() {
+            jumpTimeout = setTimeout(function() {
+              if (isScrolledToBottom()) {
+                window.location.href = randomUrl;
+              } else {
+                typedElement.innerHTML = "";
+                animationRunning = false;
+              }
+            }, 900);
+          }
+        });
+      }
+    });
+  }
+}
+
+window.addEventListener('scroll', handleScroll);
+</script>
+
+</body>
+</html>
+
+<canvas id="particle-line"></canvas>
+
+<style>
+#particle-line {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+</style>
+
+<script>
+const canvas = document.getElementById('particle-line');
+const ctx = canvas.getContext('2d');
+
+let w, h;
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COUNT = 100;        
+const MAX_DIST = 120;      
+const MOUSE_DIST = 180;   
+const COLOR = '15,30,90'; 
+
+const particles = [];
+const mouse = { x: null, y: null };
+
+window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+window.addEventListener('mouseleave', () => {
+    mouse.x = mouse.y = null;
+});
+
+function newParticle() {
+    return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.6 + 0.6
+    };
+}
+
+for (let i = 0; i < COUNT; i++) {
+    particles.push(newParticle());
+}
+
+function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${COLOR},0.8)`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    for (let i = 0; i < COUNT; i++) {
+        for (let j = i + 1; j < COUNT; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MAX_DIST) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MAX_DIST})`;
+                ctx.lineWidth = 0.6;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    if (mouse.x !== null) {
+        for (let p of particles) {
+            const dx = p.x - mouse.x;
+            const dy = p.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MOUSE_DIST) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MOUSE_DIST})`;
+                ctx.lineWidth = 0.8;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+
+<style>
+#mouse-line-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;   
+    z-index: 99999;         
+}
+</style>
+
+<canvas id="mouse-line-canvas"></canvas>
+
+<script>
+(function() {
+    const canvas = document.getElementById('mouse-line-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    const points = [];
+    const maxPoints = 20;
+    let hue = 0;
+    
+    class Point {
+        constructor(x, y, hue) {
+            this.x = x;
+            this.y = y;
+            this.alpha = 1;
+            this.radius = 3;
+            this.hue = hue;
+        }
+        
+        update() {
+            this.alpha -= 0.015;
+            this.radius += 0.2;
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
+            ctx.fill();
+        }
+    }
+    
+    
+    document.addEventListener('click', function(e) {
+        const point = new Point(e.clientX, e.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    
+    document.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        const point = new Point(touch.clientX, touch.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        
+        if (points.length > 1) {
+            for (let i = 0; i < points.length - 1; i++) {
+                const gradient = ctx.createLinearGradient(
+                    points[i].x, points[i].y,
+                    points[i + 1].x, points[i + 1].y
+                );
+                gradient.addColorStop(0, `hsla(${points[i].hue}, 70%, 60%, ${points[i].alpha})`);
+                gradient.addColorStop(1, `hsla(${points[i + 1].hue}, 70%, 60%, ${points[i + 1].alpha})`);
+                
+                ctx.beginPath();
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+        
+        for (let i = points.length - 1; i >= 0; i--) {
+            points[i].update();
+            points[i].draw();
+            
+            if (points[i].alpha <= 0) {
+                points.splice(i, 1);
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+})();
+</script>
+
+<style>
+.highlight {
+   position: relative;
+   max-height: 400px;
+   overflow: hidden;
+}
+
+.highlight.code-show {
+   max-height: none !important;
+}
+
+.code-more-box {
+   width: 100%;
+   padding-top: 78px;
+   background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: 2;
+}
+
+.code-more-btn {
+   display: block;
+   margin: auto;
+   width: 44px;
+   height: 22px;
+   background: #f0f0f5;
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+   padding-top: 6px;
+   cursor: pointer;
+}
+
+.code-more-img {
+   display: block;
+   margin: auto;
+   width: 22px;
+   height: 16px;
+   transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+   transform: rotate(180deg);
+}
+
+ 
+.progress-bar-container {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 4px;
+   background: rgba(0,0,0,0.05);
+   z-index: 99999;   
+   pointer-events: none;   
+}
+
+.progress-bar {
+   height: 100%;
+   width: 0%;
+   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+   transition: width 0.2s ease-out;
+   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+</style>
+
+
+<div class="progress-bar-container">
+   <div class="progress-bar" id="progress-bar"></div>
+</div>
+
+<script>
+(function () {
+   
+   function initCodeMoreBox() {
+       document.querySelectorAll('.highlight').forEach(function (block) {
+           if (block.dataset.codemoreInit) return;
+           block.dataset.codemoreInit = '1';
+
+           if (block.scrollHeight <= block.clientHeight) return;
+
+           const box = document.createElement('div');
+           box.className = 'code-more-box';
+
+           const btn = document.createElement('span');
+           btn.className = 'code-more-btn';
+
+           btn.onclick = function () {
+               block.classList.toggle('code-show');
+           };
+
+           const img = document.createElement('img');
+           img.className = 'code-more-img';
+           img.src = '/icons/codeMore.png';
+
+           btn.appendChild(img);
+           box.appendChild(btn);
+           block.appendChild(box);
+       });
+   }
+
+   
+   function updateProgressBar() {
+       const progressBar = document.getElementById('progress-bar');
+       if (!progressBar) return;
+
+       const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+       
+       if (height > 0) {
+           const scrolled = (winScroll / height) * 100;
+           progressBar.style.width = Math.min(scrolled, 100) + '%';
+       }
+   }
+
+   
+   if (document.readyState === 'loading') {
+       document.addEventListener('DOMContentLoaded', function() {
+           initCodeMoreBox();
+           updateProgressBar();
+       });
+   } else {
+       initCodeMoreBox();
+       updateProgressBar();
+   }
+
+   
+   let ticking = false;
+   window.addEventListener('scroll', function() {
+       if (!ticking) {
+           window.requestAnimationFrame(function() {
+               updateProgressBar();
+               ticking = false;
+           });
+           ticking = true;
+       }
+   });
+
+   
+   document.addEventListener('pjax:complete', function() {
+       initCodeMoreBox();
+       updateProgressBar();
+   });
+})();
+</script>
+
+<style>
+  @font-face {
+    font-family: 'WenYuanRoundedSC-Medium.otf';
+    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'WenYuanRoundedSC-Medium.otf';
+    --code-font-family: 'WenYuanRoundedSC-Medium.otf';
+  }
+</style>
+
+<script>
+(function () {
+
+  function ensureTip(blockEl, text) {
+    if (!text) return;                 
+    if (blockEl.dataset.tipInit) return;
+    blockEl.dataset.tipInit = "1";
+
+    const style = window.getComputedStyle(blockEl);
+    if (style.position === "static") {
+      blockEl.style.position = "relative";
+    }
+
+    const tip = document.createElement("div");
+    tip.className = "code-hover-tip";
+    tip.textContent = text;
+
+    blockEl.appendChild(tip);
+  }
+
+  function init() {
+    document.querySelectorAll(".code-fun").forEach(wrapper => {
+      const text = wrapper.dataset.tip; 
+
+   
+      wrapper.querySelectorAll(".highlight").forEach(block => {
+        ensureTip(block, text);
+      });
+
+      
+      wrapper.querySelectorAll("pre").forEach(pre => {
+        if (pre.closest(".highlight")) return;
+        ensureTip(pre, text);
+        
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  document.addEventListener("pjax:complete", init);
+})();
+</script>
+
+<style>
+:root[data-scheme] aside.sidebar.left-sidebar,
+:root[data-scheme] aside.sidebar.left-sidebar * {
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar svg {
+  stroke: #000 !important;
+  fill: none !important;
+  opacity: 1 !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner,
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::before,
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::after {
+  background-color: #000 !important;
+  opacity: 1 !important;
+}
+</style>
+<style>
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a,
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a > span,
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
+  stroke: #000 !important;
+  fill: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg * {
+  stroke: #000 !important;
+}
+</style>
+
+<script defer src="/js/random-bg.js"></script>
+<script defer src="/js/welcome-random-bg.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="格密码学习笔记\r1.格的定义\r基：向量的集合，例如基向量（0，1）和（1，0）构成一个基\n格：由基向量线性组合，\n秩与维度：秩为基向量的个数 n，维度空间所在的维度 m。若 n = m 则称这个格为满秩格\n">
+<title>格密码学习笔记</title>
+
+<link rel='canonical' href='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="格密码学习笔记">
+<meta property='og:description' content="格密码学习笔记\r1.格的定义\r基：向量的集合，例如基向量（0，1）和（1，0）构成一个基\n格：由基向量线性组合，\n秩与维度：秩为基向量的个数 n，维度空间所在的维度 m。若 n = m 则称这个格为满秩格\n">
+<meta property='og:url' content='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='Perox'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-09T17:24:37&#43;08:00'/><meta property='article:modified_time' content='2026-01-09T17:24:37&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image.png' />
+<meta name="twitter:title" content="格密码学习笔记">
+<meta name="twitter:description" content="格密码学习笔记\r1.格的定义\r基：向量的集合，例如基向量（0，1）和（1，0）构成一个基\n格：由基向量线性组合，\n秩与维度：秩为基向量的个数 n，维度空间所在的维度 m。若 n = m 则称这个格为满秩格\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_9093c608f3f56ca.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Perox</a></h1>
+            <h2 class="site-description">崩溃风险（高）</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#1格的定义">1.格的定义</a></li>
+    <li><a href="#gram-schmidt-正交化">Gram-Schmidt 正交化</a>
+      <ol>
+        <li><a href="#正交化过程">正交化过程</a></li>
+      </ol>
+    </li>
+    <li><a href="#3successive-minima逐次极小">3.Successive Minima（逐次极小）</a>
+      <ol>
+        <li><a href="#31最短非零向量λ1">3.1最短非零向量λ1</a></li>
+        <li><a href="#32逐次极小的一般定义λiλ">3.2逐次极小的一般定义λi（Λ）</a></li>
+      </ol>
+    </li>
+    <li><a href="#blichfeld理论">BLICHFELD理论</a></li>
+    <li><a href="#闵可夫斯基凸体定理">闵可夫斯基凸体定理</a></li>
+    <li><a href="#闵可夫斯基定理第二定理">闵可夫斯基定理第二定理</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image_hu_2e676799d8aab899.png"
+                        srcset="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image_hu_2e676799d8aab899.png 800w, /p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image_hu_253a7c72e6655f4f.png 1600w"
+                        width="800" 
+                        height="798" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/crypto/" style="background-color: #00e3bdff; color: #51c48aff;">
+                Crypto
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">格密码学习笔记</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-01-09T17:24:37&#43;08:00'>2026-01-09</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="格密码学习笔记">格密码学习笔记
+</h1><h2 id="1格的定义">1.格的定义
+</h2><p><strong>基</strong>：向量的集合，例如基向量（0，1）和（1，0）构成一个基</p>
+<p><strong>格</strong>：由基向量线性组合，</p>
+<img src="Snipaste_2026-01-09_17-29-26.png" alt="格" style="zoom:30%;" />
+<p><strong>秩与维度</strong>：秩为基向量的个数 n，维度空间所在的维度 m。若 n = m 则称这个格为满秩格</p>
+<p><strong>基本平行体(Fundamental Parallelepiped)</strong>：基本平行体是由格的基向量围绕成的一个半闭半开的区域，给出一组线性无关的向量 b1, b2&hellip;., bn∈Rn，基本平行体就是：
+</p>
+$$
+P(\mathbf{b}_1, \mathbf{b}_2, \dots, \mathbf{b}_n) = \left\{ \sum_{i = 1}^{n} z_i \mathbf{b}_i \mid z_1, z_2, \dots, z_n \in \mathbb{Z},\ 0 \le z_i < 1 \right\}
+$$<p>
+例如：</p>
+<img src="Snipaste_2026-01-09_17-57-58.png" style="zoom:30%;" />
+<p>图 a 的阴影面积为（0，1）和（1，0）组成的基本平行体，图 b 的阴影面积为（1，1）和（2，1）组成的</p>
+<p><strong>行列式和体积</strong>：这个基本平行体的体积 = 行列式，令 B 是格 L 的基矩阵，则格 L 的行列式定义为 det(L)=|det(B)|，以图 a 为例子，
+</p>
+$$
+\mathrm{Vol}(A) = \left| \det\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \right| = 1
+$$<p>
+然后可以通过幺模变换来相互转换的基向量等价，简单说就是基向量可以通过幺模变换变成另一组基向量，这两组基向量的行列式一样，表示的格都一样</p>
+<ul>
+<li>幺模变换：由幺模矩阵定义的线性变换</li>
+<li>幺模矩阵：设 U 为整数矩阵，满足
+<ul>
+<li>U 的所有元素都是整数</li>
+<li>det(U)= ±1（行列式绝对值为 1）</li>
+<li>幺模矩阵的逆矩阵也是幺模矩阵</li>
+</ul>
+</li>
+</ul>
+<p>表示为：
+</p>
+$$
+B'= B\ *\ U
+$$<p>
+<strong>格的扩展空间</strong>：格基实系数组合生成的空间称为格的延展空间，表示为$span(L(B))=span(B)={Ba|a∈R^n}$，当格为满秩格时格的扩展空间是整个n维空间</p>
+<p>在格空间内有两个困难问题：</p>
+<ul>
+<li><a class="link" href="https://en.wikipedia.org/wiki/Lattice_problem#Shortest_vector_problem_%28SVP%29"  target="_blank" rel="noopener"
+    >最短向量问题 Shortest_vector_problem</a>：寻找格中的最短向量</li>
+<li><a class="link" href="https://en.wikipedia.org/wiki/Lattice_problem#Closest_vector_problem_%28CVP%29"  target="_blank" rel="noopener"
+    >最近向量问题 Closest_vector_problem</a>：寻找一个非格点距离最近的格点</li>
+</ul>
+<h2 id="gram-schmidt-正交化">Gram-Schmidt 正交化
+</h2><img src="Snipaste_2026-01-09_18-38-02.png" style="zoom:30%;" />
+<h3 id="正交化过程">正交化过程
+</h3><p>设有一组线性无关的向量α1α2&hellip;.αn，目标是构造正交向量组β1β2&hellip;βn，</p>
+<p>正交化流程
+</p>
+$$
+\beta_1 = \alpha_1\\
+\beta_2 = \alpha_2 - \frac{(\alpha_2, \beta_1)}{(\beta_1, \beta_1)}\beta_1\\
+\beta_3 = \alpha_3 - \frac{(\alpha_3, \beta_1)}{(\beta_1, \beta_1)}\beta_1 - \frac{(\alpha_3, \beta_2)}{(\beta_2, \beta_2)}\beta_2\\
+所以\beta_n = \alpha_n - \sum_{i = 1}^{n-1}\frac{(\alpha_n, \beta_i)}{(\beta_i, \beta_i)}\beta_i\\
+投影的系数：\mu_{n,i} = \frac{(\alpha_n, \beta_i)}{(\beta_i, \beta_i)}\\
+标准化：\\
+e_n = \frac{\beta_n}{|\beta_n|}
+$$<h2 id="3successive-minima逐次极小">3.Successive Minima（逐次极小）
+</h2><p>逐次极小描述了在一个空间中，一个凸集（比如一个对称的、中心在原点的物体）能装下多少个线性无关的、越来越长的格向量</p>
+<h3 id="31最短非零向量λ1">3.1最短非零向量λ1
+</h3><p>格Λ是由一组基向量线性组合（系数为整数）生成的向量集合。在这个集合里，去掉零向量后，所有非零向量中 “长度最短” 的那个向量的长度，就记为λ1（Λ）
+</p>
+$$
+λ1(Λ)=inf \{∥v∥∣v∈Λ∖{0}\}
+$$<p>
+Λ\0表示格Λ中除0之外的所有向量，inf表示最小值</p>
+<h3 id="32逐次极小的一般定义λiλ">3.2逐次极小的一般定义λi（Λ）
+</h3><p>公式：
+</p>
+$$
+\lambda_k(\Lambda) = \inf\left\{ r>0 \mid \exists \text{ 线性无关的 } \boldsymbol{v}_1,\dots,\boldsymbol{v}_k \in \Lambda \cap C(r) \right\}
+$$<ul>
+<li>λk（Λ）：表示格Λ的第k个逐次极小</li>
+<li>C(r)：指以原点为中心、半径为r的闭球</li>
+<li>Λ∩C(r)：格Λ中落在这个球里的所有向量</li>
+</ul>
+<p>闭球C(r)：以原点为中心、半径为 ( r ) 的欧氏闭球，是所有到原点的距离不超过r的向量v的集合</p>
+<p>这个公式表示：找到最小的半径r，使得该闭球内存在k个线性无关的格向量</p>
+<h2 id="blichfeld理论">BLICHFELD理论
+</h2><p>对任意满秩格 $\Lambda \subseteq \mathbb{R}^n$ 以及可测集 $S \subseteq \mathbb{R}^n$，若 S 的体积 $\text{vol}(S) > \det\Lambda$，则必存在S中两个不同的点 $(z_1,z_2)$，使得 $(z_1 - z_2 \in \Lambda)$</p>
+<p>如果集合S的体积比A的大（格A的体积等于行列式），那么存在集合的两个点的差属于格A</p>
+<img src="Snipaste_2026-01-20_14-24-11.png" style="zoom:50%;" />
+<h2 id="闵可夫斯基凸体定理">闵可夫斯基凸体定理
+</h2><p>设任意满秩格 $\Lambda \subseteq \mathbb{R}^n$ ，$S⊂R^n$是一个凸的、中心对称的集合，如果$val(S)>2^ndet(A)$，那么$S∩(\Lambda \backslash \{0 \}≠∅)$，S中一定包含一个格向量。</p>
+<img src="Snipaste_2026-01-20_14-40-19.png" style="zoom:50%;" />
+<h2 id="闵可夫斯基定理第二定理">闵可夫斯基定理第二定理
+</h2><p>对任意n维格Λ：</p>
+<img src="Snipaste_2026-01-09_19-37-54.png" style="zoom:33%;" />
+<p>Hermite定理:</p>
+<p><img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2025-12-25_17-49-16.png"
+	width="2250"
+	height="358"
+	srcset="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2025-12-25_17-49-16_hu_79321119adf447e.png 480w, /p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Snipaste_2025-12-25_17-49-16_hu_b1843e22ae07dada.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="628"
+		data-flex-basis="1508px"
+	
+></p>
+<p>n表示维度，为基向量的个数</p>
+<p>公式含义：格的n个相继极小的乘积的n次方根，不超过Hermite常数的平方根与格行列式的n次方根的乘积</p>
+<h2 id="参考链接">参考链接
+</h2><p><a class="link" href="https://www.ruanx.net/lattice-5/"  target="_blank" rel="noopener"
+    >格密码笔记（五）</a></p>
+<p><a class="link" href="https://zh.wikipedia.org/wiki/%e6%a0%bc%e6%8b%89%e5%a7%86-%e6%96%bd%e5%af%86%e7%89%b9%e6%ad%a3%e4%ba%a4%e5%8c%96"  target="_blank" rel="noopener"
+    >格拉姆-施密特正交化 - 维基百科，自由的百科全书</a></p>
+<p><a class="link" href="https://blog.csdn.net/2303_79193185/article/details/149266626"  target="_blank" rel="noopener"
+    >格密码&ndash;数学基础&ndash;05Successive Minima与闵可夫斯基第二定理及赫米特常数_闵可夫斯基格点定理-CSDN博客</a></p>
+<p>原讲义：<a class="link" href="https://cims.nyu.edu/~regev/teaching/lattices_fall_2004/"  target="_blank" rel="noopener"
+    >Lattices in Computer Science (Fall 2004)</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.49ef83ba8d7dcfe84845965490e9eb13_hu_60aea09b37b90e33.gif" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 双线性映射 weil pairing"
+                        
+                        data-hash="md5-Se&#43;Duo19z&#43;hIRZZUkOnrEw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">双线性映射 weil pairing</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/">
+        
+        
+            <div class="article-image">
+                <img src="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.e591a7a0ff82d5d3dd73bfc6598c38f7_hu_ea72718e02edf0d3.gif" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post RSA共私钥d攻击"
+                        
+                        data-hash="md5-5ZGnoP&#43;C1dPdc7/GWYw49w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">RSA共私钥d攻击</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/b6f6e34ac8bc0f07ff7cb0e0150a2404fa21a6329dd47e3b.d817948a8f95441d77f29f159acea330_hu_b4bf5a6766a385c9.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记2"
+                        
+                        data-hash="md5-2BeUio&#43;VRB138p8Vms6jMA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记2</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.92184d69c6833444daeb4fca27a5aba0_hu_507458049a26e48f.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 格密码学习笔记 1"
+                        
+                        data-hash="md5-khhNacaDNETa60/KJ6WroA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">格密码学习笔记 1</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.2fd00f7a3c14c7fb0a6abc47841dbb5c_hu_6f23a5d94bcb2d4c.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Coppersmith定理的几种攻击情况的学习"
+                        
+                        data-hash="md5-L9APejwUx/sKarxHhB27XA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Coppersmith定理的几种攻击情况的学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="p3r0x/p3r0x.github.io"
+    data-repo-id="R_kgDOQxf5tg"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOQxf5ts4C0f3D"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading=""
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 Perox
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.3f0660e16f46ed1544f4e216c2eb032398c2ec1b5abc424d80a1cbf71bf58f62.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    mutex: false,
+    preload: 'metadata',
+    order: 'random',
+    theme: '#1e3a8a',
+    audio: [
+        {
+            name: 'Somniomancer [null set]',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Crywolf - Somniomancer [null set].mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: 'Touch of the Law',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR,Alec Justice,Echos - Touch of the Law.mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: '赴大荒',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Kirara Magic - 赴大荒.mp3',
+            cover: '/music/a9327ac600568afeeea76e01b00959e024723044.png'
+        },
+        {
+            name: '天下一白',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; BaoUner - 天下一白.mp3',
+            cover: '/music/df72b29b5f78188aef2413b70b70054d420924396.jpg'
+        },
+        {
+            name: '天天天国地獄国',
+            artist: 'Aiobahn  81,ななひら,P丸様',
+            url: '/music/Aiobahn  81,ななひら,P丸様。 - 天天天国地獄国 (feat. ななひら & P丸様。).mp3',
+            cover: '/music/天天天国地狱国.png'
+        },
+        {
+            name: '妄想税',
+            artist: '初音ミク',
+            url: '/music/DECO27,初音ミク - 妄想税.mp3',
+            cover: '/music/妄想税.png'
+        },
+        {
+            name: '光るなら',
+            artist: 'Goose house',
+            url: '/music/Goose house - 光るなら.mp3',
+            cover: '/music/0bd162d9f2d3572c8c352ab48d13632763d0c387.webp'
+        },
+        {
+            name: '乐意效劳',
+            artist: 'こっちのけんと',
+            url: '/music/こっちのけんと - はいよろこんで.mp3',
+            cover: '/music/71cf3bc79f3df8dcd10063bc1d49658b4710b91282df.jpg'
+        }
+    ]
+});
+
+const container = document.getElementById('aplayer');
+container.addEventListener('dblclick', () => {
+    ap.skipForward();
+});
+</script>
+
+<style>
+#aplayer {
+    position: fixed;
+    right: 20px;
+    top: 70%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(30,58,138,.45);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+#aplayer:hover {
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 12px 35px rgba(30,58,138,.7);
+}
+
+#aplayer .aplayer-pic {
+    border-radius: 50% !important;
+}
+
+#aplayer .aplayer-info,
+#aplayer .aplayer-list,
+#aplayer .aplayer-time {
+    display: none !important;
+}
+
+#aplayer .aplayer-button {
+    width: 100%;
+    height: 100%;
+}
+
+#aplayer.aplayer-playing .aplayer-pic {
+    animation: spin 6s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    #aplayer {
+        width: 52px;
+        height: 52px;
+        right: 12px;
+    }
+}
+</style>
+
+<style>
+.highlight {
+    position: relative;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.highlight.code-show {
+    max-height: none !important;
+}
+
+.code-more-box {
+    width: 100%;
+    padding-top: 78px;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+.code-more-btn {
+    display: block;
+    margin: auto;
+    width: 44px;
+    height: 22px;
+    background: #f0f0f5;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding-top: 6px;
+    cursor: pointer;
+}
+
+.code-more-img {
+    display: block;
+    margin: auto;
+    width: 22px;
+    height: 16px;
+    transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+    transform: rotate(180deg);
+}
+</style>
+
+
+
+<script>
+(function () {
+    function initCodeMoreBox() {
+        document.querySelectorAll('.highlight').forEach(function (block) {
+            if (block.dataset.codemoreInit) return;
+            block.dataset.codemoreInit = '1';
+
+            if (block.scrollHeight <= block.clientHeight) return;
+
+            const box = document.createElement('div');
+            box.className = 'code-more-box';
+
+            const btn = document.createElement('span');
+            btn.className = 'code-more-btn';
+
+            btn.onclick = function () {
+                block.classList.toggle('code-show');
+            };
+
+            const img = document.createElement('img');
+            img.className = 'code-more-img';
+
+   
+            img.src = '/icons/codeMore.png';
+
+            btn.appendChild(img);
+            box.appendChild(btn);
+            block.appendChild(box);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+    } else {
+        initCodeMoreBox();
+    }
+
+    document.addEventListener('pjax:complete', initCodeMoreBox);
+})();
+</script>
+
+<style>
+  body {
+    background-color: #f5f5f5;
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Typed.js 彩蛋顺序跳转（首页不触发）</title>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<style>
+#typed {
+  font-size: 24px;
+  color: #09fb01;
+  min-height: 36px;
+  text-align: center;
+}
+</style>
+</head>
+<body style="height:2000px; margin:0;">
+
+<h1 id="typed"></h1>
+
+<script>
+const messages = [
+  "到底啦！别再往下滑了！",
+  "没有彩蛋，也没有隐藏内容…",
+  "就这么点东西，你就滑到这里了"
+];
+
+const easterMessage = "你发现了我的彩蛋，这就带你去na";
+
+const jumpUrls = [
+  "https://ys.mihoyo.com/",
+  "https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click",
+  "https://www.bilibili.com/video/BV1xx411c79H/?spm_id_from=333.337.search-card.all.click",
+];
+
+let animationRunning = false;
+let typed1, typed2;
+let jumpTimeout;
+
+function isScrolledToBottom() {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const windowHeight = window.innerHeight;
+  const docHeight = document.documentElement.scrollHeight;
+  return scrollTop + windowHeight >= docHeight - 10;
+}
+
+function handleScroll() {
+  const typedElement = document.getElementById('typed');
+
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') return;
+
+  if (animationRunning) {
+    if (!isScrolledToBottom()) {
+      if (typed1) typed1.destroy();
+      if (typed2) typed2.destroy();
+      if (jumpTimeout) clearTimeout(jumpTimeout);
+      typedElement.innerHTML = "";
+      animationRunning = false;
+    }
+    return;
+  }
+
+  if (!animationRunning && isScrolledToBottom()) {
+    animationRunning = true;
+
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+    const randomUrl = jumpUrls[Math.floor(Math.random() * jumpUrls.length)];
+    typedElement.innerHTML = "";
+
+    typed1 = new Typed('#typed', {
+      strings: [randomMsg],
+      typeSpeed: 120,
+      backSpeed: 0,
+      loop: false,
+      showCursor: false,
+      onStringTyped: function() {
+        typed1.destroy();
+
+        typed2 = new Typed('#typed', {
+          strings: [easterMessage],
+          typeSpeed: 50,
+          backSpeed: 0,
+          loop: false,
+          showCursor: false,
+          onStringTyped: function() {
+            jumpTimeout = setTimeout(function() {
+              if (isScrolledToBottom()) {
+                window.location.href = randomUrl;
+              } else {
+                typedElement.innerHTML = "";
+                animationRunning = false;
+              }
+            }, 900);
+          }
+        });
+      }
+    });
+  }
+}
+
+window.addEventListener('scroll', handleScroll);
+</script>
+
+</body>
+</html>
+
+<canvas id="particle-line"></canvas>
+
+<style>
+#particle-line {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+</style>
+
+<script>
+const canvas = document.getElementById('particle-line');
+const ctx = canvas.getContext('2d');
+
+let w, h;
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COUNT = 100;        
+const MAX_DIST = 120;      
+const MOUSE_DIST = 180;   
+const COLOR = '15,30,90'; 
+
+const particles = [];
+const mouse = { x: null, y: null };
+
+window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+window.addEventListener('mouseleave', () => {
+    mouse.x = mouse.y = null;
+});
+
+function newParticle() {
+    return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.6 + 0.6
+    };
+}
+
+for (let i = 0; i < COUNT; i++) {
+    particles.push(newParticle());
+}
+
+function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${COLOR},0.8)`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    for (let i = 0; i < COUNT; i++) {
+        for (let j = i + 1; j < COUNT; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MAX_DIST) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MAX_DIST})`;
+                ctx.lineWidth = 0.6;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    if (mouse.x !== null) {
+        for (let p of particles) {
+            const dx = p.x - mouse.x;
+            const dy = p.y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < MOUSE_DIST) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MOUSE_DIST})`;
+                ctx.lineWidth = 0.8;
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+
+
+<style>
+#mouse-line-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;   
+    z-index: 99999;         
+}
+</style>
+
+<canvas id="mouse-line-canvas"></canvas>
+
+<script>
+(function() {
+    const canvas = document.getElementById('mouse-line-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    const points = [];
+    const maxPoints = 20;
+    let hue = 0;
+    
+    class Point {
+        constructor(x, y, hue) {
+            this.x = x;
+            this.y = y;
+            this.alpha = 1;
+            this.radius = 3;
+            this.hue = hue;
+        }
+        
+        update() {
+            this.alpha -= 0.015;
+            this.radius += 0.2;
+        }
+        
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
+            ctx.fill();
+        }
+    }
+    
+    
+    document.addEventListener('click', function(e) {
+        const point = new Point(e.clientX, e.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    
+    document.addEventListener('touchstart', function(e) {
+        const touch = e.touches[0];
+        const point = new Point(touch.clientX, touch.clientY, hue);
+        points.push(point);
+        hue = (hue + 20) % 360;
+        
+        if (points.length > maxPoints) {
+            points.shift();
+        }
+    });
+    
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        
+        if (points.length > 1) {
+            for (let i = 0; i < points.length - 1; i++) {
+                const gradient = ctx.createLinearGradient(
+                    points[i].x, points[i].y,
+                    points[i + 1].x, points[i + 1].y
+                );
+                gradient.addColorStop(0, `hsla(${points[i].hue}, 70%, 60%, ${points[i].alpha})`);
+                gradient.addColorStop(1, `hsla(${points[i + 1].hue}, 70%, 60%, ${points[i + 1].alpha})`);
+                
+                ctx.beginPath();
+                ctx.moveTo(points[i].x, points[i].y);
+                ctx.lineTo(points[i + 1].x, points[i + 1].y);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+        
+        for (let i = points.length - 1; i >= 0; i--) {
+            points[i].update();
+            points[i].draw();
+            
+            if (points[i].alpha <= 0) {
+                points.splice(i, 1);
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+})();
+</script>
+
+<style>
+.highlight {
+   position: relative;
+   max-height: 400px;
+   overflow: hidden;
+}
+
+.highlight.code-show {
+   max-height: none !important;
+}
+
+.code-more-box {
+   width: 100%;
+   padding-top: 78px;
+   background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: 2;
+}
+
+.code-more-btn {
+   display: block;
+   margin: auto;
+   width: 44px;
+   height: 22px;
+   background: #f0f0f5;
+   border-top-left-radius: 8px;
+   border-top-right-radius: 8px;
+   padding-top: 6px;
+   cursor: pointer;
+}
+
+.code-more-img {
+   display: block;
+   margin: auto;
+   width: 22px;
+   height: 16px;
+   transition: transform .2s;
+}
+
+.highlight.code-show .code-more-img {
+   transform: rotate(180deg);
+}
+
+ 
+.progress-bar-container {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 4px;
+   background: rgba(0,0,0,0.05);
+   z-index: 99999;   
+   pointer-events: none;   
+}
+
+.progress-bar {
+   height: 100%;
+   width: 0%;
+   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+   transition: width 0.2s ease-out;
+   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+</style>
+
+
+<div class="progress-bar-container">
+   <div class="progress-bar" id="progress-bar"></div>
+</div>
+
+<script>
+(function () {
+   
+   function initCodeMoreBox() {
+       document.querySelectorAll('.highlight').forEach(function (block) {
+           if (block.dataset.codemoreInit) return;
+           block.dataset.codemoreInit = '1';
+
+           if (block.scrollHeight <= block.clientHeight) return;
+
+           const box = document.createElement('div');
+           box.className = 'code-more-box';
+
+           const btn = document.createElement('span');
+           btn.className = 'code-more-btn';
+
+           btn.onclick = function () {
+               block.classList.toggle('code-show');
+           };
+
+           const img = document.createElement('img');
+           img.className = 'code-more-img';
+           img.src = '/icons/codeMore.png';
+
+           btn.appendChild(img);
+           box.appendChild(btn);
+           block.appendChild(box);
+       });
+   }
+
+   
+   function updateProgressBar() {
+       const progressBar = document.getElementById('progress-bar');
+       if (!progressBar) return;
+
+       const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+       
+       if (height > 0) {
+           const scrolled = (winScroll / height) * 100;
+           progressBar.style.width = Math.min(scrolled, 100) + '%';
+       }
+   }
+
+   
+   if (document.readyState === 'loading') {
+       document.addEventListener('DOMContentLoaded', function() {
+           initCodeMoreBox();
+           updateProgressBar();
+       });
+   } else {
+       initCodeMoreBox();
+       updateProgressBar();
+   }
+
+   
+   let ticking = false;
+   window.addEventListener('scroll', function() {
+       if (!ticking) {
+           window.requestAnimationFrame(function() {
+               updateProgressBar();
+               ticking = false;
+           });
+           ticking = true;
+       }
+   });
+
+   
+   document.addEventListener('pjax:complete', function() {
+       initCodeMoreBox();
+       updateProgressBar();
+   });
+})();
+</script>
+
+<style>
+  @font-face {
+    font-family: 'WenYuanRoundedSC-Medium.otf';
+    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+  }
+
+  :root {
+    --base-font-family: 'WenYuanRoundedSC-Medium.otf';
+    --code-font-family: 'WenYuanRoundedSC-Medium.otf';
+  }
+</style>
+
+<script>
+(function () {
+
+  function ensureTip(blockEl, text) {
+    if (!text) return;                 
+    if (blockEl.dataset.tipInit) return;
+    blockEl.dataset.tipInit = "1";
+
+    const style = window.getComputedStyle(blockEl);
+    if (style.position === "static") {
+      blockEl.style.position = "relative";
+    }
+
+    const tip = document.createElement("div");
+    tip.className = "code-hover-tip";
+    tip.textContent = text;
+
+    blockEl.appendChild(tip);
+  }
+
+  function init() {
+    document.querySelectorAll(".code-fun").forEach(wrapper => {
+      const text = wrapper.dataset.tip; 
+
+   
+      wrapper.querySelectorAll(".highlight").forEach(block => {
+        ensureTip(block, text);
+      });
+
+      
+      wrapper.querySelectorAll("pre").forEach(pre => {
+        if (pre.closest(".highlight")) return;
+        ensureTip(pre, text);
+        
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+  document.addEventListener("pjax:complete", init);
+})();
+</script>
+
+<style>
+:root[data-scheme] aside.sidebar.left-sidebar,
+:root[data-scheme] aside.sidebar.left-sidebar * {
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar svg {
+  stroke: #000 !important;
+  fill: none !important;
+  opacity: 1 !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner,
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::before,
+:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::after {
+  background-color: #000 !important;
+  opacity: 1 !important;
+}
+</style>
+<style>
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a,
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a > span,
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
+  color: #000 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
+  stroke: #000 !important;
+  fill: none !important;
+}
+
+:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg * {
+  stroke: #000 !important;
+}
+</style>
+
+<script defer src="/js/random-bg.js"></script>
+<script defer src="/js/welcome-random-bg.js"></script>
+
+    </body>
+</html>
