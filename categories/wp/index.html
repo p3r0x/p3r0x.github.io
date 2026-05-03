@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60088&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63452&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="狂暴打题组长">
 <title>Category: wp - Perox</title>
 
-<link rel='canonical' href='http://localhost:60088/categories/wp/'>
+<link rel='canonical' href='http://localhost:63452/categories/wp/'>
 
 <link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="Category: wp - Perox">
 <meta property='og:description' content="狂暴打题组长">
-<meta property='og:url' content='http://localhost:60088/categories/wp/'>
+<meta property='og:url' content='http://localhost:63452/categories/wp/'>
 <meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-17T19:37:01&#43;08:00 '/><meta property='og:image' content='http://localhost:60088/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg' />
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-17T19:37:01&#43;08:00 '/><meta property='og:image' content='http://localhost:63452/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg' />
 <meta name="twitter:title" content="Category: wp - Perox">
 <meta name="twitter:description" content="狂暴打题组长"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:60088/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg' /><link rel="alternate" type="application/rss&#43;xml" href="http://localhost:60088/categories/wp/index.xml">
+    <meta name="twitter:image" content='http://localhost:63452/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg' /><link rel="alternate" type="application/rss&#43;xml" href="http://localhost:63452/categories/wp/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -680,113 +680,121 @@ container.addEventListener('dblclick', () => {
 })();
 </script>
 
-<canvas id="particle-line"></canvas>
+<canvas id="ambient-lines" aria-hidden="true"></canvas>
 
 <style>
-#particle-line {
+#ambient-lines {
     position: fixed;
     inset: 0;
     z-index: 1;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
 }
 </style>
 
 <script>
-const canvas = document.getElementById('particle-line');
-const ctx = canvas.getContext('2d');
+(function () {
+    const canvas = document.getElementById("ambient-lines");
+    if (!canvas) return;
 
-let w, h;
-function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
+    const ctx = canvas.getContext("2d");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-const COUNT = 100;        
-const MAX_DIST = 120;      
-const MOUSE_DIST = 180;   
-const COLOR = '15,30,90'; 
+    let width = 0;
+    let height = 0;
+    let lines = [];
+    let rafId = null;
 
-const particles = [];
-const mouse = { x: null, y: null };
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildLines();
+    }
 
-window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
-window.addEventListener('mouseleave', () => {
-    mouse.x = mouse.y = null;
-});
+    function buildLines() {
+        const count = Math.max(7, Math.min(12, Math.round(height / 95)));
+        const gap = height / (count + 1);
 
-function newParticle() {
-    return {
-        x: Math.random() * w,
-        y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 1.6 + 0.6
-    };
-}
+        lines = Array.from({ length: count }, function (_, index) {
+            return {
+                y: gap * (index + 1),
+                amplitude: 10 + Math.random() * 18,
+                drift: Math.random() * Math.PI * 2,
+                speed: 0.00016 + Math.random() * 0.00012,
+                alpha: 0.09 + Math.random() * 0.08
+            };
+        });
+    }
 
-for (let i = 0; i < COUNT; i++) {
-    particles.push(newParticle());
-}
-
-function draw() {
-    ctx.clearRect(0, 0, w, h);
-
-    for (let p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
+    function drawLine(line, time) {
+        const points = 8;
 
         ctx.beginPath();
-        ctx.fillStyle = `rgba(${COLOR},0.8)`;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+        for (let i = 0; i <= points; i++) {
+            const x = (width / points) * i;
+            const wave =
+                Math.sin(i * 0.9 + line.drift + time * line.speed) * line.amplitude +
+                Math.sin(i * 1.7 + time * line.speed * 0.7) * line.amplitude * 0.35;
+            const y = line.y + wave;
+
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+        }
+
+        ctx.strokeStyle = `rgba(118, 176, 190, ${line.alpha * 0.45})`;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        ctx.strokeStyle = `rgba(255, 255, 255, ${line.alpha})`;
+        ctx.lineWidth = 1.25;
+        ctx.stroke();
     }
 
-    for (let i = 0; i < COUNT; i++) {
-        for (let j = i + 1; j < COUNT; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+    function drawGlow(time) {
+        const x = width * (0.5 + Math.sin(time * 0.00009) * 0.16);
+        const y = height * (0.42 + Math.cos(time * 0.00008) * 0.12);
+        const radius = Math.max(width, height) * 0.42;
+        const glow = ctx.createRadialGradient(x, y, 0, x, y, radius);
 
-            if (dist < MAX_DIST) {
-                ctx.beginPath();
-                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MAX_DIST})`;
-                ctx.lineWidth = 0.6;
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.stroke();
-            }
+        glow.addColorStop(0, "rgba(255, 255, 255, 0.12)");
+        glow.addColorStop(0.48, "rgba(128, 170, 190, 0.065)");
+        glow.addColorStop(1, "rgba(255, 255, 255, 0)");
+
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, width, height);
+    }
+
+    function frame(time) {
+        ctx.clearRect(0, 0, width, height);
+        drawGlow(time);
+
+        for (const line of lines) {
+            drawLine(line, time);
+        }
+
+        if (!prefersReducedMotion) {
+            rafId = requestAnimationFrame(frame);
         }
     }
 
-    if (mouse.x !== null) {
-        for (let p of particles) {
-            const dx = p.x - mouse.x;
-            const dy = p.y - mouse.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+    resize();
+    window.addEventListener("resize", resize);
+    rafId = requestAnimationFrame(frame);
 
-            if (dist < MOUSE_DIST) {
-                ctx.beginPath();
-                ctx.strokeStyle = `rgba(${COLOR},${1 - dist / MOUSE_DIST})`;
-                ctx.lineWidth = 0.8;
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(mouse.x, mouse.y);
-                ctx.stroke();
-            }
-        }
-    }
-
-    requestAnimationFrame(draw);
-}
-
-draw();
+    window.addEventListener("pagehide", function () {
+        if (rafId) cancelAnimationFrame(rafId);
+    });
+})();
 </script>
 
 
@@ -1054,7 +1062,7 @@ draw();
 <style>
   @font-face {
     font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:60088/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+    src: url(http://localhost:63452/font/WenYuanRoundedSC-Medium.otf) format('truetype');
   }
 
   :root {
