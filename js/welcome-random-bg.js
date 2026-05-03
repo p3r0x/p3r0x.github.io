@@ -5,10 +5,80 @@
 
   if (!isHome) return;
 
-  const images = ["/background/1.jpg", "/background/2.jpg"];
-  const chosen = images[Math.floor(Math.random() * images.length)];
+  const backgrounds = [
+    { type: "image", src: "/background/1.jpg" },
+    { type: "video", src: "/background/2.mp4" }
+  ];
+  const chosen = backgrounds[Math.floor(Math.random() * backgrounds.length)];
 
-  function setTextStyleByImage(url) {
+  function removeVideoBackground() {
+    const video = document.getElementById("site-video-bg");
+    if (video) video.remove();
+    document.body.classList.remove("has-video-background");
+  }
+
+  function setImageBackground(src) {
+    removeVideoBackground();
+    document.documentElement.style.setProperty("--bg-img", `url("${src}")`);
+  }
+
+  function setVideoBackground(src) {
+    document.documentElement.style.setProperty("--bg-img", "none");
+    document.body.classList.add("has-video-background");
+
+    let video = document.getElementById("site-video-bg");
+    if (!video) {
+      video = document.createElement("video");
+      video.id = "site-video-bg";
+      video.className = "site-video-bg";
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("aria-hidden", "true");
+      document.body.prepend(video);
+    }
+
+    if (video.dataset.src !== src) {
+      video.dataset.src = src;
+      video.innerHTML = "";
+
+      const source = document.createElement("source");
+      source.src = src;
+      source.type = "video/mp4";
+      video.appendChild(source);
+      video.load();
+    }
+
+    const play = video.play();
+    if (play && typeof play.catch === "function") play.catch(function () {});
+  }
+
+  function applyBackground(background) {
+    if (background.type === "video") {
+      setVideoBackground(background.src);
+      return;
+    }
+
+    setImageBackground(background.src);
+  }
+
+  function setLightTextStyle() {
+    const el = document.getElementById("welcome-text");
+    if (!el) return;
+
+    el.style.color = "rgba(255,255,255,0.94)";
+    el.style.textShadow = "2px 2px 10px rgba(0,0,0,0.55)";
+  }
+
+  function setTextStyleByImage(background) {
+    if (background.type === "video") {
+      setLightTextStyle();
+      return;
+    }
+
     const img = new Image();
     img.onload = function () {
       try {
@@ -40,33 +110,17 @@
           ? "2px 2px 10px rgba(0,0,0,0.55)"
           : "2px 2px 10px rgba(255,255,255,0.75)";
       } catch (e) {
-        const el = document.getElementById("welcome-text");
-        if (el) {
-          el.style.color = "rgba(255,255,255,0.94)";
-          el.style.textShadow = "2px 2px 10px rgba(0,0,0,0.55)";
-        }
+        setLightTextStyle();
       }
     };
     img.onerror = function () {
-      const el = document.getElementById("welcome-text");
-      if (el) {
-        el.style.color = "rgba(255,255,255,0.94)";
-        el.style.textShadow = "2px 2px 10px rgba(0,0,0,0.55)";
-      }
+      setLightTextStyle();
     };
-    img.src = url;
+    img.src = background.src;
   }
 
   const style = document.createElement("style");
   style.textContent = `
-    body{
-      background-color:#f5f5f5;
-      background-image:url("${chosen}");
-      background-repeat:no-repeat;
-      background-position:center top;
-      background-size:cover;
-      background-attachment:fixed;
-    }
     #welcome-screen{
       height:100vh;
       display:flex;
@@ -90,6 +144,12 @@
       text-align:center;
       margin-top:-10vh;
     }
+    @media (max-width:768px){
+      #welcome-text{
+        font-size:2rem;
+        white-space:normal;
+      }
+    }
   `;
   document.head.appendChild(style);
 
@@ -101,6 +161,7 @@
     section.innerHTML = `<div id="welcome-text"></div>`;
     document.body.insertBefore(section, document.body.firstChild);
 
+    applyBackground(chosen);
     setTextStyleByImage(chosen);
     startTypewriter();
   }

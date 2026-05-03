@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60088&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="双线性映射\r定义\r$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群\n">
 <title>双线性映射 weil pairing</title>
 
-<link rel='canonical' href='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/'>
+<link rel='canonical' href='http://localhost:60088/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/'>
 
 <link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="双线性映射 weil pairing">
 <meta property='og:description' content="双线性映射\r定义\r$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群\n">
-<meta property='og:url' content='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/'>
+<meta property='og:url' content='http://localhost:60088/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/'>
 <meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-17T19:37:01&#43;08:00'/><meta property='article:modified_time' content='2026-04-17T19:37:01&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.gif' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-17T19:37:01&#43;08:00'/><meta property='article:modified_time' content='2026-04-17T19:37:01&#43;08:00'/><meta property='og:image' content='http://localhost:60088/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.gif' />
 <meta name="twitter:title" content="双线性映射 weil pairing">
 <meta name="twitter:description" content="双线性映射\r定义\r$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.gif' />
+    <meta name="twitter:image" content='http://localhost:60088/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/49EF83BA8D7DCFE84845965490E9EB13.gif' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -1008,19 +1008,34 @@ container.addEventListener('dblclick', () => {
 <style>
   body {
     background-color: #f5f5f5;
-    background-image: var(--bg-img);
+    background-image: var(--bg-img, none);
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
     background-attachment: fixed;
   }
+
+  body.has-video-background {
+    background-image: none !important;
+  }
+
+  .site-video-bg {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .main-container,
+  #welcome-screen {
+    position: relative;
+    z-index: 2;
+  }
 </style>
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<title>Typed.js 彩蛋顺序跳转（首页不触发）</title>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <style>
 #typed {
@@ -1030,96 +1045,96 @@ container.addEventListener('dblclick', () => {
   text-align: center;
 }
 </style>
-</head>
-<body style="height:2000px; margin:0;">
 
 <h1 id="typed"></h1>
 
 <script>
-const messages = [
-  "到底啦！别再往下滑了！",
-  "没有彩蛋，也没有隐藏内容…",
-  "就这么点东西，你就滑到这里了"
-];
+(function () {
+  if (typeof Typed === "undefined") return;
 
-const easterMessage = "你发现了我的彩蛋，这就带你去na";
+  const messages = [
+    "到底啦！别再往下滑了！",
+    "没有彩蛋，也没有隐藏内容…",
+    "就这么点东西，你就滑到这里了"
+  ];
 
-const jumpUrls = [
-  "https://ys.mihoyo.com/",
-  "https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click",
-  "https://www.bilibili.com/video/BV1xx411c79H/?spm_id_from=333.337.search-card.all.click",
-];
+  const easterMessage = "你发现了我的彩蛋，这就带你去na";
 
-let animationRunning = false;
-let typed1, typed2;
-let jumpTimeout;
+  const jumpUrls = [
+    "https://ys.mihoyo.com/",
+    "https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click",
+    "https://www.bilibili.com/video/BV1xx411c79H/?spm_id_from=333.337.search-card.all.click",
+  ];
 
-function isScrolledToBottom() {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-  const windowHeight = window.innerHeight;
-  const docHeight = document.documentElement.scrollHeight;
-  return scrollTop + windowHeight >= docHeight - 10;
-}
+  let animationRunning = false;
+  let typed1, typed2;
+  let jumpTimeout;
 
-function handleScroll() {
-  const typedElement = document.getElementById('typed');
-
-  if (window.location.pathname === '/' || window.location.pathname === '/index.html') return;
-
-  if (animationRunning) {
-    if (!isScrolledToBottom()) {
-      if (typed1) typed1.destroy();
-      if (typed2) typed2.destroy();
-      if (jumpTimeout) clearTimeout(jumpTimeout);
-      typedElement.innerHTML = "";
-      animationRunning = false;
-    }
-    return;
+  function isScrolledToBottom() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    return scrollTop + windowHeight >= docHeight - 10;
   }
 
-  if (!animationRunning && isScrolledToBottom()) {
-    animationRunning = true;
+  function handleScroll() {
+    const typedElement = document.getElementById("typed");
+    if (!typedElement) return;
 
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    const randomUrl = jumpUrls[Math.floor(Math.random() * jumpUrls.length)];
-    typedElement.innerHTML = "";
+    if (window.location.pathname === "/" || window.location.pathname === "/index.html") return;
 
-    typed1 = new Typed('#typed', {
-      strings: [randomMsg],
-      typeSpeed: 120,
-      backSpeed: 0,
-      loop: false,
-      showCursor: false,
-      onStringTyped: function() {
-        typed1.destroy();
-
-        typed2 = new Typed('#typed', {
-          strings: [easterMessage],
-          typeSpeed: 50,
-          backSpeed: 0,
-          loop: false,
-          showCursor: false,
-          onStringTyped: function() {
-            jumpTimeout = setTimeout(function() {
-              if (isScrolledToBottom()) {
-                window.location.href = randomUrl;
-              } else {
-                typedElement.innerHTML = "";
-                animationRunning = false;
-              }
-            }, 900);
-          }
-        });
+    if (animationRunning) {
+      if (!isScrolledToBottom()) {
+        if (typed1) typed1.destroy();
+        if (typed2) typed2.destroy();
+        if (jumpTimeout) clearTimeout(jumpTimeout);
+        typedElement.innerHTML = "";
+        animationRunning = false;
       }
-    });
+      return;
+    }
+
+    if (!animationRunning && isScrolledToBottom()) {
+      animationRunning = true;
+
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+      const randomUrl = jumpUrls[Math.floor(Math.random() * jumpUrls.length)];
+      typedElement.innerHTML = "";
+
+      typed1 = new Typed("#typed", {
+        strings: [randomMsg],
+        typeSpeed: 120,
+        backSpeed: 0,
+        loop: false,
+        showCursor: false,
+        onStringTyped: function () {
+          typed1.destroy();
+
+          typed2 = new Typed("#typed", {
+            strings: [easterMessage],
+            typeSpeed: 50,
+            backSpeed: 0,
+            loop: false,
+            showCursor: false,
+            onStringTyped: function () {
+              jumpTimeout = setTimeout(function () {
+                if (isScrolledToBottom()) {
+                  window.location.href = randomUrl;
+                } else {
+                  typedElement.innerHTML = "";
+                  animationRunning = false;
+                }
+              }, 900);
+            }
+          });
+        }
+      });
+    }
   }
-}
 
-window.addEventListener('scroll', handleScroll);
+  window.addEventListener("scroll", handleScroll);
+})();
 </script>
-
-</body>
-</html>
 
 <canvas id="particle-line"></canvas>
 
@@ -1127,7 +1142,7 @@ window.addEventListener('scroll', handleScroll);
 #particle-line {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
 }
 </style>
@@ -1495,7 +1510,7 @@ draw();
 <style>
   @font-face {
     font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+    src: url(http://localhost:60088/font/WenYuanRoundedSC-Medium.otf) format('truetype');
   }
 
   :root {
