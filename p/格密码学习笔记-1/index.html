@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63452&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60802&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="格密码学习笔记\r记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==\nLLL 算法\r算法目的\r用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基\n">
 <title>格密码学习笔记 1</title>
 
-<link rel='canonical' href='http://localhost:63452/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
+<link rel='canonical' href='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
 
 <link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="格密码学习笔记 1">
 <meta property='og:description' content="格密码学习笔记\r记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==\nLLL 算法\r算法目的\r用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基\n">
-<meta property='og:url' content='http://localhost:63452/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
+<meta property='og:url' content='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
 <meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='article:modified_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='og:image' content='http://localhost:63452/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='article:modified_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='og:image' content='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
 <meta name="twitter:title" content="格密码学习笔记 1">
 <meta name="twitter:description" content="格密码学习笔记\r记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==\nLLL 算法\r算法目的\r用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:63452/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
+    <meta name="twitter:image" content='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -1124,119 +1124,115 @@ container.addEventListener('dblclick', () => {
 })();
 </script>
 
-
 <style>
-#mouse-line-canvas {
+#click-ripple-canvas {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;   
-    z-index: 99999;         
+    pointer-events: none;
+    z-index: 9999;
 }
 </style>
 
-<canvas id="mouse-line-canvas"></canvas>
+<canvas id="click-ripple-canvas" aria-hidden="true"></canvas>
 
 <script>
-(function() {
-    const canvas = document.getElementById('mouse-line-canvas');
+(function () {
+    const canvas = document.getElementById("click-ripple-canvas");
     if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+
+    const ctx = canvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ripples = [];
+
+    let width = 0;
+    let height = 0;
+    let rafId = null;
+
+    function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    const points = [];
-    const maxPoints = 20;
-    let hue = 0;
-    
-    class Point {
-        constructor(x, y, hue) {
-            this.x = x;
-            this.y = y;
-            this.alpha = 1;
-            this.radius = 3;
-            this.hue = hue;
-        }
-        
-        update() {
-            this.alpha -= 0.015;
-            this.radius += 0.2;
-        }
-        
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
-            ctx.fill();
-        }
+
+    function addRipple(x, y) {
+        ripples.push({
+            x,
+            y,
+            age: 0,
+            duration: prefersReducedMotion ? 24 : 46,
+            radius: 8,
+            maxRadius: 34
+        });
+
+        if (ripples.length > 8) ripples.shift();
+        if (!rafId) rafId = requestAnimationFrame(draw);
     }
-    
-    
-    document.addEventListener('click', function(e) {
-        const point = new Point(e.clientX, e.clientY, hue);
-        points.push(point);
-        hue = (hue + 20) % 360;
-        
-        if (points.length > maxPoints) {
-            points.shift();
-        }
-    });
-    
-    
-    document.addEventListener('touchstart', function(e) {
-        const touch = e.touches[0];
-        const point = new Point(touch.clientX, touch.clientY, hue);
-        points.push(point);
-        hue = (hue + 20) % 360;
-        
-        if (points.length > maxPoints) {
-            points.shift();
-        }
-    });
-    
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        
-        if (points.length > 1) {
-            for (let i = 0; i < points.length - 1; i++) {
-                const gradient = ctx.createLinearGradient(
-                    points[i].x, points[i].y,
-                    points[i + 1].x, points[i + 1].y
-                );
-                gradient.addColorStop(0, `hsla(${points[i].hue}, 70%, 60%, ${points[i].alpha})`);
-                gradient.addColorStop(1, `hsla(${points[i + 1].hue}, 70%, 60%, ${points[i + 1].alpha})`);
-                
-                ctx.beginPath();
-                ctx.moveTo(points[i].x, points[i].y);
-                ctx.lineTo(points[i + 1].x, points[i + 1].y);
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = 2;
-                ctx.stroke();
+
+    function drawRipple(ripple) {
+        const progress = ripple.age / ripple.duration;
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const radius = ripple.radius + (ripple.maxRadius - ripple.radius) * eased;
+        const alpha = Math.max(0, 1 - progress);
+
+        const glow = ctx.createRadialGradient(ripple.x, ripple.y, 0, ripple.x, ripple.y, radius);
+        glow.addColorStop(0, `rgba(255, 255, 255, ${0.16 * alpha})`);
+        glow.addColorStop(0.55, `rgba(120, 178, 190, ${0.08 * alpha})`);
+        glow.addColorStop(1, "rgba(255, 255, 255, 0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, radius * 0.76, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${0.38 * alpha})`;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(ripple.x, ripple.y, 2.2 + 1.8 * (1 - eased), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.55 * alpha})`;
+        ctx.fill();
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = ripples.length - 1; i >= 0; i--) {
+            const ripple = ripples[i];
+            ripple.age += 1;
+            drawRipple(ripple);
+
+            if (ripple.age >= ripple.duration) {
+                ripples.splice(i, 1);
             }
         }
-        
-        for (let i = points.length - 1; i >= 0; i--) {
-            points[i].update();
-            points[i].draw();
-            
-            if (points[i].alpha <= 0) {
-                points.splice(i, 1);
-            }
+
+        if (ripples.length) {
+            rafId = requestAnimationFrame(draw);
+        } else {
+            rafId = null;
         }
-        
-        requestAnimationFrame(animate);
     }
-    
-    animate();
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    document.addEventListener("pointerdown", function (event) {
+        if (event.button !== undefined && event.button !== 0) return;
+        addRipple(event.clientX, event.clientY);
+    }, { passive: true });
+
+    window.addEventListener("pagehide", function () {
+        if (rafId) cancelAnimationFrame(rafId);
+    });
 })();
 </script>
 
@@ -1389,7 +1385,7 @@ container.addEventListener('dblclick', () => {
 <style>
   @font-face {
     font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:63452/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+    src: url(http://localhost:60802/font/WenYuanRoundedSC-Medium.otf) format('truetype');
   }
 
   :root {
