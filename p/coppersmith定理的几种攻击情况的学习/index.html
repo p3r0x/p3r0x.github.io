@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60802&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="coppersmith 定理的几种攻击情况的学习\rCoppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n">
 <title>Coppersmith定理的几种攻击情况的学习</title>
 
-<link rel='canonical' href='http://localhost:60802/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
+<link rel='canonical' href='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
 
 <link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="Coppersmith定理的几种攻击情况的学习">
 <meta property='og:description' content="coppersmith 定理的几种攻击情况的学习\rCoppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n">
-<meta property='og:url' content='http://localhost:60802/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
+<meta property='og:url' content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/'>
 <meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='article:modified_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='og:image' content='http://localhost:60802/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='article:modified_time' content='2026-01-02T20:47:05&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
 <meta name="twitter:title" content="Coppersmith定理的几种攻击情况的学习">
 <meta name="twitter:description" content="coppersmith 定理的几种攻击情况的学习\rCoppersmith 可以用于求多项式的小根，经常用于 RSA 攻击中“已知某些二进制位，求剩余位”这一类问题\n给定：\n模数 N（通常很大，如 RSA 模数） 模 N 的多项式 f(x)（通常为单变量） 边界 X 寻找所有满足 f(x0) ≡ 0 (mod N)且 ∣x0∣ &lt; X 的整数根 x0\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:60802/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
+    <meta name="twitter:image" content='http://localhost:1313/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/image.png' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -2004,7 +2004,7 @@ container.addEventListener('dblclick', () => {
 <style>
   @font-face {
     font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:60802/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
   }
 
   :root {

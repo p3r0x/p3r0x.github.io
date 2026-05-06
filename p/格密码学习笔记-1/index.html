@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60802&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="格密码学习笔记\r记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==\nLLL 算法\r算法目的\r用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基\n">
 <title>格密码学习笔记 1</title>
 
-<link rel='canonical' href='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
+<link rel='canonical' href='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
 
 <link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="格密码学习笔记 1">
 <meta property='og:description' content="格密码学习笔记\r记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==\nLLL 算法\r算法目的\r用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基\n">
-<meta property='og:url' content='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
+<meta property='og:url' content='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/'>
 <meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='article:modified_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='og:image' content='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='article:modified_time' content='2026-01-10T16:09:51&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
 <meta name="twitter:title" content="格密码学习笔记 1">
 <meta name="twitter:description" content="格密码学习笔记\r记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==\nLLL 算法\r算法目的\r用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:60802/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
+    <meta name="twitter:image" content='http://localhost:1313/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.webp' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -1385,7 +1385,7 @@ container.addEventListener('dblclick', () => {
 <style>
   @font-face {
     font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:60802/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
   }
 
   :root {
