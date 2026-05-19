@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="共私钥d的RSA攻击\r攻击原理\r原文：IJCSI-9-2-1-311-314.pdf\n不深究数学原理\n对于RSA给出的r个式子满足： $$\r\\begin{align*}\re_1 d &= 1 + k_1 \\phi(N_1) \\\\\re_2 d &= 1 + k_2 \\phi(N_2) \\\\\r&\\ \\vdots \\\\\re_r d &= 1 + k_r \\phi(N_r)\r\\end{align*}\r$$ 私钥指数d相同，模数N大小相似，且满足 ">
 <title>RSA共私钥d攻击</title>
 
-<link rel='canonical' href='http://localhost:1313/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/'>
+<link rel='canonical' href='https://p3r0x.github.io/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/'>
 
-<link rel="stylesheet" href="/scss/style.min.6ae37a8eebfefe0a8ea119ce0a3313bf2477535b63ba8c42103dc167c8af2bd0.css"><meta property='og:title' content="RSA共私钥d攻击">
+<link rel="stylesheet" href="/scss/style.min.4d6923f4e871848071bc80bf10eacc136eacc122c4c7a16b9037ac1100bf6710.css"><meta property='og:title' content="RSA共私钥d攻击">
 <meta property='og:description' content="共私钥d的RSA攻击\r攻击原理\r原文：IJCSI-9-2-1-311-314.pdf\n不深究数学原理\n对于RSA给出的r个式子满足： $$\r\\begin{align*}\re_1 d &= 1 + k_1 \\phi(N_1) \\\\\re_2 d &= 1 + k_2 \\phi(N_2) \\\\\r&\\ \\vdots \\\\\re_r d &= 1 + k_r \\phi(N_r)\r\\end{align*}\r$$ 私钥指数d相同，模数N大小相似，且满足 ">
-<meta property='og:url' content='http://localhost:1313/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/'>
+<meta property='og:url' content='https://p3r0x.github.io/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/'>
 <meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-03-09T20:50:09&#43;08:00'/><meta property='article:modified_time' content='2026-03-09T20:50:09&#43;08:00'/><meta property='og:image' content='http://localhost:1313/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.gif' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-03-09T20:50:09&#43;08:00'/><meta property='article:modified_time' content='2026-03-09T20:50:09&#43;08:00'/><meta property='og:image' content='https://p3r0x.github.io/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.gif' />
 <meta name="twitter:title" content="RSA共私钥d攻击">
 <meta name="twitter:description" content="共私钥d的RSA攻击\r攻击原理\r原文：IJCSI-9-2-1-311-314.pdf\n不深究数学原理\n对于RSA给出的r个式子满足： $$\r\\begin{align*}\re_1 d &= 1 + k_1 \\phi(N_1) \\\\\re_2 d &= 1 + k_2 \\phi(N_2) \\\\\r&\\ \\vdots \\\\\re_r d &= 1 + k_r \\phi(N_r)\r\\end{align*}\r$$ 私钥指数d相同，模数N大小相似，且满足 "><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='http://localhost:1313/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.gif' />
+    <meta name="twitter:image" content='https://p3r0x.github.io/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.gif' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
@@ -198,17 +198,14 @@
             <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
-        <div class="article-image">
-            <a href="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/">
-                <img src="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7_hu_1dca357d6d32a861.gif"
-                        srcset="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7_hu_1dca357d6d32a861.gif 800w, /p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7_hu_d4b5c1422ed52662.gif 1600w"
-                        width="800" 
-                        height="800" 
-                        loading="lazy"
-                        alt="Featured image of post RSA共私钥d攻击" />
-                
-            </a>
-        </div>
+        <style>
+            body.article-page {
+                --bg-img: url("/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/E591A7A0FF82D5D3DD73BFC6598C38F7.gif");
+            }
+        </style>
+        <script>
+            document.body.classList.add('has-article-background');
+        </script>
     
 
     <div class="article-details">
@@ -258,6 +255,7 @@
 </div>
 
 </header>
+
 
     <section class="article-content">
     
@@ -796,7 +794,7 @@ $$<div class="highlight"><div class="chroma">
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.3f0660e16f46ed1544f4e216c2eb032398c2ec1b5abc424d80a1cbf71bf58f62.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');
@@ -1532,7 +1530,7 @@ container.addEventListener('dblclick', () => {
 <style>
   @font-face {
     font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
+    src: url(https://p3r0x.github.io/font/WenYuanRoundedSC-Medium.otf) format('truetype');
   }
 
   :root {

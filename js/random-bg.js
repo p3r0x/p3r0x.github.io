@@ -5,6 +5,8 @@
 
   if (isHome) return;
 
+  if (document.body.classList.contains("has-article-background")) return;
+
   const backgrounds = [
     { type: "image", src: "/background/1.jpg" },
     { type: "video", src: "/background/2.mp4" }

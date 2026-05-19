@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on Perox</title>
-        <link>http://localhost:1313/categories/</link>
+        <link>https://p3r0x.github.io/categories/</link>
         <description>Recent content in Categories on Perox</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Perox</copyright>
-        <lastBuildDate>Fri, 17 Apr 2026 19:37:01 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 19 May 2026 20:14:14 +0800</lastBuildDate><atom:link href="https://p3r0x.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Crypto</title>
-        <link>http://localhost:1313/categories/crypto/</link>
-        <pubDate>Fri, 17 Apr 2026 19:37:01 +0800</pubDate>
+        <link>https://p3r0x.github.io/categories/crypto/</link>
+        <pubDate>Tue, 19 May 2026 20:14:14 +0800</pubDate>
         
-        <guid>http://localhost:1313/categories/crypto/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/crypto/968B5CD2FC0A1EFAEDF9278B00B82132.jpg" alt="Featured image of post Crypto" /&gt;</description>
+        <guid>https://p3r0x.github.io/categories/crypto/</guid>
+        <description>&lt;img src="https://p3r0x.github.io/categories/crypto/968B5CD2FC0A1EFAEDF9278B00B82132.jpg" alt="Featured image of post Crypto" /&gt;</description>
         </item>
         <item>
         <title>wp</title>
-        <link>http://localhost:1313/categories/wp/</link>
+        <link>https://p3r0x.github.io/categories/wp/</link>
         <pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/categories/wp/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg" alt="Featured image of post wp" /&gt;</description>
+        <guid>https://p3r0x.github.io/categories/wp/</guid>
+        <description>&lt;img src="https://p3r0x.github.io/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg" alt="Featured image of post wp" /&gt;</description>
         </item>
         
     </channel>
