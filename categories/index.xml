@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Categories on Perox</title>
-        <link>http://localhost:1313/categories/</link>
-        <description>Recent content in Categories on Perox</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <copyright>Perox</copyright>
-        <lastBuildDate>Tue, 19 May 2026 20:14:14 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Crypto</title>
-        <link>http://localhost:1313/categories/crypto/</link>
-        <pubDate>Tue, 19 May 2026 20:14:14 +0800</pubDate>
-        
-        <guid>http://localhost:1313/categories/crypto/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/crypto/968B5CD2FC0A1EFAEDF9278B00B82132.jpg" alt="Featured image of post Crypto" /&gt;</description>
-        </item>
-        <item>
-        <title>wp</title>
-        <link>http://localhost:1313/categories/wp/</link>
-        <pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate>
-        
-        <guid>http://localhost:1313/categories/wp/</guid>
-        <description>&lt;img src="http://localhost:1313/categories/wp/DAE0D86D81B368E80D10B6C0D71C66F6.jpg" alt="Featured image of post wp" /&gt;</description>
-        </item>
-        
-    </channel>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+	<channel>
+		<title>Categories on Perox</title>
+		<link>http://localhost:55202/categories/</link>
+		<description>Recent content in Categories on Perox</description>
+		<generator>Hugo -- 0.152.2</generator>
+		<language>zh-cn</language>
+		<copyright>Perox</copyright>
+		<lastBuildDate>Tue, 19 May 2026 20:14:14 +0800</lastBuildDate>
+		<atom:link href="http://localhost:55202/categories/index.xml" rel="self" type="application/rss+xml" />
+		
+		
+		<item>
+			<title>Crypto</title>
+			<link>http://localhost:55202/categories/crypto/</link>
+			<pubDate>Tue, 19 May 2026 20:14:14 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/categories/crypto/</guid>
+			<description><![CDATA[crypto]]></description><content type="text/html" mode="escaped"><![CDATA[]]></content>
+		</item>
+		
+		<item>
+			<title>wp</title>
+			<link>http://localhost:55202/categories/wp/</link>
+			<pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/categories/wp/</guid>
+			<description><![CDATA[狂暴打题组长]]></description><content type="text/html" mode="escaped"><![CDATA[]]></content>
+		</item>
+		
+	</channel>
 </rss>

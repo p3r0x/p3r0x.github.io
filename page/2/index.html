@@ -1,769 +1,194 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head>
-	<meta name="generator" content="Hugo 0.152.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="崩溃风险（高）">
-<title>Pager 2 - Perox</title>
+<head>
+	<meta name="generator" content="Hugo 0.152.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=55202&amp;path=livereload" data-no-instant defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Perox · 崩溃风险（高）</title>
+<meta name="description" content="崩溃风险（高）">
+<meta name="author" content="Perox">
+<link rel="canonical" href="http://localhost:55202/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0d0e11"><meta property="og:url" content="http://localhost:55202/">
+  <meta property="og:site_name" content="Perox">
+  <meta property="og:title" content="Perox">
+  <meta property="og:description" content="崩溃风险（高）">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="website">
 
-<link rel='canonical' href='http://localhost:1313/'>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Perox">
+  <meta name="twitter:description" content="崩溃风险（高）">
 
-<link rel="stylesheet" href="/scss/style.min.4d6923f4e871848071bc80bf10eacc136eacc122c4c7a16b9037ac1100bf6710.css"><meta property='og:title' content="Perox">
-<meta property='og:description' content="崩溃风险（高）">
-<meta property='og:url' content='http://localhost:1313/'>
-<meta property='og:site_name' content='Perox'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-05-19T20:14:14&#43;08:00 '/>
-<meta name="twitter:title" content="Perox">
-<meta name="twitter:description" content="崩溃风险（高）"><link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/index.xml">
-    <link rel="shortcut icon" href="/favicon.ico" />
+  <meta itemprop="name" content="Perox">
+  <meta itemprop="description" content="崩溃风险（高）">
+  <meta itemprop="datePublished" content="2026-05-19T20:14:14+08:00">
+  <meta itemprop="dateModified" content="2026-05-19T20:14:14+08:00"><link rel="alternate" type="application/rss&#43;xml" href="http://localhost:55202/index.xml" title="">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" media="screen" href="http://localhost:55202/css/style.min.ca77ab66995a757220971a871b52119d84cc11fe4ec53bc87dfbb90707e056c5.css" integrity="sha256-ynerZpladXIglxqHG1IRnYTMEf5OxTvIffu5BwfgVsU=" crossorigin="anonymous">
+<link rel="preload" href="/font/perox-mark.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
 
-    </head>
-    <body class="">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            localStorage.setItem(colorSchemeKey, "dark");
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+<style>
+    @font-face {
+        font-family: 'Perox Mark';
+        src: url('/font/perox-mark.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
 
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
+    @font-face {
+        font-family: 'Perox UI';
+        src: url('/font/perox-ui.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+</style>
 
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
+</head>
 
-    <header>
-        
-            
-            <figure class="site-avatar">
-                <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/avatar_hu_761ec4dfa662521c.png" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
-                </a>
-                
-            </figure>
-            
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">Perox</a></h1>
-            <h2 class="site-description">崩溃风险（高）</h2>
+<body id="page" class="page-home is-home">
+    <a class="skip-link" href="#main">跳到正文</a><header id="site-header" class="animated">
+    <div class="hdr-wrap wrap">
+        <a class="brand" href="/">
+            <span class="brand-mark">Perox</span><span class="brand-tag">崩溃风险（高）</span>
+        </a>
+
+        <nav class="nav-desktop" aria-label="主导航">
+                <a class="nav-link is-active" href="/" aria-current="page">主页</a>
+                <a class="nav-link" href="/archives/">归档</a>
+                <a class="nav-link" href="/search/">搜索</a>
+                <a class="nav-link" href="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">友链</a>
+        </nav>
+
+        <div class="hdr-actions">
+            <a class="icon-btn" href="/search/" aria-label="搜索"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg>
+            </a>
+            <button id="menu-btn" class="icon-btn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg>
+            </button>
         </div>
-    </header><ol class="menu" id="main-menu">
-        
-        
-        
-        <li  class='current' >
-            <a href='/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
+    </div>
+</header>
 
+<div id="mobile-menu" class="animated fast">
+    <ul>
+            <li><a class="is-active" href="/" aria-current="page">主页</a></li>
+            <li><a class="" href="/archives/">归档</a></li>
+            <li><a class="" href="/search/">搜索</a></li>
+            <li><a class="" href="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">友链</a></li>
+    </ul>
+</div>
+<div id="masthead">
+    <div class="masthead-media" aria-hidden="true"></div>
+    <div class="masthead-inner">
+        <img class="masthead-avatar" src="/img/avatar_hu_6126ceebb87e0138.webp" width="80" height="80" alt="Perox" decoding="async">
+        <p class="eyebrow">Perox · 崩溃风险（高）</p>
+        <h1 class="masthead-title">Perox</h1>
+        <p class="masthead-typed"><span id="perox-typed" data-lines="[&#34;密码学 和 CTF&#34;,&#34;欢迎访问&#34;]"></span></p>
+        <p class="masthead-sub">共 8 篇笔记 · 2 个分类</p>
+        <div class="masthead-rule"></div>
+        <a class="scroll-cue" href="#latest">向下浏览 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="6 13 12 19 18 13"></polyline></svg></a>
+    </div>
+</div>
 
-
-                
-                <span>主页</span>
+<main class="home wrap" id="main">
+    <section class="section" id="latest">
+        <header class="section-head">
+            <span class="sec-num">01</span>
+            <h2 class="sec-title">最新一篇</h2>
+            <span class="sec-rule"></span>
+            <a class="sec-more" href="/archives/">全部归档</a>
+        </header>
+        <article class="lead">
+            <div class="lead-body">
+                <h3 class="lead-title"><a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">格密码学习笔记 1</a></h3>
+                <p class="lead-meta">
+                    <time datetime="2026-01-10">2026-01-10</time><span class="dot"></span><a href="/categories/crypto/">Crypto</a>
+                    <span class="dot"></span><span>约 2 分钟</span>
+                </p>
+                <p class="lead-summary">格密码学习笔记 记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL == </p>
+                <a class="lead-more" href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">继续阅读 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg></a>
+            </div>
+        </article>
+    </section>
+    <section class="section" id="index">
+        <header class="section-head">
+            <span class="sec-num">02</span>
+            <h2 class="sec-title">文章索引</h2>
+            <span class="sec-rule"></span>
+            <span class="sec-more">第 2 / 2 页</span>
+        </header>
+        
+<section class="index-group">
+    <h3 class="index-year">2026</h3>
+    <ol class="index-list">
+        <li class="index-item">
+            <a class="index-link" href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <span class="idx-num">01</span>
+                <span class="idx-title">格密码学习笔记</span>
+                <span class="idx-meta">01-09<span class="dot"></span>Crypto</span>
             </a>
         </li>
-        
-        
-        <li >
-            <a href='/archives/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>归档</span>
+        <li class="index-item">
+            <a class="index-link" href="/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/">
+                <span class="idx-num">02</span>
+                <span class="idx-title">Coppersmith定理的几种攻击情况的学习</span>
+                <span class="idx-meta">01-02<span class="dot"></span>Crypto</span>
             </a>
-        </li>
-        
-        
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>搜索</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>友链</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-            </ol>
         </li>
     </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                <form action="/search/" class="search-form widget" >
-        <p>
-            <label>搜索</label>
-            <input name="keyword" required placeholder="输入关键词..." />
-        
-            <button title="搜索">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-            </button>
-        </p>
-    </form>
-            
-        
-            
-                <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">归档</h2>
-
-        
-        
-        
-        
-        
-        <div class="widget-archive--list">
-            <div class="archives-year">
-                    <a href="/archives/#2026">
-                        
-                            <span class="year">2026</span>
-                            <span class="count">7</span>
-                        
-                    </a> 
-                </div>
-            <div class="archives-year">
-                    <a href="/archives/#0001">
-                        
-                            <span class="year">0001</span>
-                            <span class="count">3</span>
-                        
-                    </a> 
-                </div>
-            
-        </div>
-    </section>
-            
-        
-            
-                <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-    </div>
-    <h2 class="widget-title section-title">分类</h2>
-
-    <div class="tagCloud-tags">
-        
-            <a href="/categories/crypto/" class="font_size_6">
-                Crypto
-            </a>
-        
-            <a href="/categories/wp/" class="font_size_1">
-                wp
-            </a>
-        
-    </div>
 </section>
 
-            
         
-    </aside>
+<nav class="pager" aria-label="分页导航">
+    <a class="pager-prev" href="/" rel="prev"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="11 18 5 12 11 6"></polyline></svg><span>上一页</span>
+    </a>
+    <span class="pager-info">2 / 2</span>
+</nav>
 
-
-            <main class="main full-width">
-    
-    
-    
-    
-
-    <section class="article-list">
-        
-            
-<article class="article-list-card has-image">
-    
-        <a class="article-image" href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/" aria-label="格密码学习笔记 1">
-            <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/69a0c692e3ff4df1e2a75030c9502147d67d44cfc317b6e3.png.92184d69c6833444daeb4fca27a5aba0_hu_c2f27315a4d652f6.webp"
-                    width="420"
-                    height="421"
-                    loading="lazy"
-                    alt="Featured image of post 格密码学习笔记 1">
-            
-        </a>
-    
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="/categories/crypto/" style="background-color: #00e3bdff; color: #51c48aff;">
-                Crypto
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/">格密码学习笔记 1</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published" datetime='2026-01-10T16:09:51&#43;08:00'>2026-01-10</time>
-            </div>
-        
-
-        
-    </footer>
-    
-
-    
-</div>
-
-</article>
-
-        
-            
-<article class="article-list-card has-image">
-    
-        <a class="article-image" href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" aria-label="格密码学习笔记">
-            <img src="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image.1998122f9e3337ae5f13e134234d1d96_hu_f63e478fe30bd227.png"
-                    width="420"
-                    height="419"
-                    loading="lazy"
-                    alt="Featured image of post 格密码学习笔记">
-            
-        </a>
-    
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="/categories/crypto/" style="background-color: #00e3bdff; color: #51c48aff;">
-                Crypto
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">格密码学习笔记</a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published" datetime='2026-01-09T17:24:37&#43;08:00'>2026-01-09</time>
-            </div>
-        
-
-        
-    </footer>
-    
-
-    
-</div>
-
-</article>
-
-        
-            
-<article class="article-list-card ">
-    
-
-    <div class="article-details">
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/"></a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-
-    
-</div>
-
-</article>
-
-        
-            
-<article class="article-list-card ">
-    
-
-    <div class="article-details">
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/"></a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-
-    
-</div>
-
-</article>
-
-        
-            
-<article class="article-list-card ">
-    
-
-    <div class="article-details">
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/"></a>
-        </h2>
-    
-        
-    </div>
-
-    
-    
-    
-    
-
-    
-</div>
-
-</article>
-
-        
     </section>
-    <nav class='pagination'>
-        
-        
 
-        
-            
-                    <a class='page-link' href='/'>1</a>
-                
-            
-            
-                <span class='page-link current'>2</span>
-                
-            
-    </nav>
-
-<footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2025 - 
-        
-        2026 Perox
-    </section>
-</footer>
-
-            </main>
+    <section class="section" id="categories">
+        <header class="section-head">
+            <span class="sec-num">03</span>
+            <h2 class="sec-title">分类</h2>
+            <span class="sec-rule"></span>
+            <a class="sec-more" href="/categories/">全部分类</a>
+        </header>
+        <div class="plates">
+            <a class="plate" href="/categories/crypto/" style="--accent: #00e3bdff">
+                <span class="plate-accent"></span>
+                <h3 class="plate-name">Crypto</h3>
+                <p class="plate-meta">7 篇</p><p class="plate-desc">crypto</p>
+            </a>
+            <a class="plate" href="/categories/wp/" style="--accent: #b4d83eff">
+                <span class="plate-accent"></span>
+                <h3 class="plate-name">wp</h3>
+                <p class="plate-meta">1 篇</p><p class="plate-desc">狂暴打题组长</p>
+            </a>
         </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.3f0660e16f46ed1544f4e216c2eb032398c2ec1b5abc424d80a1cbf71bf58f62.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-<div id="aplayer"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-
-<script>
-const ap = new APlayer({
-    container: document.getElementById('aplayer'),
-    fixed: true,
-    mini: true,
-    autoplay: false,
-    mutex: false,
-    preload: 'metadata',
-    order: 'random',
-    theme: '#1e3a8a',
-    audio: [
-        {
-            name: 'Somniomancer [null set]',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR; Crywolf - Somniomancer [null set].mp3',
-            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
-        },
-        {
-            name: 'Touch of the Law',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR,Alec Justice,Echos - Touch of the Law.mp3',
-            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
-        },
-        {
-            name: '赴大荒',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR; Kirara Magic - 赴大荒.mp3',
-            cover: '/music/a9327ac600568afeeea76e01b00959e024723044.png'
-        },
-        {
-            name: '天下一白',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR; BaoUner - 天下一白.mp3',
-            cover: '/music/df72b29b5f78188aef2413b70b70054d420924396.jpg'
-        },
-        {
-            name: '天天天国地獄国',
-            artist: 'Aiobahn  81,ななひら,P丸様',
-            url: '/music/Aiobahn  81,ななひら,P丸様。 - 天天天国地獄国 (feat. ななひら & P丸様。).mp3',
-            cover: '/music/天天天国地狱国.png'
-        },
-        {
-            name: '妄想税',
-            artist: '初音ミク',
-            url: '/music/DECO27,初音ミク - 妄想税.mp3',
-            cover: '/music/妄想税.png'
-        },
-        {
-            name: '光るなら',
-            artist: 'Goose house',
-            url: '/music/Goose house - 光るなら.mp3',
-            cover: '/music/0bd162d9f2d3572c8c352ab48d13632763d0c387.webp'
-        },
-        {
-            name: '乐意效劳',
-            artist: 'こっちのけんと',
-            url: '/music/こっちのけんと - はいよろこんで.mp3',
-            cover: '/music/71cf3bc79f3df8dcd10063bc1d49658b4710b91282df.jpg'
-        }
-    ]
-});
-
-const container = document.getElementById('aplayer');
-container.addEventListener('dblclick', () => {
-    ap.skipForward();
-});
-</script>
-
-<style>
-#aplayer {
-    position: fixed;
-    right: 20px;
-    top: 70%;
-    transform: translateY(-50%);
-    z-index: 1000;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(30,58,138,.45);
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-#aplayer:hover {
-    transform: translateY(-50%) scale(1.08);
-    box-shadow: 0 12px 35px rgba(30,58,138,.7);
-}
-
-#aplayer .aplayer-pic {
-    border-radius: 50% !important;
-}
-
-#aplayer .aplayer-info,
-#aplayer .aplayer-list,
-#aplayer .aplayer-time {
-    display: none !important;
-}
-
-#aplayer .aplayer-button {
-    width: 100%;
-    height: 100%;
-}
-
-#aplayer.aplayer-playing .aplayer-pic {
-    animation: spin 6s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@media (max-width: 768px) {
-    #aplayer {
-        width: 52px;
-        height: 52px;
-        right: 12px;
-    }
-}
-</style>
-
-<style>
-.highlight {
-    position: relative;
-    max-height: 400px;
-    overflow: hidden;
-}
-
-.highlight.code-show {
-    max-height: none !important;
-}
-
-.code-more-box {
-    width: 100%;
-    padding-top: 78px;
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: 2;
-}
-
-.code-more-btn {
-    display: block;
-    margin: auto;
-    width: 44px;
-    height: 22px;
-    background: #f0f0f5;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    padding-top: 6px;
-    cursor: pointer;
-}
-
-.code-more-img {
-    display: block;
-    margin: auto;
-    width: 22px;
-    height: 16px;
-    transition: transform .2s;
-}
-
-.highlight.code-show .code-more-img {
-    transform: rotate(180deg);
-}
-</style>
-
-
-
-<script>
-(function () {
-    function initCodeMoreBox() {
-        document.querySelectorAll('.highlight').forEach(function (block) {
-            if (block.dataset.codemoreInit) return;
-            block.dataset.codemoreInit = '1';
-
-            if (block.scrollHeight <= block.clientHeight) return;
-
-            const box = document.createElement('div');
-            box.className = 'code-more-box';
-
-            const btn = document.createElement('span');
-            btn.className = 'code-more-btn';
-
-            btn.onclick = function () {
-                block.classList.toggle('code-show');
-            };
-
-            const img = document.createElement('img');
-            img.className = 'code-more-img';
-
-   
-            img.src = '/icons/codeMore.png';
-
-            btn.appendChild(img);
-            box.appendChild(btn);
-            block.appendChild(box);
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCodeMoreBox);
-    } else {
-        initCodeMoreBox();
-    }
-
-    document.addEventListener('pjax:complete', initCodeMoreBox);
-})();
-</script>
-
-<style>
-  body {
-    background-color: #f5f5f5;
-    background-image: var(--bg-img, none);
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  body.has-video-background {
-    background-image: none !important;
-  }
-
-  .site-video-bg {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .main-container,
-  #welcome-screen {
-    position: relative;
-    z-index: 2;
-  }
-</style>
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-<style>
-#typed {
-  font-size: 24px;
-  color: #09fb01;
-  min-height: 36px;
-  text-align: center;
-}
-</style>
+    </section>
+</main>
+<footer id="site-footer">
+    <div class="foot-inner wrap">
+        <p>
+            <span class="foot-strong">Perox</span>
+            &copy; 2025–2026
+            Perox
+            · 保留所有权利
+        </p>
+        <p>
+            <a href="/index.xml">RSS</a>
+            <span class="dot"></span>
+            <a href="/sitemap.xml">Sitemap</a>
+            <span class="dot"></span>
+            由 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 与 <a href="https://github.com/1bl4z3r/hermit-V2" target="_blank" rel="noopener">hermit-v2</a> 驱动
+        </p>
+    </div>
+</footer><script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
 <h1 id="typed"></h1>
 
@@ -855,398 +280,104 @@ container.addEventListener('dblclick', () => {
 })();
 </script>
 
-<canvas id="ambient-lines" aria-hidden="true"></canvas>
-
-<style>
-#ambient-lines {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-}
-</style>
-
+<a href="#" class="scroll-up" aria-label="回到顶部" data-scroll-top><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg>
+</a>
+<script defer src="http://localhost:55202/js/perox.bundle.min.4870d5ac553e000a1826451ec4020cea51a06fe5e7a75a70a5fc3feba5d45724.js" integrity="sha256-SHDVrFU+AAoYJkUexAIM6lGgb+Xnp1pwpfw/66XUVyQ=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 <script>
-(function () {
-    const canvas = document.getElementById("ambient-lines");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    let width = 0;
-    let height = 0;
-    let lines = [];
-    let rafId = null;
-
-    function resize() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = Math.floor(width * dpr);
-        canvas.height = Math.floor(height * dpr);
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        buildLines();
-    }
-
-    function buildLines() {
-        const count = Math.max(7, Math.min(12, Math.round(height / 95)));
-        const gap = height / (count + 1);
-
-        lines = Array.from({ length: count }, function (_, index) {
-            return {
-                y: gap * (index + 1),
-                amplitude: 10 + Math.random() * 18,
-                drift: Math.random() * Math.PI * 2,
-                speed: 0.00016 + Math.random() * 0.00012,
-                alpha: 0.09 + Math.random() * 0.08
-            };
+    window.addEventListener("DOMContentLoaded", function () {
+        if (typeof renderMathInElement !== "function") return;
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist", "code-block", "highlight"]
         });
-    }
-
-    function drawLine(line, time) {
-        const points = 8;
-
-        ctx.beginPath();
-        for (let i = 0; i <= points; i++) {
-            const x = (width / points) * i;
-            const wave =
-                Math.sin(i * 0.9 + line.drift + time * line.speed) * line.amplitude +
-                Math.sin(i * 1.7 + time * line.speed * 0.7) * line.amplitude * 0.35;
-            const y = line.y + wave;
-
-            if (i === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-        }
-
-        ctx.strokeStyle = `rgba(118, 176, 190, ${line.alpha * 0.45})`;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        ctx.strokeStyle = `rgba(255, 255, 255, ${line.alpha})`;
-        ctx.lineWidth = 1.25;
-        ctx.stroke();
-    }
-
-    function drawGlow(time) {
-        const x = width * (0.5 + Math.sin(time * 0.00009) * 0.16);
-        const y = height * (0.42 + Math.cos(time * 0.00008) * 0.12);
-        const radius = Math.max(width, height) * 0.42;
-        const glow = ctx.createRadialGradient(x, y, 0, x, y, radius);
-
-        glow.addColorStop(0, "rgba(255, 255, 255, 0.12)");
-        glow.addColorStop(0.48, "rgba(128, 170, 190, 0.065)");
-        glow.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, width, height);
-    }
-
-    function frame(time) {
-        ctx.clearRect(0, 0, width, height);
-        drawGlow(time);
-
-        for (const line of lines) {
-            drawLine(line, time);
-        }
-
-        if (!prefersReducedMotion) {
-            rafId = requestAnimationFrame(frame);
-        }
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-    rafId = requestAnimationFrame(frame);
-
-    window.addEventListener("pagehide", function () {
-        if (rafId) cancelAnimationFrame(rafId);
     });
-})();
 </script>
-
-<style>
-#click-ripple-canvas {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 9999;
-}
-</style>
-
-<canvas id="click-ripple-canvas" aria-hidden="true"></canvas>
-
-<script>
-(function () {
-    const canvas = document.getElementById("click-ripple-canvas");
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const ripples = [];
-
-    let width = 0;
-    let height = 0;
-    let rafId = null;
-
-    function resize() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = Math.floor(width * dpr);
-        canvas.height = Math.floor(height * dpr);
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function addRipple(x, y) {
-        ripples.push({
-            x,
-            y,
-            age: 0,
-            duration: prefersReducedMotion ? 24 : 46,
-            radius: 8,
-            maxRadius: 34
-        });
-
-        if (ripples.length > 8) ripples.shift();
-        if (!rafId) rafId = requestAnimationFrame(draw);
-    }
-
-    function drawRipple(ripple) {
-        const progress = ripple.age / ripple.duration;
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const radius = ripple.radius + (ripple.maxRadius - ripple.radius) * eased;
-        const alpha = Math.max(0, 1 - progress);
-
-        const glow = ctx.createRadialGradient(ripple.x, ripple.y, 0, ripple.x, ripple.y, radius);
-        glow.addColorStop(0, `rgba(255, 255, 255, ${0.16 * alpha})`);
-        glow.addColorStop(0.55, `rgba(120, 178, 190, ${0.08 * alpha})`);
-        glow.addColorStop(1, "rgba(255, 255, 255, 0)");
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, radius * 0.76, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${0.38 * alpha})`;
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(ripple.x, ripple.y, 2.2 + 1.8 * (1 - eased), 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${0.55 * alpha})`;
-        ctx.fill();
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, width, height);
-
-        for (let i = ripples.length - 1; i >= 0; i--) {
-            const ripple = ripples[i];
-            ripple.age += 1;
-            drawRipple(ripple);
-
-            if (ripple.age >= ripple.duration) {
-                ripples.splice(i, 1);
-            }
-        }
-
-        if (ripples.length) {
-            rafId = requestAnimationFrame(draw);
-        } else {
-            rafId = null;
-        }
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    document.addEventListener("pointerdown", function (event) {
-        if (event.button !== undefined && event.button !== 0) return;
-        addRipple(event.clientX, event.clientY);
-    }, { passive: true });
-
-    window.addEventListener("pagehide", function () {
-        if (rafId) cancelAnimationFrame(rafId);
-    });
-})();
-</script>
-
-<style>
-.highlight {
-   position: relative;
-   max-height: 400px;
-   overflow: hidden;
-}
-
-.highlight.code-show {
-   max-height: none !important;
-}
-
-.code-more-box {
-   width: 100%;
-   padding-top: 78px;
-   background-image: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
-   position: absolute;
-   left: 0;
-   bottom: 0;
-   z-index: 2;
-}
-
-.code-more-btn {
-   display: block;
-   margin: auto;
-   width: 44px;
-   height: 22px;
-   background: #f0f0f5;
-   border-top-left-radius: 8px;
-   border-top-right-radius: 8px;
-   padding-top: 6px;
-   cursor: pointer;
-}
-
-.code-more-img {
-   display: block;
-   margin: auto;
-   width: 22px;
-   height: 16px;
-   transition: transform .2s;
-}
-
-.highlight.code-show .code-more-img {
-   transform: rotate(180deg);
-}
-
- 
-.progress-bar-container {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 4px;
-   background: rgba(0,0,0,0.05);
-   z-index: 99999;   
-   pointer-events: none;   
-}
-
-.progress-bar {
-   height: 100%;
-   width: 0%;
-   background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-   transition: width 0.2s ease-out;
-   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-}
-</style>
-
-
 <div class="progress-bar-container">
-   <div class="progress-bar" id="progress-bar"></div>
+    <div class="progress-bar" id="progress-bar"></div>
 </div>
 
 <script>
 (function () {
-   
-   function initCodeMoreBox() {
-       document.querySelectorAll('.highlight').forEach(function (block) {
-           if (block.dataset.codemoreInit) return;
-           block.dataset.codemoreInit = '1';
+    function updateProgressBar() {
+        const progressBar = document.getElementById('progress-bar');
+        if (!progressBar) return;
 
-           if (block.scrollHeight <= block.clientHeight) return;
+        const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
-           const box = document.createElement('div');
-           box.className = 'code-more-box';
+        if (height > 0) {
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = Math.min(scrolled, 100) + '%';
+        }
+    }
 
-           const btn = document.createElement('span');
-           btn.className = 'code-more-btn';
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateProgressBar);
+    } else {
+        updateProgressBar();
+    }
 
-           btn.onclick = function () {
-               block.classList.toggle('code-show');
-           };
-
-           const img = document.createElement('img');
-           img.className = 'code-more-img';
-           img.src = '/icons/codeMore.png';
-
-           btn.appendChild(img);
-           box.appendChild(btn);
-           block.appendChild(box);
-       });
-   }
-
-   
-   function updateProgressBar() {
-       const progressBar = document.getElementById('progress-bar');
-       if (!progressBar) return;
-
-       const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-       
-       if (height > 0) {
-           const scrolled = (winScroll / height) * 100;
-           progressBar.style.width = Math.min(scrolled, 100) + '%';
-       }
-   }
-
-   
-   if (document.readyState === 'loading') {
-       document.addEventListener('DOMContentLoaded', function() {
-           initCodeMoreBox();
-           updateProgressBar();
-       });
-   } else {
-       initCodeMoreBox();
-       updateProgressBar();
-   }
-
-   
-   let ticking = false;
-   window.addEventListener('scroll', function() {
-       if (!ticking) {
-           window.requestAnimationFrame(function() {
-               updateProgressBar();
-               ticking = false;
-           });
-           ticking = true;
-       }
-   });
-
-   
-   document.addEventListener('pjax:complete', function() {
-       initCodeMoreBox();
-       updateProgressBar();
-   });
+    let ticking = false;
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            window.requestAnimationFrame(function () {
+                updateProgressBar();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
 })();
 </script>
+<script>
+(function () {
+    function initCodeMoreBox() {
+        document.querySelectorAll('.highlight').forEach(function (block) {
+            if (block.dataset.codemoreInit) return;
+            block.dataset.codemoreInit = '1';
 
-<style>
-  @font-face {
-    font-family: 'WenYuanRoundedSC-Medium.otf';
-    src: url(http://localhost:1313/font/WenYuanRoundedSC-Medium.otf) format('truetype');
-  }
+            if (block.scrollHeight <= block.clientHeight) return;
 
-  :root {
-    --base-font-family: 'WenYuanRoundedSC-Medium.otf';
-    --code-font-family: 'WenYuanRoundedSC-Medium.otf';
-  }
-</style>
+            const box = document.createElement('div');
+            box.className = 'code-more-box';
 
+            const btn = document.createElement('span');
+            btn.className = 'code-more-btn';
+
+            btn.onclick = function () {
+                block.classList.toggle('code-show');
+            };
+
+            const img = document.createElement('img');
+            img.className = 'code-more-img';
+            img.src = '/icons/codeMore.png';
+
+            btn.appendChild(img);
+            box.appendChild(btn);
+            block.appendChild(box);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCodeMoreBox);
+    } else {
+        initCodeMoreBox();
+    }
+})();
+</script>
 <script>
 (function () {
 
   function ensureTip(blockEl, text) {
-    if (!text) return;                 
+    if (!text) return;
     if (blockEl.dataset.tipInit) return;
     blockEl.dataset.tipInit = "1";
 
@@ -1264,18 +395,15 @@ container.addEventListener('dblclick', () => {
 
   function init() {
     document.querySelectorAll(".code-fun").forEach(wrapper => {
-      const text = wrapper.dataset.tip; 
+      const text = wrapper.dataset.tip;
 
-   
       wrapper.querySelectorAll(".highlight").forEach(block => {
         ensureTip(block, text);
       });
 
-      
       wrapper.querySelectorAll("pre").forEach(pre => {
         if (pre.closest(".highlight")) return;
         ensureTip(pre, text);
-        
       });
     });
   }
@@ -1285,55 +413,133 @@ container.addEventListener('dblclick', () => {
   } else {
     init();
   }
-
-  document.addEventListener("pjax:complete", init);
 })();
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<div id="aplayer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+
+<script>
+const ap = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    mutex: false,
+    preload: 'metadata',
+    order: 'random',
+    theme: '#c9a35f',
+    audio: [
+        {
+            name: 'Somniomancer [null set]',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Crywolf - Somniomancer [null set].mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: 'Touch of the Law',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR,Alec Justice,Echos - Touch of the Law.mp3',
+            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
+        },
+        {
+            name: '赴大荒',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; Kirara Magic - 赴大荒.mp3',
+            cover: '/music/a9327ac600568afeeea76e01b00959e024723044.png'
+        },
+        {
+            name: '天下一白',
+            artist: '塞壬唱片-MSR',
+            url: '/music/塞壬唱片-MSR; BaoUner - 天下一白.mp3',
+            cover: '/music/df72b29b5f78188aef2413b70b70054d420924396.jpg'
+        },
+        {
+            name: '天天天国地獄国',
+            artist: 'Aiobahn  81,ななひら,P丸様',
+            url: '/music/Aiobahn  81,ななひら,P丸様。 - 天天天国地獄国 (feat. ななひら & P丸様。).mp3',
+            cover: '/music/天天天国地狱国.png'
+        },
+        {
+            name: '妄想税',
+            artist: '初音ミク',
+            url: '/music/DECO27,初音ミク - 妄想税.mp3',
+            cover: '/music/妄想税.png'
+        },
+        {
+            name: '光るなら',
+            artist: 'Goose house',
+            url: '/music/Goose house - 光るなら.mp3',
+            cover: '/music/0bd162d9f2d3572c8c352ab48d13632763d0c387.webp'
+        },
+        {
+            name: '乐意效劳',
+            artist: 'こっちのけんと',
+            url: '/music/こっちのけんと - はいよろこんで.mp3',
+            cover: '/music/71cf3bc79f3df8dcd10063bc1d49658b4710b91282df.jpg'
+        }
+    ]
+});
+
+const container = document.getElementById('aplayer');
+container.addEventListener('dblclick', () => {
+    ap.skipForward();
+});
 </script>
 
 <style>
-:root[data-scheme] aside.sidebar.left-sidebar,
-:root[data-scheme] aside.sidebar.left-sidebar * {
-  color: #000 !important;
-  opacity: 1 !important;
-  filter: none !important;
-  text-shadow: none !important;
+#aplayer {
+    position: fixed;
+    right: 20px;
+    top: 70%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(233, 228, 218, 0.14);
+    transition: transform .3s ease, box-shadow .3s ease;
 }
 
-:root[data-scheme] aside.sidebar.left-sidebar svg {
-  stroke: #000 !important;
-  fill: none !important;
-  opacity: 1 !important;
+#aplayer:hover {
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(201, 163, 95, 0.5);
 }
 
-:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner,
-:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::before,
-:root[data-scheme] aside.sidebar.left-sidebar .hamburger-inner::after {
-  background-color: #000 !important;
-  opacity: 1 !important;
+#aplayer .aplayer-pic {
+    border-radius: 50% !important;
+}
+
+#aplayer .aplayer-info,
+#aplayer .aplayer-list,
+#aplayer .aplayer-time {
+    display: none !important;
+}
+
+#aplayer .aplayer-button {
+    width: 100%;
+    height: 100%;
+}
+
+#aplayer.aplayer-playing .aplayer-pic {
+    animation: spin 7s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    #aplayer {
+        width: 52px;
+        height: 52px;
+        right: 12px;
+    }
 }
 </style>
-<style>
-:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a,
-:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a > span,
-:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
-  color: #000 !important;
-  opacity: 1 !important;
-  filter: none !important;
-  text-shadow: none !important;
-}
 
-:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg {
-  stroke: #000 !important;
-  fill: none !important;
-}
-
-:root[data-scheme] aside.sidebar.left-sidebar .menu li.current > a svg * {
-  stroke: #000 !important;
-}
-</style>
-
-<script defer src="/js/random-bg.js"></script>
-<script defer src="/js/welcome-random-bg.js"></script>
-
-    </body>
+</body>
 </html>
