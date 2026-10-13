@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 	<channel>
 		<title>Tags on Perox</title>
-		<link>http://localhost:55202/tags/</link>
+		<link>https://p3r0x.github.io/tags/</link>
 		<description>Recent content in Tags on Perox</description>
 		<generator>Hugo -- 0.152.2</generator>
 		<language>zh-cn</language>
 		<copyright>Perox</copyright>
-		<atom:link href="http://localhost:55202/tags/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://p3r0x.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
 		
 		
 	</channel>

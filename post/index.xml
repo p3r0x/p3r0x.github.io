@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 	<channel>
 		<title>Posts on Perox</title>
-		<link>http://localhost:55202/post/</link>
+		<link>https://p3r0x.github.io/post/</link>
 		<description>Recent content in Posts on Perox</description>
 		<generator>Hugo -- 0.152.2</generator>
 		<language>zh-cn</language>
 		<copyright>Perox</copyright>
 		<lastBuildDate>Tue, 19 May 2026 20:14:14 +0800</lastBuildDate>
-		<atom:link href="http://localhost:55202/post/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://p3r0x.github.io/post/index.xml" rel="self" type="application/rss+xml" />
 		
 		
 		<item>
 			<title>Jacobian雅可比坐标（ECC)</title>
-			<link>http://localhost:55202/p/jacobian%E9%9B%85%E5%8F%AF%E6%AF%94%E5%9D%90%E6%A0%87ecc/</link>
-			<pubDate>Tue, 19 May 2026 20:14:14 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/jacobian%E9%9B%85%E5%8F%AF%E6%AF%94%E5%9D%90%E6%A0%87ecc/</guid>
+			<link>https://p3r0x.github.io/p/jacobian%E9%9B%85%E5%8F%AF%E6%AF%94%E5%9D%90%E6%A0%87ecc/</link>
+			<pubDate>Tue, 19 May 2026 20:14:14 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/jacobian%E9%9B%85%E5%8F%AF%E6%AF%94%E5%9D%90%E6%A0%87ecc/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="jacobian">jacobian<a href="#jacobian" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -135,8 +135,8 @@ $$]]></content>
 		
 		<item>
 			<title>双线性映射 weil pairing</title>
-			<link>http://localhost:55202/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/</link>
-			<pubDate>Fri, 17 Apr 2026 19:37:01 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/</guid>
+			<link>https://p3r0x.github.io/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/</link>
+			<pubDate>Fri, 17 Apr 2026 19:37:01 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="双线性映射">双线性映射<a href="#%e5%8f%8c%e7%ba%bf%e6%80%a7%e6%98%a0%e5%b0%84" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -367,8 +367,8 @@ $$<p>
 		
 		<item>
 			<title>cryptohack lwe wp</title>
-			<link>http://localhost:55202/p/cryptohack-lwe-wp/</link>
-			<pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/cryptohack-lwe-wp/</guid>
+			<link>https://p3r0x.github.io/p/cryptohack-lwe-wp/</link>
+			<pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/cryptohack-lwe-wp/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h2 id="lwe-high-bits-message">LWE High Bits Message<a href="#lwe-high-bits-message" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -832,8 +832,8 @@ $$<p>
 		
 		<item>
 			<title>RSA共私钥d攻击</title>
-			<link>http://localhost:55202/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/</link>
-			<pubDate>Mon, 09 Mar 2026 20:50:09 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/</guid>
+			<link>https://p3r0x.github.io/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/</link>
+			<pubDate>Mon, 09 Mar 2026 20:50:09 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="共私钥d的rsa攻击">共私钥d的RSA攻击<a href="#%e5%85%b1%e7%a7%81%e9%92%a5d%e7%9a%84rsa%e6%94%bb%e5%87%bb" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -1065,8 +1065,8 @@ $$<div class="code-block">
 		
 		<item>
 			<title>格密码学习笔记2</title>
-			<link>http://localhost:55202/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</link>
-			<pubDate>Wed, 14 Jan 2026 15:30:32 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</guid>
+			<link>https://p3r0x.github.io/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</link>
+			<pubDate>Wed, 14 Jan 2026 15:30:32 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="格密码学习笔记">格密码学习笔记<a href="#%e6%a0%bc%e5%af%86%e7%a0%81%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -1266,8 +1266,8 @@ $$
 		
 		<item>
 			<title>格密码学习笔记 1</title>
-			<link>http://localhost:55202/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</link>
-			<pubDate>Sat, 10 Jan 2026 16:09:51 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</guid>
+			<link>https://p3r0x.github.io/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</link>
+			<pubDate>Sat, 10 Jan 2026 16:09:51 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="格密码学习笔记">格密码学习笔记<a href="#%e6%a0%bc%e5%af%86%e7%a0%81%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -1361,8 +1361,8 @@ $$
 		
 		<item>
 			<title>格密码学习笔记</title>
-			<link>http://localhost:55202/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
-			<pubDate>Fri, 09 Jan 2026 17:24:37 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+			<link>https://p3r0x.github.io/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+			<pubDate>Fri, 09 Jan 2026 17:24:37 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/%E6%A0%BC%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="格密码学习笔记">格密码学习笔记<a href="#%e6%a0%bc%e5%af%86%e7%a0%81%e5%ad%a6%e4%b9%a0%e7%ac%94%e8%ae%b0" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -1507,8 +1507,8 @@ $$<ul>
 		
 		<item>
 			<title>Coppersmith定理的几种攻击情况的学习</title>
-			<link>http://localhost:55202/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/</link>
-			<pubDate>Fri, 02 Jan 2026 20:47:05 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/</guid>
+			<link>https://p3r0x.github.io/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/</link>
+			<pubDate>Fri, 02 Jan 2026 20:47:05 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/coppersmith%E5%AE%9A%E7%90%86%E7%9A%84%E5%87%A0%E7%A7%8D%E6%94%BB%E5%87%BB%E6%83%85%E5%86%B5%E7%9A%84%E5%AD%A6%E4%B9%A0/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="coppersmith-定理的几种攻击情况的学习">coppersmith 定理的几种攻击情况的学习<a href="#coppersmith-%e5%ae%9a%e7%90%86%e7%9a%84%e5%87%a0%e7%a7%8d%e6%94%bb%e5%87%bb%e6%83%85%e5%86%b5%e7%9a%84%e5%ad%a6%e4%b9%a0" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -2270,8 +2270,8 @@ $$<p>
 		
 		<item>
 			<title></title>
-			<link>http://localhost:55202/p/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>Perox</author><guid>http://localhost:55202/p/</guid>
+			<link>https://p3r0x.github.io/p/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="格密码相关">格密码相关<a href="#%e6%a0%bc%e5%af%86%e7%a0%81%e7%9b%b8%e5%85%b3" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -2308,8 +2308,8 @@ $$<p>
 		
 		<item>
 			<title></title>
-			<link>http://localhost:55202/p/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>Perox</author><guid>http://localhost:55202/p/</guid>
+			<link>https://p3r0x.github.io/p/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h1 id="时间复杂度">时间复杂度<a href="#%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
@@ -2369,8 +2369,8 @@ k为常量</p>
 		
 		<item>
 			<title></title>
-			<link>http://localhost:55202/p/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>Perox</author><guid>http://localhost:55202/p/</guid>
+			<link>https://p3r0x.github.io/p/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<div class="code-block">
     <div class="code-head">
         <span class="code-lang">html</span>

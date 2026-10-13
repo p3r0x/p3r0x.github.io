@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
 	<channel>
 		<title>wp on Perox</title>
-		<link>http://localhost:55202/categories/wp/</link>
+		<link>https://p3r0x.github.io/categories/wp/</link>
 		<description>Recent content in wp on Perox</description>
 		<generator>Hugo -- 0.152.2</generator>
 		<language>zh-cn</language>
 		<copyright>Perox</copyright>
 		<lastBuildDate>Tue, 10 Mar 2026 18:00:00 +0800</lastBuildDate>
-		<atom:link href="http://localhost:55202/categories/wp/index.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="https://p3r0x.github.io/categories/wp/index.xml" rel="self" type="application/rss+xml" />
 		
 		
 		<item>
 			<title>cryptohack lwe wp</title>
-			<link>http://localhost:55202/p/cryptohack-lwe-wp/</link>
-			<pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate><author>Perox</author><guid>http://localhost:55202/p/cryptohack-lwe-wp/</guid>
+			<link>https://p3r0x.github.io/p/cryptohack-lwe-wp/</link>
+			<pubDate>Tue, 10 Mar 2026 18:00:00 +0800</pubDate><author>Perox</author><guid>https://p3r0x.github.io/p/cryptohack-lwe-wp/</guid>
 			<description><![CDATA[&lt;no value&gt;]]></description><content type="text/html" mode="escaped"><![CDATA[<h2 id="lwe-high-bits-message">LWE High Bits Message<a href="#lwe-high-bits-message" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
