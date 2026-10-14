@@ -29,7 +29,7 @@
   <meta itemprop="keywords" content="wp">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" media="screen" href="https://p3r0x.github.io/css/style.min.ca77ab66995a757220971a871b52119d84cc11fe4ec53bc87dfbb90707e056c5.css" integrity="sha256-ynerZpladXIglxqHG1IRnYTMEf5OxTvIffu5BwfgVsU=" crossorigin="anonymous">
+<link rel="stylesheet" media="screen" href="https://p3r0x.github.io/css/style.min.5448a0d8f12ec020e2bfb0210a783847e95ac054bd78e346bc767fd2131e9e18.css" integrity="sha256-VEig2PEuwCDiv7AhCng4R+lawFS9eONGvHZ/0hMenhg=" crossorigin="anonymous">
 <link rel="preload" href="/font/perox-mark.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
@@ -55,7 +55,12 @@
 </head>
 
 <body id="page" class="has-cover page-page section-post">
-    <a class="skip-link" href="#main">跳到正文</a><header id="site-header" class="animated">
+    <a class="skip-link" href="#main">跳到正文</a><aside id="spine" aria-hidden="true">
+    <span class="spine-brand">Perox</span>
+    <span class="spine-track"><span class="spine-fill" data-spine-fill></span></span>
+    <span class="spine-chapter" data-spine-chapter></span>
+</aside>
+<header id="site-header" class="animated">
     <div class="hdr-wrap wrap">
         <a class="brand" href="/">
             <span class="brand-mark">Perox</span><span class="brand-tag">崩溃风险（高）</span>
@@ -87,12 +92,12 @@
 </div>
 <article class="article">
     <header class="article-hero">
-        <p class="article-kicker"><a class="kicker-cat" href="/categories/wp/">wp</a><span class="dot"></span>
+        <p class="article-kicker"><a class="kicker-cat" href="/categories/wp/">wp</a><span class="sep"></span>
             <time datetime="2026-03-10">2026-03-10</time>
         </p>
         <h1 class="article-title">cryptohack lwe wp</h1>
         <div class="rule"><span class="rule-accent"></span></div>
-        <p class="article-stats">1364 字 · 约 3 分钟</p>
+        <p class="article-stats">1364 字<span class="sep"></span>约 3 分钟</p>
     </header>
 
     <div class="article-body">
@@ -106,7 +111,7 @@
             </div>
             <div class="rail-block">
                 <span class="rail-label">篇幅</span>
-                <span class="rail-value">1364 字 · 约 3 分钟</span>
+                <span class="rail-value">1364 字<span class="sep"></span>约 3 分钟</span>
             </div>
         </aside>
 
@@ -116,11 +121,10 @@
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
       <line x1="8" y1="12" x2="16" y2="12"></line>
    </svg></a></h2>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -174,17 +178,17 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <p>缩放因子delta=round(q/p)</p>
 <p>b=A * S+m * delta+e(mod q)</p>
 <p>所以$m*{\delta}+e=b-A*S=t$</p>
 <p>$m + \frac{e}{\delta} = \frac{t}{\delta}$</p>
 <p>e在$(-\frac{\delta}{2},\frac{\delta}{2})$之间，所以相当于m+x,x∈$(-\frac{1}{2},\frac{1}{2})$所以四舍五入就是m</p>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -232,17 +236,17 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <h2 id="lwe-low-bits-message">LWE Low Bits Message<a href="#lwe-low-bits-message" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
       <line x1="8" y1="12" x2="16" y2="12"></line>
    </svg></a></h2>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -292,6 +296,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <p>模q的值可能是：</p>
 <ul>
@@ -299,11 +304,10 @@
 <li>x+q</li>
 </ul>
 <p>范围在[0,q-1]，所以当x+q(即x&lt;0)时，减一个q就可以复原，然后因为x=p*e+m，所以对m取模就可以得到m</p>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -347,17 +351,17 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <h2 id="noise-free">Noise Free<a href="#noise-free" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
       <line x1="8" y1="12" x2="16" y2="12"></line>
    </svg></a></h2>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -475,6 +479,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">listener</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">13411</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <p>有两个选项：</p>
 <ol>
@@ -484,11 +489,10 @@
 <p>所以选encrypt，且令m=0，就可以得到式子b = A * S，这样就可以把S算出来、</p>
 <p>再选get_flag，由于不知道flag的长度，所以进行100轮循环把flag遍历完</p>
 <p>然后每次循环执行m=b-A * S（mod q）</p>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -568,6 +572,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 
         </div>
@@ -622,19 +627,21 @@
 </article>
 <footer id="site-footer">
     <div class="foot-inner wrap">
-        <p>
-            <span class="foot-strong">Perox</span>
-            &copy; 2025–2026
-            Perox
-            · 保留所有权利
-        </p>
-        <p>
-            <a href="/index.xml">RSS</a>
-            <span class="dot"></span>
-            <a href="/sitemap.xml">Sitemap</a>
-            <span class="dot"></span>
-            由 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 与 <a href="https://github.com/1bl4z3r/hermit-V2" target="_blank" rel="noopener">hermit-v2</a> 驱动
-        </p>
+        <div class="foot-col">
+            <span class="foot-strong">Perox</span><p class="foot-note">崩溃风险（高）</p>
+        </div>
+        <div class="foot-col">
+            <p>8 篇文章<span class="sep"></span>2 个分类</p><p class="foot-note">最后更新 2026-05-19</p>
+        </div>
+        <div class="foot-col">
+            <p>
+                <a href="/index.xml">RSS</a>
+                <span class="sep"></span>
+                <a href="/sitemap.xml">Sitemap</a>
+            </p>
+            <p class="foot-note">© 2025–2026 Perox<span class="sep"></span>保留所有权利</p>
+            <p class="foot-note">Hugo · hermit-v2 · 思源宋体</p>
+        </div>
     </div>
 </footer><script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 
@@ -730,7 +737,7 @@
 
 <a href="#" class="scroll-up" aria-label="回到顶部" data-scroll-top><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg>
 </a>
-<script defer src="https://p3r0x.github.io/js/perox.bundle.min.4870d5ac553e000a1826451ec4020cea51a06fe5e7a75a70a5fc3feba5d45724.js" integrity="sha256-SHDVrFU+AAoYJkUexAIM6lGgb+Xnp1pwpfw/66XUVyQ=" crossorigin="anonymous"></script>
+<script defer src="https://p3r0x.github.io/js/perox.bundle.min.cc6227558707c0978bf5e9a8132441c694fb9dcd0ce27d0842242807be075ad6.js" integrity="sha256-zGInVYcHwJeL9emoEyRBxpT7nc0M4n0IQiQoB74HWtY=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>

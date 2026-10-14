@@ -20,11 +20,10 @@
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
       <line x1="8" y1="12" x2="16" y2="12"></line>
    </svg></a></h2>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -78,17 +77,17 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <p>缩放因子delta=round(q/p)</p>
 <p>b=A * S+m * delta+e(mod q)</p>
 <p>所以$m*{\delta}+e=b-A*S=t$</p>
 <p>$m + \frac{e}{\delta} = \frac{t}{\delta}$</p>
 <p>e在$(-\frac{\delta}{2},\frac{\delta}{2})$之间，所以相当于m+x,x∈$(-\frac{1}{2},\frac{1}{2})$所以四舍五入就是m</p>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -136,17 +135,17 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <h2 id="lwe-low-bits-message">LWE Low Bits Message<a href="#lwe-low-bits-message" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
       <line x1="8" y1="12" x2="16" y2="12"></line>
    </svg></a></h2>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -196,6 +195,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <p>模q的值可能是：</p>
 <ul>
@@ -203,11 +203,10 @@
 <li>x+q</li>
 </ul>
 <p>范围在[0,q-1]，所以当x+q(即x&lt;0)时，减一个q就可以复原，然后因为x=p*e+m，所以对m取模就可以得到m</p>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -251,17 +250,17 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <h2 id="noise-free">Noise Free<a href="#noise-free" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
       stroke-linecap="round" stroke-linejoin="round" class="feather">
       <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
       <line x1="8" y1="12" x2="16" y2="12"></line>
    </svg></a></h2>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -379,6 +378,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">listener</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">13411</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 <p>有两个选项：</p>
 <ol>
@@ -388,11 +388,10 @@
 <p>所以选encrypt，且令m=0，就可以得到式子b = A * S，这样就可以把S算出来、</p>
 <p>再选get_flag，由于不知道flag的长度，所以进行100轮循环把flag遍历完</p>
 <p>然后每次循环执行m=b-A * S（mod q）</p>
-<div class="code-block">
-    <div class="code-head">
-        <span class="code-lang">python</span>
-    </div>
-    <div class="highlight"><div class="chroma">
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -472,6 +471,7 @@
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+    </div>
 </div>
 ]]></content>
 		</item>
