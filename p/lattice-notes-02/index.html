@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="no-js" data-theme="dark" data-search-url="/search/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+ 
+(function () {
+    var t = "dark";
+    try { t = localStorage.getItem("perox-theme") === "light" ? "light" : "dark"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
+})();
+ 
+(function () {
+    var d = document.documentElement;
+    d.className = d.className.replace("no-js", "js");
+    if (!d.hasAttribute("data-gate")) return;
+    var unlocked = false;
+    try { unlocked = sessionStorage.getItem("perox-gate") === "1"; } catch (e) {}
+    if (!unlocked) d.classList.add("gate-pending");
+})();
+</script><title>格密码学习笔记：LLL 算法 · Perox</title>
+<meta name="description" content="LLL 算法：从 Gram-Schmidt 正交化到 δ-LLL 约简条件，说明如何把坏基化成好基，以及它在 SVP 与近似 CVP 上的结论。">
+<meta name="author" content="Perox">
+<link rel="canonical" href="https://p3r0x.github.io/p/lattice-notes-02/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080808"><meta property="og:type" content="article">
+<meta property="og:title" content="格密码学习笔记：LLL 算法">
+<meta property="og:description" content="LLL 算法：从 Gram-Schmidt 正交化到 δ-LLL 约简条件，说明如何把坏基化成好基，以及它在 SVP 与近似 CVP 上的结论。">
+<meta property="og:url" content="https://p3r0x.github.io/p/lattice-notes-02/">
+<meta property="og:site_name" content="Perox">
+<meta property="og:locale" content="zh_cn">
+<meta property="article:published_time" content="2026-01-10T16:09:51&#43;08:00">
+<meta property="article:modified_time" content="2026-01-10T16:09:51&#43;08:00"><meta property="article:section" content="Crypto">
+<meta property="og:image" content="https://p3r0x.github.io/og/lattice-notes-02.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="格密码学习笔记：LLL 算法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="格密码学习笔记：LLL 算法">
+<meta name="twitter:description" content="LLL 算法：从 Gram-Schmidt 正交化到 δ-LLL 约简条件，说明如何把坏基化成好基，以及它在 SVP 与近似 CVP 上的结论。"><meta name="twitter:image" content="https://p3r0x.github.io/og/lattice-notes-02.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://p3r0x.github.io/p/lattice-notes-02/#article","@type":"BlogPosting","articleSection":"Crypto","author":{"@type":"Person","name":"Perox","url":"https://p3r0x.github.io/"},"dateModified":"2026-01-10T16:09:51+08:00","datePublished":"2026-01-10T16:09:51+08:00","description":"LLL 算法：从 Gram-Schmidt 正交化到 δ-LLL 约简条件，说明如何把坏基化成好基，以及它在 SVP 与近似 CVP 上的结论。","headline":"格密码学习笔记：LLL 算法","image":["https://p3r0x.github.io/og/lattice-notes-02.png"],"inLanguage":"zh-cn","keywords":"Crypto","mainEntityOfPage":{"@id":"https://p3r0x.github.io/p/lattice-notes-02/","@type":"WebPage"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://p3r0x.github.io/og/default.png"},"name":"Perox"},"url":"https://p3r0x.github.io/p/lattice-notes-02/","wordCount":745},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://p3r0x.github.io/","name":"首页","position":1},{"@type":"ListItem","item":"https://p3r0x.github.io/archives/","name":"档案","position":2},{"@type":"ListItem","item":"https://p3r0x.github.io/p/lattice-notes-02/","name":"格密码学习笔记：LLL 算法","position":3}]}]}</script>
+<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+
+<link rel="stylesheet" href="/scss/style.min.64cbced3006ea36925f33e5302392391266c7b36fd7d6419127ad52ec6ccea39.css" integrity="sha256-ZMvO0wBuo2kl8z5TAjkjkSZsezb9fWQZEnrVLsbM6jk=" crossorigin="anonymous"><link rel="preload" href="/font/archivo-var.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+</head>
+<body class="k-page">
+<a class="skip" href="#main">跳到正文</a>
+<div class="progress" data-progress aria-hidden="true"></div>
+
+<div class="shell"><header class="topbar" data-topbar>
+    <div class="topbar-in">
+        <a class="wordmark" href="/">Perox</a>
+
+        <nav class="nav" aria-label="主导航">
+            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link is-active" href="/archives/" aria-current="page">归档</a>
+            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/links/">友链</a>
+        </nav>
+
+        <div class="topbar-tools">
+            <button class="tool-btn" type="button" data-palette-open aria-label="搜索文章" title="搜索（Ctrl 或 ⌘ + K）"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg></button>
+            <button class="tool-btn theme-btn" type="button" data-theme-toggle aria-label="切换深浅色" title="切换深浅色">
+                <span class="theme-dot" aria-hidden="true"></span>
+            </button>
+            <button class="tool-btn nav-btn" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel" aria-label="打开导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg></button>
+        </div>
+    </div>
+</header>
+
+<div class="navpanel" id="navpanel" aria-hidden="true">
+    <div class="navpanel-head">
+        <span class="wordmark">Perox</span>
+        <button class="tool-btn" type="button" data-nav-close aria-label="关闭导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>
+    </div>
+    <nav class="navpanel-links" aria-label="站点导航">
+        <a class="" href="/">首页<em></em></a>
+        <a class="is-active" href="/archives/">归档<em>当前</em></a>
+        <a class="" href="/categories/">分类<em></em></a>
+        <a class="" href="/links/">友链<em></em></a>
+        <a href="/search/">搜索<em></em></a>
+    </nav>
+    <div class="navpanel-foot">
+        <span>密码学 / CTF / 数学</span>
+        <span>2026.10.30</span>
+    </div>
+</div>
+
+    <main id="main"><div class="wrap">
+    <header class="ph">
+        <div class="ph-grid"><div class="ph-side" aria-hidden="true">
+            <span class="ph-no">03</span>
+            <span class="ph-of">共 08 篇</span>
+            <span class="ph-yr">2026</span>
+        </div>
+        <div class="ph-inner">
+        <p class="ph-cat"><a href="/categories/crypto/">Crypto</a>
+        </p>
+        <h1 class="ph-title rise">格密码学习笔记：LLL 算法</h1>
+        <div class="ph-meta rise" style="--d:140ms">
+            <time datetime="2026-01-10">2026.01.10</time>
+            <span>2 分钟</span>
+            <span>745 字</span>
+            <button type="button" data-copy-link data-copy-value="https://p3r0x.github.io/p/lattice-notes-02/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>复制链接
+            </button>
+        </div>
+        </div>
+        </div>
+    </header><div class="post-cols">
+        <aside class="post-side">
+            <span class="side-label">目录</span>
+            <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#lll-算法">LLL 算法</a>
+      <ul>
+        <li><a href="#算法目的">算法目的</a></li>
+        <li><a href="#lll-约简基">LLL 约简基</a>
+          <ul>
+            <li><a href="#gram-schmidt-正交化">Gram-Schmidt 正交化</a></li>
+            <li><a href="#进行-δ-lll-约基简的条件">进行 δ-LLL 约基简的条件</a></li>
+          </ul>
+        </li>
+        <li><a href="#svp-问题">SVP 问题</a></li>
+        <li><a href="#近似cvp问题">近似CVP问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></nav>
+        </aside>
+
+        <div class="post-body">
+            <nav class="series" aria-label="系列文章">
+                <p class="series-head"><span>系列</span><b>格密码学习笔记</b><em>共 3 篇</em></p>
+                <ol>
+                    <li>
+                        <a href="/p/lattice-notes-01/"><i>01</i><span>格密码学习笔记：基础定义</span></a>
+                    </li>
+                    <li class="is-current">
+                        <a href="/p/lattice-notes-02/"><i>02</i><span>格密码学习笔记：LLL 算法</span></a>
+                    </li>
+                    <li>
+                        <a href="/p/lattice-notes-03/"><i>03</i><span>格密码学习笔记：对偶格</span></a>
+                    </li>
+                </ol>
+            </nav>
+            <details class="toc-m">
+                <summary><span>目录</span><em>10 节</em></summary>
+                <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContentsM">
+  <ul>
+    <li><a href="#lll-算法">LLL 算法</a>
+      <ul>
+        <li><a href="#算法目的">算法目的</a></li>
+        <li><a href="#lll-约简基">LLL 约简基</a>
+          <ul>
+            <li><a href="#gram-schmidt-正交化">Gram-Schmidt 正交化</a></li>
+            <li><a href="#进行-δ-lll-约基简的条件">进行 δ-LLL 约基简的条件</a></li>
+          </ul>
+        </li>
+        <li><a href="#svp-问题">SVP 问题</a></li>
+        <li><a href="#近似cvp问题">近似CVP问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></nav>
+            </details>
+
+            <div class="prose"><p>记录一下学习 LLL 算法，以 Regev 的讲义为主加上网上搜的其他资料，主要是 LLL ==</p>
+<h2 id="lll-算法">LLL 算法<a class="anchor" href="#lll-%e7%ae%97%e6%b3%95" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<h3 id="算法目的">算法目的<a class="anchor" href="#%e7%ae%97%e6%b3%95%e7%9b%ae%e7%9a%84" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<p>用于解决最短向量问题的多项式时间复杂度算法，目的简单说就是将坏基转化为好基</p>
+<p><img src="/p/lattice-notes-02/Snipaste_2026-01-10_17-00-56_hu_e5e8b174a228ce07.webp" srcset="/p/lattice-notes-02/Snipaste_2026-01-10_17-00-56_hu_e5e8b174a228ce07.webp 720w, /p/lattice-notes-02/Snipaste_2026-01-10_17-00-56_hu_41b9f9131ef42086.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="252" alt="坏基与约简后的好基对比" loading="lazy" decoding="async"></p>
+<p>好基：</p>
+<ul>
+<li>向量短</li>
+<li>接近正交（垂直）</li>
+</ul>
+<p>坏基：</p>
+<ul>
+<li>向量长</li>
+<li>接近平行</li>
+</ul>
+<h3 id="lll-约简基">LLL 约简基<a class="anchor" href="#lll-%e7%ba%a6%e7%ae%80%e5%9f%ba" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<h4 id="gram-schmidt-正交化">Gram-Schmidt 正交化<a class="anchor" href="#gram-schmidt-%e6%ad%a3%e4%ba%a4%e5%8c%96" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p><img src="/p/lattice-notes-02/Snipaste_2026-01-10_17-55-49_hu_50d0760eb8dd26a1.webp" srcset="/p/lattice-notes-02/Snipaste_2026-01-10_17-55-49_hu_50d0760eb8dd26a1.webp 720w, /p/lattice-notes-02/Snipaste_2026-01-10_17-55-49_hu_77b9cc7e8a4a0e76.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="383" alt="LLL 中的 Gram-Schmidt 正交化" loading="lazy" decoding="async"></p>
+<h4 id="进行-δ-lll-约基简的条件">进行 δ-LLL 约基简的条件<a class="anchor" href="#%e8%bf%9b%e8%a1%8c-%ce%b4-lll-%e7%ba%a6%e5%9f%ba%e7%ae%80%e7%9a%84%e6%9d%a1%e4%bb%b6" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p><img src="/p/lattice-notes-02/Snipaste_2026-01-10_17-32-54_hu_eb71e15a23df4c88.webp" srcset="/p/lattice-notes-02/Snipaste_2026-01-10_17-32-54_hu_eb71e15a23df4c88.webp 720w, /p/lattice-notes-02/Snipaste_2026-01-10_17-32-54_hu_9fa1870c34bc708b.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="151" alt="δ-LLL 约简的 Lovász 条件" loading="lazy" decoding="async"></p>
+<p>σ = 3/4，bi 线性无关向量，上面有个~的是正交化后的正交向量，μi, j 是 bi 在 bj（正交化） 上的投影系数</p>
+<h5 id="尺寸约减条件一">尺寸约减（条件一）<a class="anchor" href="#%e5%b0%ba%e5%af%b8%e7%ba%a6%e5%87%8f%e6%9d%a1%e4%bb%b6%e4%b8%80" aria-hidden="true" tabindex="-1">§</a>
+</h5>
+<p>第 i 个原始基向量 bi 在前个正交化向量 bj 上的投影系数 ui, j 的绝对值不超过二分之一, 目的是为了让基向量更接近正交</p>
+<h5 id="lovász-条件条件二">Lovász 条件（条件二）<a class="anchor" href="#lov%c3%a1sz-%e6%9d%a1%e4%bb%b6%e6%9d%a1%e4%bb%b6%e4%ba%8c" aria-hidden="true" tabindex="-1">§</a>
+</h5>
+<p>正交化的第 i 个模长的平方的 σ 倍小于右边，给第 i+1 个正交化的向量规定了下限</p>
+<p>因为 ~ b i 和 ~ b(i+1) 都进行了正交化，所以内积等于 0，两者和的平方就可以看作两者平方之和，</p>
+<p>由 <strong>条件一</strong> 可以得到 u 小于 1/2，所以 u² 应该小于 1/4，所以比较小，~bi+1 的平方加上这个比较小的数大于等于 σ 倍 ~bi 的平方，所以 <strong>限制 ~bi+1 的长度不能太短</strong></p>
+<h3 id="svp-问题">SVP 问题<a class="anchor" href="#svp-%e9%97%ae%e9%a2%98" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<p>最短向量问题（SVP）：给定一个格 L，找到一个非零向量 v，使得对于格 L 中任意一个非零向量 u，都满足 ∥v∥≤∥u∥（即 v 是格中长度最短的非零向量）</p>
+<h3 id="近似cvp问题">近似CVP问题<a class="anchor" href="#%e8%bf%91%e4%bc%bccvp%e9%97%ae%e9%a2%98" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<p>cvp可定义搜索问题，优化问题和决策问题。</p>
+<p><img src="/p/lattice-notes-02/Snipaste_2026-01-12_13-40-05_hu_c124ea1b88ac2ea.webp" srcset="/p/lattice-notes-02/Snipaste_2026-01-12_13-40-05_hu_c124ea1b88ac2ea.webp 720w, /p/lattice-notes-02/Snipaste_2026-01-12_13-40-05_hu_d58fa9d70dffb2fd.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="189" alt="CVP 的搜索、优化与决策三种形式" loading="lazy" decoding="async"></p>
+$$
+(CVP_γ,搜索):在\mathcal{L}(B)里找一个点x，让x到t的距离，不超过格里其他点到t的距离的γ倍\\
+(CVP_γ,优化):找一个数r，使得r属于最短距离和最短距离的γ倍之间\\
+(CVP_γ,判断):给定一个数r，来判断最短距离 ≤ r|最短距离＞γ⋅r
+$$<p>
+上面γ≥1为近似因子。当γ=1时，为精确cvp问题</p>
+<p>可以用babai算法解决CVP搜索问题，其中γ=2^n/2^</p>
+<p><img src="/p/lattice-notes-02/Snipaste_2026-01-12_14-28-20_hu_3601d91c078b0bd6.webp" srcset="/p/lattice-notes-02/Snipaste_2026-01-12_14-28-20_hu_3601d91c078b0bd6.webp 720w, /p/lattice-notes-02/Snipaste_2026-01-12_14-28-20_hu_e818c43940174bce.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="236" alt="Babai 算法求 CVP 近似解" loading="lazy" decoding="async"></p>
+<h2 id="参考链接">参考链接<a class="anchor" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p><a href="https://www.cnblogs.com/3cH0-Nu1L/p/19313812#%E7%AC%AC%E4%B8%80%E7%AB%A0-lll%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0">LLL 格基约简算法（2） - 3cH0_Nu1L - 博客园</a></p>
+<p><a href="https://cims.nyu.edu/~regev/teaching/lattices_fall_2004/">计算机科学中的格（2004 年秋季） &mdash; Lattices in Computer Science (Fall 2004)</a></p>
+</div>
+
+            <section class="comments" id="comments" data-repo="p3r0x/p3r0x.github.io">
+        <h2 class="comments-head">评论</h2>
+        <div class="giscus"></div><noscript><p class="comments-fallback">需要启用 JavaScript 才能加载评论。也可以到 <a href="https://github.com/p3r0x/p3r0x.github.io/discussions" rel="noopener" target="_blank">GitHub Discussions</a> 参与讨论。</p></noscript>
+        <script src="https://giscus.app/client.js"
+            data-repo="p3r0x/p3r0x.github.io"
+            data-repo-id="R_kgDOQxf5tg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOQxf5ts4C0f3D"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_dimmed"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
+    </section>
+
+        </div>
+    </div>
+
+    <nav class="pn" aria-label="上下篇导航">
+        <a class="pn-cell" href="/p/lattice-notes-01/">
+            <span class="pn-k">← 上一篇</span>
+            <span class="pn-t">格密码学习笔记：基础定义</span>
+        </a>
+        <a class="pn-cell pn-cell--next" href="/p/lattice-notes-03/">
+            <span class="pn-k">下一篇 →</span>
+            <span class="pn-t">格密码学习笔记：对偶格</span>
+        </a>
+    </nav>
+    <section class="related">
+        <header class="sec-head"><h2>相关文章</h2></header>
+        <div class="related-list">
+            <a class="related-row" href="/p/jacobian-coordinates-ecc/">
+                <time datetime="2026-05-19">2026.05.19</time>
+                <span>Jacobian 雅可比坐标（ECC）</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/weil-pairing/">
+                <time datetime="2026-04-17">2026.04.17</time>
+                <span>双线性映射与 Weil Pairing</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/rsa-common-private-exponent/">
+                <time datetime="2026-03-09">2026.03.09</time>
+                <span>RSA共私钥d攻击</span>
+                <em>Crypto</em>
+            </a>
+        </div>
+    </section>
+</div>
+
+    </main><footer class="foot">
+    <div class="foot-in">
+        <nav class="foot-nav" aria-label="页脚导航">
+            <a href="/archives/">归档</a>
+            <a href="/categories/">分类</a>
+            <a href="/links/">友链</a>
+            <a href="/search/">搜索</a>
+        </nav><a class="foot-mark" href="/" aria-label="Perox">Perox</a>
+    </div>
+
+    <div class="foot-end">
+        <span>© 2026 Perox</span>
+        <span>8 篇文章 · 更新于 2026.05.19</span>
+    </div>
+</footer>
+
+</div><div class="palette" id="palette" hidden>
+    <div class="palette-veil" data-palette-close></div>
+    <div class="palette-panel" role="dialog" aria-modal="true" aria-labelledby="palette-input">
+        <div class="palette-head">
+            <span class="palette-mark" aria-hidden="true">⌘K</span>
+            <input class="palette-input" id="palette-input" type="text" placeholder="搜索文章" autocomplete="off" spellcheck="false" aria-label="搜索文章">
+            <button class="palette-close" type="button" data-palette-close>Esc</button>
+        </div>
+        <ul class="palette-list" id="palette-list" role="listbox" aria-label="搜索结果"></ul>
+        <p class="palette-empty" hidden>没有找到匹配的文章</p>
+        <div class="palette-foot">
+            <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+            <span><kbd>↵</kbd> 打开</span>
+            <span><kbd>Esc</kbd> 关闭</span>
+            <span class="palette-count" data-palette-count></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+<button class="to-top" type="button" data-to-top aria-label="回到顶部"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg></button>
+<script defer src="/js/site.min.5059e7781cfe64e6dbc19023c8869c4b222d811e62adf3edba823df9db17cc68.js" integrity="sha256-UFnneBz&#43;ZObbwZAjyIacSyItgR5irfPtuoI9&#43;dsXzGg=" crossorigin="anonymous"></script>
+<script defer src="/js/palette.min.10442b3f15773d076d801d1c6bcb00d2cb5f67274e568f77f3537309203c9c21.js" integrity="sha256-EEQrPxV3PQdtgB0ca8sA0stfZydOVo9381NzCSA8nCE=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        if (typeof renderMathInElement !== "function") return;
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist", "code-block", "highlight"]
+        });
+    });
+</script>
+
+</body>
+</html>

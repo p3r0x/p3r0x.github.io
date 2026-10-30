@@ -1,141 +1,140 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="zh-cn" class="no-js" data-theme="dark" data-search-url="/search/">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>cryptohack lwe wp · Perox</title>
-<meta name="description" content="崩溃风险（高）">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+ 
+(function () {
+    var t = "dark";
+    try { t = localStorage.getItem("perox-theme") === "light" ? "light" : "dark"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
+})();
+ 
+(function () {
+    var d = document.documentElement;
+    d.className = d.className.replace("no-js", "js");
+    if (!d.hasAttribute("data-gate")) return;
+    var unlocked = false;
+    try { unlocked = sessionStorage.getItem("perox-gate") === "1"; } catch (e) {}
+    if (!unlocked) d.classList.add("gate-pending");
+})();
+</script><title>CryptoHack LWE 题解 · Perox</title>
+<meta name="description" content="CryptoHack 上 LWE 三道题的记录：High Bits、Low Bits 与 Noise Free，包含参数推导与可直接运行的解题脚本。">
 <meta name="author" content="Perox">
 <link rel="canonical" href="https://p3r0x.github.io/p/cryptohack-lwe-wp/">
 <meta name="robots" content="index, follow">
-<meta name="theme-color" content="#0d0e11"><meta property="og:url" content="https://p3r0x.github.io/p/cryptohack-lwe-wp/">
-  <meta property="og:site_name" content="Perox">
-  <meta property="og:title" content="cryptohack lwe wp">
-  <meta property="og:description" content="LWE High Bits Message python 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 # dimension n = 64 # plaintext modulus p = 257 # ciphertext modulus q = 0x10001 # bound for error term error_bound = int(floor((q/p)/2)) # message scaling factor delta = int(round(q/p)) V = VectorSpace(GF(q), n) S = V.random_element() print(&#34;S = &#34;, S, &#34;\n&#34;) m = ? A = V.random_element() error = randint(-error_bound, error_bound) b = A * S &#43; m * delta &#43; error print(&#34;A = &#34;, A) print(&#34;b = &#34;, b) 缩放因子delta=round(q/p)">
-  <meta property="og:locale" content="zh_cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2026-03-10T18:00:00+08:00">
-    <meta property="article:modified_time" content="2026-03-10T18:00:00+08:00">
+<meta name="theme-color" content="#080808"><meta property="og:type" content="article">
+<meta property="og:title" content="CryptoHack LWE 题解">
+<meta property="og:description" content="CryptoHack 上 LWE 三道题的记录：High Bits、Low Bits 与 Noise Free，包含参数推导与可直接运行的解题脚本。">
+<meta property="og:url" content="https://p3r0x.github.io/p/cryptohack-lwe-wp/">
+<meta property="og:site_name" content="Perox">
+<meta property="og:locale" content="zh_cn">
+<meta property="article:published_time" content="2026-03-10T18:00:00&#43;08:00">
+<meta property="article:modified_time" content="2026-03-10T18:00:00&#43;08:00"><meta property="article:section" content="wp">
+<meta property="og:image" content="https://p3r0x.github.io/og/cryptohack-lwe-wp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CryptoHack LWE 题解">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CryptoHack LWE 题解">
+<meta name="twitter:description" content="CryptoHack 上 LWE 三道题的记录：High Bits、Low Bits 与 Noise Free，包含参数推导与可直接运行的解题脚本。"><meta name="twitter:image" content="https://p3r0x.github.io/og/cryptohack-lwe-wp.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://p3r0x.github.io/p/cryptohack-lwe-wp/#article","@type":"BlogPosting","articleSection":"wp","author":{"@type":"Person","name":"Perox","url":"https://p3r0x.github.io/"},"dateModified":"2026-03-10T18:00:00+08:00","datePublished":"2026-03-10T18:00:00+08:00","description":"CryptoHack 上 LWE 三道题的记录：High Bits、Low Bits 与 Noise Free，包含参数推导与可直接运行的解题脚本。","headline":"CryptoHack LWE 题解","image":["https://p3r0x.github.io/og/cryptohack-lwe-wp.png"],"inLanguage":"zh-cn","keywords":"wp","mainEntityOfPage":{"@id":"https://p3r0x.github.io/p/cryptohack-lwe-wp/","@type":"WebPage"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://p3r0x.github.io/og/default.png"},"name":"Perox"},"url":"https://p3r0x.github.io/p/cryptohack-lwe-wp/","wordCount":1378},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://p3r0x.github.io/","name":"首页","position":1},{"@type":"ListItem","item":"https://p3r0x.github.io/archives/","name":"档案","position":2},{"@type":"ListItem","item":"https://p3r0x.github.io/p/cryptohack-lwe-wp/","name":"CryptoHack LWE 题解","position":3}]}]}</script>
+<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icon-180.png">
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="cryptohack lwe wp">
-  <meta name="twitter:description" content="LWE High Bits Message python 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 # dimension n = 64 # plaintext modulus p = 257 # ciphertext modulus q = 0x10001 # bound for error term error_bound = int(floor((q/p)/2)) # message scaling factor delta = int(round(q/p)) V = VectorSpace(GF(q), n) S = V.random_element() print(&#34;S = &#34;, S, &#34;\n&#34;) m = ? A = V.random_element() error = randint(-error_bound, error_bound) b = A * S &#43; m * delta &#43; error print(&#34;A = &#34;, A) print(&#34;b = &#34;, b) 缩放因子delta=round(q/p)">
-
-  <meta itemprop="name" content="cryptohack lwe wp">
-  <meta itemprop="description" content="LWE High Bits Message python 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 # dimension n = 64 # plaintext modulus p = 257 # ciphertext modulus q = 0x10001 # bound for error term error_bound = int(floor((q/p)/2)) # message scaling factor delta = int(round(q/p)) V = VectorSpace(GF(q), n) S = V.random_element() print(&#34;S = &#34;, S, &#34;\n&#34;) m = ? A = V.random_element() error = randint(-error_bound, error_bound) b = A * S &#43; m * delta &#43; error print(&#34;A = &#34;, A) print(&#34;b = &#34;, b) 缩放因子delta=round(q/p)">
-  <meta itemprop="datePublished" content="2026-03-10T18:00:00+08:00">
-  <meta itemprop="dateModified" content="2026-03-10T18:00:00+08:00">
-  <meta itemprop="wordCount" content="1364">
-  <meta itemprop="keywords" content="wp">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" media="screen" href="https://p3r0x.github.io/css/style.min.4fd658b77c0672dfcecd176eff954ec22ad4a2beda350dba7750c0e6cba8f382.css" integrity="sha256-T9ZYt3wGct/OzRdu/5VOwirUor7aNQ26d1DA5suo84I=" crossorigin="anonymous">
-<link rel="preload" href="/font/perox-mark.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/500.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-sc@5/700.css">
-
-<style>
-    @font-face {
-        font-family: 'Perox Mark';
-        src: url('/font/perox-mark.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-    }
-
-    @font-face {
-        font-family: 'Perox UI';
-        src: url('/font/perox-ui.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-    }
-</style>
+<link rel="stylesheet" href="/scss/style.min.64cbced3006ea36925f33e5302392391266c7b36fd7d6419127ad52ec6ccea39.css" integrity="sha256-ZMvO0wBuo2kl8z5TAjkjkSZsezb9fWQZEnrVLsbM6jk=" crossorigin="anonymous"><link rel="preload" href="/font/archivo-var.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
 </head>
+<body class="k-page">
+<a class="skip" href="#main">跳到正文</a>
+<div class="progress" data-progress aria-hidden="true"></div>
 
-<body id="page" class="has-cover page-page section-post">
-    <a class="skip-link" href="#main">跳到正文</a><aside id="spine" aria-hidden="true">
-    <span class="spine-brand">Perox</span>
-    <span class="spine-track"><span class="spine-fill" data-spine-fill></span></span>
-    <span class="spine-chapter" data-spine-chapter></span>
-</aside>
-<header id="site-header" class="animated">
-    <div class="hdr-wrap wrap">
-        <a class="brand" href="/">
-            <span class="brand-mark">Perox</span><span class="brand-tag">崩溃风险（高）</span>
-        </a>
+<div class="shell"><header class="topbar" data-topbar>
+    <div class="topbar-in">
+        <a class="wordmark" href="/">Perox</a>
 
-        <nav class="nav-desktop" aria-label="主导航">
-                <a class="nav-link" href="/">主页</a>
-                <a class="nav-link" href="/archives/">归档</a>
-                <a class="nav-link" href="/search/">搜索</a>
-                <a class="nav-link" href="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">友链</a>
+        <nav class="nav" aria-label="主导航">
+            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link is-active" href="/archives/" aria-current="page">归档</a>
+            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/links/">友链</a>
         </nav>
 
-        <div class="hdr-actions">
-            <a class="icon-btn" href="/search/" aria-label="搜索"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg>
-            </a>
-            <button id="menu-btn" class="icon-btn" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg>
+        <div class="topbar-tools">
+            <button class="tool-btn" type="button" data-palette-open aria-label="搜索文章" title="搜索（Ctrl 或 ⌘ + K）"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg></button>
+            <button class="tool-btn theme-btn" type="button" data-theme-toggle aria-label="切换深浅色" title="切换深浅色">
+                <span class="theme-dot" aria-hidden="true"></span>
             </button>
+            <button class="tool-btn nav-btn" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel" aria-label="打开导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg></button>
         </div>
     </div>
 </header>
 
-<div id="mobile-menu" class="animated fast">
-    <ul>
-            <li><a class="" href="/">主页</a></li>
-            <li><a class="" href="/archives/">归档</a></li>
-            <li><a class="" href="/search/">搜索</a></li>
-            <li><a class="" href="/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/">友链</a></li>
-    </ul>
+<div class="navpanel" id="navpanel" aria-hidden="true">
+    <div class="navpanel-head">
+        <span class="wordmark">Perox</span>
+        <button class="tool-btn" type="button" data-nav-close aria-label="关闭导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>
+    </div>
+    <nav class="navpanel-links" aria-label="站点导航">
+        <a class="" href="/">首页<em></em></a>
+        <a class="is-active" href="/archives/">归档<em>当前</em></a>
+        <a class="" href="/categories/">分类<em></em></a>
+        <a class="" href="/links/">友链<em></em></a>
+        <a href="/search/">搜索<em></em></a>
+    </nav>
+    <div class="navpanel-foot">
+        <span>密码学 / CTF / 数学</span>
+        <span>2026.10.30</span>
+    </div>
 </div>
-<article class="article" style="--accent: #b4d83eff">
-    <div class="spread">
-        <aside class="page-left">
-            <span class="accent-band" aria-hidden="true"></span>
-            <p class="left-kicker"><a class="kicker-cat" href="/categories/wp/">wp</a><span class="sep"></span>
-                <time datetime="2026-03-10">2026-03-10</time>
-            </p>
-            <h1 class="left-title">cryptohack lwe wp</h1>
 
-            <dl class="left-data">
-                <div>
-                    <dt>日期</dt>
-                    <dd><time datetime="2026-03-10">2026.03.10</time></dd>
-                </div>
-                <div>
-                    <dt>分类</dt>
-                    <dd><a href="/categories/wp/">wp</a></dd>
-                </div>
-                <div>
-                    <dt>篇幅</dt>
-                    <dd>1364 字 · 约 3 分钟</dd>
-                </div>
-            </dl>
-            <details class="left-toc" open>
-                <summary>目录</summary>
-                <div class="left-toc-body"><nav id="TableOfContents">
-  <ol>
-    <li>
-      <ol>
-        <li><a href="#lwe-high-bits-message">LWE High Bits Message</a></li>
-        <li><a href="#lwe-low-bits-message">LWE Low Bits Message</a></li>
-        <li><a href="#noise-free">Noise Free</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav></div>
-            </details>
+    <main id="main"><div class="wrap">
+    <header class="ph">
+        <div class="ph-grid"><div class="ph-side" aria-hidden="true">
+            <span class="ph-no">06</span>
+            <span class="ph-of">共 08 篇</span>
+            <span class="ph-yr">2026</span>
+        </div>
+        <div class="ph-inner">
+        <p class="ph-cat"><a href="/categories/wp/">wp</a>
+        </p>
+        <h1 class="ph-title rise">CryptoHack LWE 题解</h1>
+        <div class="ph-meta rise" style="--d:140ms">
+            <time datetime="2026-03-10">2026.03.10</time>
+            <span>3 分钟</span>
+            <span>1378 字</span>
+            <button type="button" data-copy-link data-copy-value="https://p3r0x.github.io/p/cryptohack-lwe-wp/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>复制链接
+            </button>
+        </div>
+        </div>
+        </div>
+    </header><div class="post-cols">
+        <aside class="post-side">
+            <span class="side-label">目录</span>
+            <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#lwe-high-bits-message">LWE High Bits Message</a></li>
+    <li><a href="#lwe-low-bits-message">LWE Low Bits Message</a></li>
+    <li><a href="#noise-free">Noise Free</a></li>
+  </ul>
+</nav></nav>
         </aside>
 
-        <div class="page-right">
-            <div class="article-content content">
-                <h2 id="lwe-high-bits-message">LWE High Bits Message<a href="#lwe-high-bits-message" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" class="feather">
-      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
-   </svg></a></h2>
+        <div class="post-body">
+            <details class="toc-m">
+                <summary><span>目录</span><em>3 节</em></summary>
+                <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContentsM">
+  <ul>
+    <li><a href="#lwe-high-bits-message">LWE High Bits Message</a></li>
+    <li><a href="#lwe-low-bits-message">LWE Low Bits Message</a></li>
+    <li><a href="#noise-free">Noise Free</a></li>
+  </ul>
+</nav></nav>
+            </details>
+
+            <div class="prose"><h2 id="lwe-high-bits-message">LWE High Bits Message<a class="anchor" href="#lwe-high-bits-message" aria-hidden="true" tabindex="-1">§</a>
+</h2>
 <div class="code-shell">
     <span class="code-lang">python</span>
     <div class="code-block">
@@ -164,7 +163,6 @@
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
-</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># dimension</span>
@@ -177,7 +175,6 @@
 </span></span><span class="line"><span class="cl"><span class="n">error_bound</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">((</span><span class="n">q</span><span class="o">/</span><span class="n">p</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># message scaling factor</span>
 </span></span><span class="line"><span class="cl"><span class="n">delta</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">q</span><span class="o">/</span><span class="n">p</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">V</span> <span class="o">=</span> <span class="n">VectorSpace</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">S</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
@@ -225,7 +222,6 @@
 </span><span class="lnt">18
 </span><span class="lnt">19
 </span><span class="lnt">20
-</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
@@ -242,7 +238,6 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># ciphertext modulus</span>
 </span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="mh">0x10001</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">error_bound</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">((</span><span class="n">q</span><span class="o">/</span><span class="n">p</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="n">delta</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">q</span><span class="o">/</span><span class="n">p</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="n">AS</span><span class="o">=</span><span class="nb">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">S</span><span class="p">)))</span><span class="o">%</span><span class="n">q</span>
@@ -253,11 +248,8 @@
 </div>
     </div>
 </div>
-<h2 id="lwe-low-bits-message">LWE Low Bits Message<a href="#lwe-low-bits-message" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" class="feather">
-      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
-   </svg></a></h2>
+<h2 id="lwe-low-bits-message">LWE Low Bits Message<a class="anchor" href="#lwe-low-bits-message" aria-hidden="true" tabindex="-1">§</a>
+</h2>
 <div class="code-shell">
     <span class="code-lang">python</span>
     <div class="code-block">
@@ -284,7 +276,6 @@
 </span><span class="lnt">19
 </span><span class="lnt">20
 </span><span class="lnt">21
-</span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># dimension</span>
@@ -295,7 +286,6 @@
 </span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="mh">0x10001</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># bound for error term</span>
 </span></span><span class="line"><span class="cl"><span class="n">error_bound</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">((</span><span class="n">q</span><span class="o">/</span><span class="n">p</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">V</span> <span class="o">=</span> <span class="n">VectorSpace</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">S</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
@@ -368,11 +358,8 @@
 </div>
     </div>
 </div>
-<h2 id="noise-free">Noise Free<a href="#noise-free" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" class="feather">
-      <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
-   </svg></a></h2>
+<h2 id="noise-free">Noise Free<a class="anchor" href="#noise-free" aria-hidden="true" tabindex="-1">§</a>
+</h2>
 <div class="code-shell">
     <span class="code-lang">python</span>
     <div class="code-block">
@@ -433,7 +420,6 @@
 </span><span class="lnt">53
 </span><span class="lnt">54
 </span><span class="lnt">55
-</span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">listener</span>
@@ -488,7 +474,6 @@
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;A&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">A</span><span class="p">)),</span> <span class="s2">&#34;b&#34;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">b</span><span class="p">))}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;Unknown action&#39;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">builtins</span><span class="p">;</span> <span class="n">builtins</span><span class="o">.</span><span class="n">Challenge</span> <span class="o">=</span> <span class="n">Challenge</span> <span class="c1"># hack to enable challenge to be run locally, see https://cryptohack.org/faq/#listener</span>
 </span></span><span class="line"><span class="cl"><span class="n">listener</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">13411</span><span class="p">)</span></span></span></code></pre></td></tr></table>
@@ -589,23 +574,11 @@
 </div>
     </div>
 </div>
+</div>
 
-            </div>
-
-            
-            <nav class="postnav" aria-label="上下篇导航">
-                <a class="postnav-prev" href="/p/rsa%E5%85%B1%E7%A7%81%E9%92%A5d%E6%94%BB%E5%87%BB/">
-                    <span class="postnav-label">上一篇</span>
-                    <span class="postnav-title">RSA共私钥d攻击</span>
-                </a>
-                <a class="postnav-next" href="/p/%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%98%A0%E5%B0%84-weil-pairing/">
-                    <span class="postnav-label">下一篇</span>
-                    <span class="postnav-title">双线性映射 weil pairing</span>
-                </a>
-            </nav>
-            <section class="comments" id="comments">
+            <section class="comments" id="comments" data-repo="p3r0x/p3r0x.github.io">
         <h2 class="comments-head">评论</h2>
-        <div class="giscus"></div>
+        <div class="giscus"></div><noscript><p class="comments-fallback">需要启用 JavaScript 才能加载评论。也可以到 <a href="https://github.com/p3r0x/p3r0x.github.io/discussions" rel="noopener" target="_blank">GitHub Discussions</a> 参与讨论。</p></noscript>
         <script src="https://giscus.app/client.js"
             data-repo="p3r0x/p3r0x.github.io"
             data-repo-id="R_kgDOQxf5tg"
@@ -626,123 +599,82 @@
 
         </div>
     </div>
-</article>
-<footer id="site-footer">
-    <div class="foot-inner wrap">
-        <div class="foot-col">
-            <span class="foot-strong">Perox</span><p class="foot-note">崩溃风险（高）</p>
+
+    <nav class="pn" aria-label="上下篇导航">
+        <a class="pn-cell" href="/p/rsa-common-private-exponent/">
+            <span class="pn-k">← 上一篇</span>
+            <span class="pn-t">RSA共私钥d攻击</span>
+        </a>
+        <a class="pn-cell pn-cell--next" href="/p/weil-pairing/">
+            <span class="pn-k">下一篇 →</span>
+            <span class="pn-t">双线性映射与 Weil Pairing</span>
+        </a>
+    </nav>
+    <section class="related">
+        <header class="sec-head"><h2>相关文章</h2></header>
+        <div class="related-list">
+            <a class="related-row" href="/p/lattice-notes-01/">
+                <time datetime="2026-01-09">2026.01.09</time>
+                <span>格密码学习笔记：基础定义</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/lattice-notes-02/">
+                <time datetime="2026-01-10">2026.01.10</time>
+                <span>格密码学习笔记：LLL 算法</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/lattice-notes-03/">
+                <time datetime="2026-01-14">2026.01.14</time>
+                <span>格密码学习笔记：对偶格</span>
+                <em>Crypto</em>
+            </a>
         </div>
-        <div class="foot-col">
-            <p>8 篇文章<span class="sep"></span>2 个分类</p><p class="foot-note">最后更新 2026-05-19</p>
+    </section>
+</div>
+
+    </main><footer class="foot">
+    <div class="foot-in">
+        <nav class="foot-nav" aria-label="页脚导航">
+            <a href="/archives/">归档</a>
+            <a href="/categories/">分类</a>
+            <a href="/links/">友链</a>
+            <a href="/search/">搜索</a>
+        </nav><a class="foot-mark" href="/" aria-label="Perox">Perox</a>
+    </div>
+
+    <div class="foot-end">
+        <span>© 2026 Perox</span>
+        <span>8 篇文章 · 更新于 2026.05.19</span>
+    </div>
+</footer>
+
+</div><div class="palette" id="palette" hidden>
+    <div class="palette-veil" data-palette-close></div>
+    <div class="palette-panel" role="dialog" aria-modal="true" aria-labelledby="palette-input">
+        <div class="palette-head">
+            <span class="palette-mark" aria-hidden="true">⌘K</span>
+            <input class="palette-input" id="palette-input" type="text" placeholder="搜索文章" autocomplete="off" spellcheck="false" aria-label="搜索文章">
+            <button class="palette-close" type="button" data-palette-close>Esc</button>
         </div>
-        <div class="foot-col">
-            <p>
-                <a href="/index.xml">RSS</a>
-                <span class="sep"></span>
-                <a href="/sitemap.xml">Sitemap</a>
-            </p>
-            <p class="foot-note">© 2025–2026 Perox<span class="sep"></span>保留所有权利</p>
-            <p class="foot-note">Hugo · hermit-v2 · 思源宋体</p>
+        <ul class="palette-list" id="palette-list" role="listbox" aria-label="搜索结果"></ul>
+        <p class="palette-empty" hidden>没有找到匹配的文章</p>
+        <div class="palette-foot">
+            <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+            <span><kbd>↵</kbd> 打开</span>
+            <span><kbd>Esc</kbd> 关闭</span>
+            <span class="palette-count" data-palette-count></span>
         </div>
     </div>
-</footer><script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+</div>
 
-<h1 id="typed"></h1>
 
-<script>
-(function () {
-  if (typeof Typed === "undefined") return;
-
-  const messages = [
-    "到底啦！别再往下滑了！",
-    "没有彩蛋，也没有隐藏内容…",
-    "就这么点东西，你就滑到这里了"
-  ];
-
-  const easterMessage = "你发现了我的彩蛋，这就带你去na";
-
-  const jumpUrls = [
-    "https://ys.mihoyo.com/",
-    "https://www.bilibili.com/video/BV1GJ411x7h7/?spm_id_from=333.337.search-card.all.click",
-    "https://www.bilibili.com/video/BV1xx411c79H/?spm_id_from=333.337.search-card.all.click",
-  ];
-
-  let animationRunning = false;
-  let typed1, typed2;
-  let jumpTimeout;
-
-  function isScrolledToBottom() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-    return scrollTop + windowHeight >= docHeight - 10;
-  }
-
-  function handleScroll() {
-    const typedElement = document.getElementById("typed");
-    if (!typedElement) return;
-
-    if (window.location.pathname === "/" || window.location.pathname === "/index.html") return;
-
-    if (animationRunning) {
-      if (!isScrolledToBottom()) {
-        if (typed1) typed1.destroy();
-        if (typed2) typed2.destroy();
-        if (jumpTimeout) clearTimeout(jumpTimeout);
-        typedElement.innerHTML = "";
-        animationRunning = false;
-      }
-      return;
-    }
-
-    if (!animationRunning && isScrolledToBottom()) {
-      animationRunning = true;
-
-      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-      const randomUrl = jumpUrls[Math.floor(Math.random() * jumpUrls.length)];
-      typedElement.innerHTML = "";
-
-      typed1 = new Typed("#typed", {
-        strings: [randomMsg],
-        typeSpeed: 120,
-        backSpeed: 0,
-        loop: false,
-        showCursor: false,
-        onStringTyped: function () {
-          typed1.destroy();
-
-          typed2 = new Typed("#typed", {
-            strings: [easterMessage],
-            typeSpeed: 50,
-            backSpeed: 0,
-            loop: false,
-            showCursor: false,
-            onStringTyped: function () {
-              jumpTimeout = setTimeout(function () {
-                if (isScrolledToBottom()) {
-                  window.location.href = randomUrl;
-                } else {
-                  typedElement.innerHTML = "";
-                  animationRunning = false;
-                }
-              }, 900);
-            }
-          });
-        }
-      });
-    }
-  }
-
-  window.addEventListener("scroll", handleScroll);
-})();
-</script>
-
-<a href="#" class="scroll-up" aria-label="回到顶部" data-scroll-top><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg>
-</a>
-<script defer src="https://p3r0x.github.io/js/perox.bundle.min.e716d772818501bd7076f0428fb02c0f2d5ab4c163de9d5536d8c9c97c5f9687.js" integrity="sha256-5xbXcoGFAb1wdvBCj7AsDy1atMFj3p1VNtjJyXxfloc=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+<button class="to-top" type="button" data-to-top aria-label="回到顶部"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg></button>
+<script defer src="/js/site.min.5059e7781cfe64e6dbc19023c8869c4b222d811e62adf3edba823df9db17cc68.js" integrity="sha256-UFnneBz&#43;ZObbwZAjyIacSyItgR5irfPtuoI9&#43;dsXzGg=" crossorigin="anonymous"></script>
+<script defer src="/js/palette.min.10442b3f15773d076d801d1c6bcb00d2cb5f67274e568f77f3537309203c9c21.js" integrity="sha256-EEQrPxV3PQdtgB0ca8sA0stfZydOVo9381NzCSA8nCE=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js"></script>
 <script>
     window.addEventListener("DOMContentLoaded", function () {
         if (typeof renderMathInElement !== "function") return;
@@ -757,246 +689,6 @@
         });
     });
 </script>
-<div class="progress-bar-container">
-    <div class="progress-bar" id="progress-bar"></div>
-</div>
-
-<script>
-(function () {
-    function updateProgressBar() {
-        const progressBar = document.getElementById('progress-bar');
-        if (!progressBar) return;
-
-        const winScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-
-        if (height > 0) {
-            const scrolled = (winScroll / height) * 100;
-            progressBar.style.width = Math.min(scrolled, 100) + '%';
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateProgressBar);
-    } else {
-        updateProgressBar();
-    }
-
-    let ticking = false;
-    window.addEventListener('scroll', function () {
-        if (!ticking) {
-            window.requestAnimationFrame(function () {
-                updateProgressBar();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-})();
-</script>
-<script>
-(function () {
-    function initCodeMoreBox() {
-        document.querySelectorAll('.highlight').forEach(function (block) {
-            if (block.dataset.codemoreInit) return;
-            block.dataset.codemoreInit = '1';
-
-            if (block.scrollHeight <= block.clientHeight) return;
-
-            const box = document.createElement('div');
-            box.className = 'code-more-box';
-
-            const btn = document.createElement('span');
-            btn.className = 'code-more-btn';
-
-            btn.onclick = function () {
-                block.classList.toggle('code-show');
-            };
-
-            const img = document.createElement('img');
-            img.className = 'code-more-img';
-            img.src = '/icons/codeMore.png';
-
-            btn.appendChild(img);
-            box.appendChild(btn);
-            block.appendChild(box);
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initCodeMoreBox);
-    } else {
-        initCodeMoreBox();
-    }
-})();
-</script>
-<script>
-(function () {
-
-  function ensureTip(blockEl, text) {
-    if (!text) return;
-    if (blockEl.dataset.tipInit) return;
-    blockEl.dataset.tipInit = "1";
-
-    const style = window.getComputedStyle(blockEl);
-    if (style.position === "static") {
-      blockEl.style.position = "relative";
-    }
-
-    const tip = document.createElement("div");
-    tip.className = "code-hover-tip";
-    tip.textContent = text;
-
-    blockEl.appendChild(tip);
-  }
-
-  function init() {
-    document.querySelectorAll(".code-fun").forEach(wrapper => {
-      const text = wrapper.dataset.tip;
-
-      wrapper.querySelectorAll(".highlight").forEach(block => {
-        ensureTip(block, text);
-      });
-
-      wrapper.querySelectorAll("pre").forEach(pre => {
-        if (pre.closest(".highlight")) return;
-        ensureTip(pre, text);
-      });
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-})();
-</script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
-<div id="aplayer"></div>
-
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-
-<script>
-const ap = new APlayer({
-    container: document.getElementById('aplayer'),
-    fixed: true,
-    mini: true,
-    autoplay: false,
-    mutex: false,
-    preload: 'metadata',
-    order: 'random',
-    theme: '#c9a35f',
-    audio: [
-        {
-            name: 'Somniomancer [null set]',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR; Crywolf - Somniomancer [null set].mp3',
-            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
-        },
-        {
-            name: 'Touch of the Law',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR,Alec Justice,Echos - Touch of the Law.mp3',
-            cover: '/music/21A7A866D4D502FFFF83C9810EEF5DAA.jpg'
-        },
-        {
-            name: '赴大荒',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR; Kirara Magic - 赴大荒.mp3',
-            cover: '/music/a9327ac600568afeeea76e01b00959e024723044.png'
-        },
-        {
-            name: '天下一白',
-            artist: '塞壬唱片-MSR',
-            url: '/music/塞壬唱片-MSR; BaoUner - 天下一白.mp3',
-            cover: '/music/df72b29b5f78188aef2413b70b70054d420924396.jpg'
-        },
-        {
-            name: '天天天国地獄国',
-            artist: 'Aiobahn  81,ななひら,P丸様',
-            url: '/music/Aiobahn  81,ななひら,P丸様。 - 天天天国地獄国 (feat. ななひら & P丸様。).mp3',
-            cover: '/music/天天天国地狱国.png'
-        },
-        {
-            name: '妄想税',
-            artist: '初音ミク',
-            url: '/music/DECO27,初音ミク - 妄想税.mp3',
-            cover: '/music/妄想税.png'
-        },
-        {
-            name: '光るなら',
-            artist: 'Goose house',
-            url: '/music/Goose house - 光るなら.mp3',
-            cover: '/music/0bd162d9f2d3572c8c352ab48d13632763d0c387.webp'
-        },
-        {
-            name: '乐意效劳',
-            artist: 'こっちのけんと',
-            url: '/music/こっちのけんと - はいよろこんで.mp3',
-            cover: '/music/71cf3bc79f3df8dcd10063bc1d49658b4710b91282df.jpg'
-        }
-    ]
-});
-
-const container = document.getElementById('aplayer');
-container.addEventListener('dblclick', () => {
-    ap.skipForward();
-});
-</script>
-
-<style>
-#aplayer {
-    position: fixed;
-    right: 20px;
-    top: 70%;
-    transform: translateY(-50%);
-    z-index: 1000;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(233, 228, 218, 0.14);
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-#aplayer:hover {
-    transform: translateY(-50%) scale(1.08);
-    box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(201, 163, 95, 0.5);
-}
-
-#aplayer .aplayer-pic {
-    border-radius: 50% !important;
-}
-
-#aplayer .aplayer-info,
-#aplayer .aplayer-list,
-#aplayer .aplayer-time {
-    display: none !important;
-}
-
-#aplayer .aplayer-button {
-    width: 100%;
-    height: 100%;
-}
-
-#aplayer.aplayer-playing .aplayer-pic {
-    animation: spin 7s linear infinite;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@media (max-width: 768px) {
-    #aplayer {
-        width: 52px;
-        height: 52px;
-        right: 12px;
-    }
-}
-</style>
 
 </body>
 </html>

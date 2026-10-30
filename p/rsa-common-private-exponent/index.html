@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="no-js" data-theme="dark" data-search-url="/search/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+ 
+(function () {
+    var t = "dark";
+    try { t = localStorage.getItem("perox-theme") === "light" ? "light" : "dark"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
+})();
+ 
+(function () {
+    var d = document.documentElement;
+    d.className = d.className.replace("no-js", "js");
+    if (!d.hasAttribute("data-gate")) return;
+    var unlocked = false;
+    try { unlocked = sessionStorage.getItem("perox-gate") === "1"; } catch (e) {}
+    if (!unlocked) d.classList.add("gate-pending");
+})();
+</script><title>RSA共私钥d攻击 · Perox</title>
+<meta name="description" content="多组 RSA 公钥共用同一个私钥指数 d 时的攻击：由 e_i d − N_i k_i = 1 − k_i s_i 构造格，LLL 直接恢复 d。附一道三段公钥的题目与 Sage 脚本。">
+<meta name="author" content="Perox">
+<link rel="canonical" href="https://p3r0x.github.io/p/rsa-common-private-exponent/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080808"><meta property="og:type" content="article">
+<meta property="og:title" content="RSA共私钥d攻击">
+<meta property="og:description" content="多组 RSA 公钥共用同一个私钥指数 d 时的攻击：由 e_i d − N_i k_i = 1 − k_i s_i 构造格，LLL 直接恢复 d。附一道三段公钥的题目与 Sage 脚本。">
+<meta property="og:url" content="https://p3r0x.github.io/p/rsa-common-private-exponent/">
+<meta property="og:site_name" content="Perox">
+<meta property="og:locale" content="zh_cn">
+<meta property="article:published_time" content="2026-03-09T20:50:09&#43;08:00">
+<meta property="article:modified_time" content="2026-03-09T20:50:09&#43;08:00"><meta property="article:section" content="Crypto">
+<meta property="og:image" content="https://p3r0x.github.io/og/rsa-common-private-exponent.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="RSA共私钥d攻击">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RSA共私钥d攻击">
+<meta name="twitter:description" content="多组 RSA 公钥共用同一个私钥指数 d 时的攻击：由 e_i d − N_i k_i = 1 − k_i s_i 构造格，LLL 直接恢复 d。附一道三段公钥的题目与 Sage 脚本。"><meta name="twitter:image" content="https://p3r0x.github.io/og/rsa-common-private-exponent.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://p3r0x.github.io/p/rsa-common-private-exponent/#article","@type":"BlogPosting","articleSection":"Crypto","author":{"@type":"Person","name":"Perox","url":"https://p3r0x.github.io/"},"dateModified":"2026-03-09T20:50:09+08:00","datePublished":"2026-03-09T20:50:09+08:00","description":"多组 RSA 公钥共用同一个私钥指数 d 时的攻击：由 e_i d − N_i k_i = 1 − k_i s_i 构造格，LLL 直接恢复 d。附一道三段公钥的题目与 Sage 脚本。","headline":"RSA共私钥d攻击","image":["https://p3r0x.github.io/og/rsa-common-private-exponent.png"],"inLanguage":"zh-cn","keywords":"Crypto","mainEntityOfPage":{"@id":"https://p3r0x.github.io/p/rsa-common-private-exponent/","@type":"WebPage"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://p3r0x.github.io/og/default.png"},"name":"Perox"},"url":"https://p3r0x.github.io/p/rsa-common-private-exponent/","wordCount":662},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://p3r0x.github.io/","name":"首页","position":1},{"@type":"ListItem","item":"https://p3r0x.github.io/archives/","name":"档案","position":2},{"@type":"ListItem","item":"https://p3r0x.github.io/p/rsa-common-private-exponent/","name":"RSA共私钥d攻击","position":3}]}]}</script>
+<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+
+<link rel="stylesheet" href="/scss/style.min.64cbced3006ea36925f33e5302392391266c7b36fd7d6419127ad52ec6ccea39.css" integrity="sha256-ZMvO0wBuo2kl8z5TAjkjkSZsezb9fWQZEnrVLsbM6jk=" crossorigin="anonymous"><link rel="preload" href="/font/archivo-var.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+</head>
+<body class="k-page">
+<a class="skip" href="#main">跳到正文</a>
+<div class="progress" data-progress aria-hidden="true"></div>
+
+<div class="shell"><header class="topbar" data-topbar>
+    <div class="topbar-in">
+        <a class="wordmark" href="/">Perox</a>
+
+        <nav class="nav" aria-label="主导航">
+            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link is-active" href="/archives/" aria-current="page">归档</a>
+            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/links/">友链</a>
+        </nav>
+
+        <div class="topbar-tools">
+            <button class="tool-btn" type="button" data-palette-open aria-label="搜索文章" title="搜索（Ctrl 或 ⌘ + K）"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg></button>
+            <button class="tool-btn theme-btn" type="button" data-theme-toggle aria-label="切换深浅色" title="切换深浅色">
+                <span class="theme-dot" aria-hidden="true"></span>
+            </button>
+            <button class="tool-btn nav-btn" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel" aria-label="打开导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg></button>
+        </div>
+    </div>
+</header>
+
+<div class="navpanel" id="navpanel" aria-hidden="true">
+    <div class="navpanel-head">
+        <span class="wordmark">Perox</span>
+        <button class="tool-btn" type="button" data-nav-close aria-label="关闭导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>
+    </div>
+    <nav class="navpanel-links" aria-label="站点导航">
+        <a class="" href="/">首页<em></em></a>
+        <a class="is-active" href="/archives/">归档<em>当前</em></a>
+        <a class="" href="/categories/">分类<em></em></a>
+        <a class="" href="/links/">友链<em></em></a>
+        <a href="/search/">搜索<em></em></a>
+    </nav>
+    <div class="navpanel-foot">
+        <span>密码学 / CTF / 数学</span>
+        <span>2026.10.30</span>
+    </div>
+</div>
+
+    <main id="main"><div class="wrap">
+    <header class="ph">
+        <div class="ph-grid"><div class="ph-side" aria-hidden="true">
+            <span class="ph-no">05</span>
+            <span class="ph-of">共 08 篇</span>
+            <span class="ph-yr">2026</span>
+        </div>
+        <div class="ph-inner">
+        <p class="ph-cat"><a href="/categories/crypto/">Crypto</a>
+        </p>
+        <h1 class="ph-title rise">RSA共私钥d攻击</h1>
+        <div class="ph-meta rise" style="--d:140ms">
+            <time datetime="2026-03-09">2026.03.09</time>
+            <span>2 分钟</span>
+            <span>662 字</span>
+            <button type="button" data-copy-link data-copy-value="https://p3r0x.github.io/p/rsa-common-private-exponent/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>复制链接
+            </button>
+        </div>
+        </div>
+        </div>
+    </header><div class="post-cols">
+        <aside class="post-side">
+            <span class="side-label">目录</span>
+            <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#攻击原理">攻击原理</a></li>
+    <li><a href="#题">题</a></li>
+  </ul>
+</nav></nav>
+        </aside>
+
+        <div class="post-body">
+            <details class="toc-m">
+                <summary><span>目录</span><em>2 节</em></summary>
+                <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContentsM">
+  <ul>
+    <li><a href="#攻击原理">攻击原理</a></li>
+    <li><a href="#题">题</a></li>
+  </ul>
+</nav></nav>
+            </details>
+
+            <div class="prose"><h2 id="攻击原理">攻击原理<a class="anchor" href="#%e6%94%bb%e5%87%bb%e5%8e%9f%e7%90%86" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p>原文：<a href="https://www.ijcsi.org/papers/IJCSI-9-2-1-311-314.pdf">IJCSI-9-2-1-311-314.pdf</a></p>
+<p>不深究数学原理</p>
+<p>对于RSA给出的r个式子满足：
+</p>
+$$
+\begin{align*}
+e_1 d &= 1 + k_1 \phi(N_1) \\
+e_2 d &= 1 + k_2 \phi(N_2) \\
+&\ \vdots \\
+e_r d &= 1 + k_r \phi(N_r)
+\end{align*}
+$$<p>
+私钥指数d相同，模数N大小相似，且满足
+</p>
+$$
+N_1 < N_2 < N_3 < .... < Nr < 2N_1
+$$<p>$ϕ(N_r)=N_i−s_i$,
+</p>
+$$
+在 RSA 中，模数N=pq，欧拉函数
+\varphi(N) = (p-1)(q-1) = pq - p - q + 1 = N - (p+q) + 1
+\\
+令 s = p + q - 1，那么
+\varphi(N) = N - s
+$$<p>
+在攻击中，$ϕ(N_r)$未知，所以可以将其转换成N-s，
+</p>
+$$
+所以e_i d = 1 + k_i \varphi(N_i)\\
+就变成了
+e_i d = 1 + k_i (N_i - s_i) \quad\Rightarrow\quad e_i d - N_i k_i = 1 - k_i s_i
+$$<p>
+令$M=\sqrt{N_r}$这样就可以根据这个方程构造格：
+</p>
+$$
+dM=dM\\
+e_1d-N_1k_1=1-k_1s_1\\
+e_2d-N_2k_2=1-k_2s_2\\
+...\\
+e_rd-N_rk_r=1-k_rs_r\\
+$$<p>
+构造过程：
+</p>
+$$
+d\begin{pmatrix} M \\ e_1 \\ e_2 \\ ... \\ e_r\end{pmatrix}+k_1\begin{pmatrix} 0 \\ -N_1 \\0 \\ ... \\ 0\end{pmatrix}+k_2\begin{pmatrix} 0 \\ 0 \\-N_2 \\ ... \\ 0\end{pmatrix}+...+k_r\begin{pmatrix} 0 \\ 0 \\0 \\ ... \\ -N_r\end{pmatrix}=\begin{pmatrix} dM \\ 1-k_1s_1 \\1-k_2s_2 \\ ... \\ 1-k_rs_r\end{pmatrix}
+$$<p>
+转置得到这个矩阵来进行LLL：
+</p>
+$$
+\begin{pmatrix}
+    M      &e_1       &e_2        & \dotsb &e_r        \\
+    0       & -N_1    & 0           & \dotsb & 0           \\
+    0       & 0       & -N_2    & \dotsb & 0           \\
+    \vdots  & \vdots  & \vdots      & \ddots & \vdots      \\
+    0       & 0       & 0           & \dotsb & -N_r
+\end{pmatrix}
+$$<h2 id="题">题<a class="anchor" href="#%e9%a2%98" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="mi">370</span><span class="p">,</span> <span class="mi">390</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">enc</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl">    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">e</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;e_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> =&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;n_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> =&#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;c_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> =&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">enc</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># e_0 = 37389635736858807810703086504264263440188928763651776502954117173983775626039037008534821321761858567723984257427640816113325770208734640385635663643682102780255726244659849205653007212192504491177021176624605722718152646889627480051142935241036578957272339153039961711802753021931124235464986935316295647379</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># n_0 = 87704526707772151782606625126900349506318713860335977395824997219721333991491994027303721441548488339412359519408127174109547119019245873976917916080340858937125736650376514406944094998893225164676363063781400756374403299951466867573215964360920244878373810391250391475087527409213204756990192602517961590163</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># c_0 = 78656123855003406993963573497876652287109947684890741747390020445306861422604130132525802389554149844489256622057009394678814584233565675702142297935509191018145970589418173328145004732595569847696022333024124469320873194195223535859964387627938665526123562969554622541694399263934496631337485091067073489148</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># e_1 = 28535169211141109871379321582501492434722235009040085167442370469971731780018594508141105234950857774463438226249819106596920677559656398153362076685288045484306156454558741088396794170762527953573082734587618137075161676392362016474076363311708889307420903699720319611668580377903356783222664068961626803615</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># n_1 = 134298877057487865189085342936485527664167450453080897084604607959501054859295769447683135156167266222961308751016451904929475702646252122360203167489936020076488657815646993920082535307414536854323149177250531362615850689341066360635074886835720438532107976530111551202845697404444502476862934946146194420313</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># c_1 = 3208711484494445700905074340207543865325589037128163311082565190422756093807236786011349707275838139469873445326457948489588753029946395247710197747538418278782966047404435385208682596795152082296050804126524129644617710791433973098499266439604632728957505961744280687343384601998774018570047292904007768763</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># e_2 = 27653153186459366670449283776658896188717513017934031993526241644501850206894800647711159987946276669184047769965182746812351757618147642060630769822810070480507035319320426666128599562714143342910248758055424582501972900763786232170145957578683616604737178839977216709381529813768748145393798635858691196687</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># n_2 = 82113192811251631639012300385672674439485256963081847790431181633372052788107703751257606763043873164706839243919206719171536710944060815484051324239120708906418093409305166299531826404505861042666985630956832163750255358332156122245372899824101210233079028706971698312018388678352739819636695333269309456613</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># c_2 = 79145689398302968140315554300835109898158799236562716569497147385375487041207363302776833573990584370222316102267792795080448018216133931915984139305260191001847394275311719986838969706049641052337337102739487620502723651258075501409442088938776353037366614208693030741599888985069155346722608948495955447606</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+<p>构造格
+</p>
+$$
+\begin{pmatrix}
+    M      & e_0        & e_1         & e_2        \\
+    0       & -n_0    & 0            & 0           \\
+    0       & 0           & -n_1   & 0           \\
+    0       & 0           & 0          &-n_2
+\end{pmatrix}
+$$<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">gmpy2</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">e_0</span> <span class="o">=</span> <span class="mi">37389635736858807810703086504264263440188928763651776502954117173983775626039037008534821321761858567723984257427640816113325770208734640385635663643682102780255726244659849205653007212192504491177021176624605722718152646889627480051142935241036578957272339153039961711802753021931124235464986935316295647379</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_0</span> <span class="o">=</span> <span class="mi">87704526707772151782606625126900349506318713860335977395824997219721333991491994027303721441548488339412359519408127174109547119019245873976917916080340858937125736650376514406944094998893225164676363063781400756374403299951466867573215964360920244878373810391250391475087527409213204756990192602517961590163</span>
+</span></span><span class="line"><span class="cl"><span class="n">c_0</span> <span class="o">=</span> <span class="mi">78656123855003406993963573497876652287109947684890741747390020445306861422604130132525802389554149844489256622057009394678814584233565675702142297935509191018145970589418173328145004732595569847696022333024124469320873194195223535859964387627938665526123562969554622541694399263934496631337485091067073489148</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e_1</span> <span class="o">=</span> <span class="mi">28535169211141109871379321582501492434722235009040085167442370469971731780018594508141105234950857774463438226249819106596920677559656398153362076685288045484306156454558741088396794170762527953573082734587618137075161676392362016474076363311708889307420903699720319611668580377903356783222664068961626803615</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_1</span> <span class="o">=</span> <span class="mi">134298877057487865189085342936485527664167450453080897084604607959501054859295769447683135156167266222961308751016451904929475702646252122360203167489936020076488657815646993920082535307414536854323149177250531362615850689341066360635074886835720438532107976530111551202845697404444502476862934946146194420313</span>
+</span></span><span class="line"><span class="cl"><span class="n">c_1</span> <span class="o">=</span> <span class="mi">3208711484494445700905074340207543865325589037128163311082565190422756093807236786011349707275838139469873445326457948489588753029946395247710197747538418278782966047404435385208682596795152082296050804126524129644617710791433973098499266439604632728957505961744280687343384601998774018570047292904007768763</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e_2</span> <span class="o">=</span> <span class="mi">27653153186459366670449283776658896188717513017934031993526241644501850206894800647711159987946276669184047769965182746812351757618147642060630769822810070480507035319320426666128599562714143342910248758055424582501972900763786232170145957578683616604737178839977216709381529813768748145393798635858691196687</span>
+</span></span><span class="line"><span class="cl"><span class="n">n_2</span> <span class="o">=</span> <span class="mi">82113192811251631639012300385672674439485256963081847790431181633372052788107703751257606763043873164706839243919206719171536710944060815484051324239120708906418093409305166299531826404505861042666985630956832163750255358332156122245372899824101210233079028706971698312018388678352739819636695333269309456613</span>
+</span></span><span class="line"><span class="cl"><span class="n">c_2</span> <span class="o">=</span> <span class="mi">79145689398302968140315554300835109898158799236562716569497147385375487041207363302776833573990584370222316102267792795080448018216133931915984139305260191001847394275311719986838969706049641052337337102739487620502723651258075501409442088938776353037366614208693030741599888985069155346722608948495955447606</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span><span class="p">,</span><span class="n">exact</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">iroot</span><span class="p">(</span><span class="n">n_2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">M</span><span class="o">=</span><span class="n">ZZ</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">L</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="n">M</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="n">e_0</span><span class="p">,</span><span class="o">-</span><span class="n">n_0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="n">e_1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">n_1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="n">e_2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">n_2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">LLL</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">Md</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">LLL</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>        
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="n">Md</span><span class="o">//</span><span class="n">M</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">c_0</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n_0</span><span class="p">)))</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+</div>
+
+            <section class="comments" id="comments" data-repo="p3r0x/p3r0x.github.io">
+        <h2 class="comments-head">评论</h2>
+        <div class="giscus"></div><noscript><p class="comments-fallback">需要启用 JavaScript 才能加载评论。也可以到 <a href="https://github.com/p3r0x/p3r0x.github.io/discussions" rel="noopener" target="_blank">GitHub Discussions</a> 参与讨论。</p></noscript>
+        <script src="https://giscus.app/client.js"
+            data-repo="p3r0x/p3r0x.github.io"
+            data-repo-id="R_kgDOQxf5tg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOQxf5ts4C0f3D"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_dimmed"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
+    </section>
+
+        </div>
+    </div>
+
+    <nav class="pn" aria-label="上下篇导航">
+        <a class="pn-cell" href="/p/lattice-notes-03/">
+            <span class="pn-k">← 上一篇</span>
+            <span class="pn-t">格密码学习笔记：对偶格</span>
+        </a>
+        <a class="pn-cell pn-cell--next" href="/p/cryptohack-lwe-wp/">
+            <span class="pn-k">下一篇 →</span>
+            <span class="pn-t">CryptoHack LWE 题解</span>
+        </a>
+    </nav>
+    <section class="related">
+        <header class="sec-head"><h2>相关文章</h2></header>
+        <div class="related-list">
+            <a class="related-row" href="/p/jacobian-coordinates-ecc/">
+                <time datetime="2026-05-19">2026.05.19</time>
+                <span>Jacobian 雅可比坐标（ECC）</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/weil-pairing/">
+                <time datetime="2026-04-17">2026.04.17</time>
+                <span>双线性映射与 Weil Pairing</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/lattice-notes-03/">
+                <time datetime="2026-01-14">2026.01.14</time>
+                <span>格密码学习笔记：对偶格</span>
+                <em>Crypto</em>
+            </a>
+        </div>
+    </section>
+</div>
+
+    </main><footer class="foot">
+    <div class="foot-in">
+        <nav class="foot-nav" aria-label="页脚导航">
+            <a href="/archives/">归档</a>
+            <a href="/categories/">分类</a>
+            <a href="/links/">友链</a>
+            <a href="/search/">搜索</a>
+        </nav><a class="foot-mark" href="/" aria-label="Perox">Perox</a>
+    </div>
+
+    <div class="foot-end">
+        <span>© 2026 Perox</span>
+        <span>8 篇文章 · 更新于 2026.05.19</span>
+    </div>
+</footer>
+
+</div><div class="palette" id="palette" hidden>
+    <div class="palette-veil" data-palette-close></div>
+    <div class="palette-panel" role="dialog" aria-modal="true" aria-labelledby="palette-input">
+        <div class="palette-head">
+            <span class="palette-mark" aria-hidden="true">⌘K</span>
+            <input class="palette-input" id="palette-input" type="text" placeholder="搜索文章" autocomplete="off" spellcheck="false" aria-label="搜索文章">
+            <button class="palette-close" type="button" data-palette-close>Esc</button>
+        </div>
+        <ul class="palette-list" id="palette-list" role="listbox" aria-label="搜索结果"></ul>
+        <p class="palette-empty" hidden>没有找到匹配的文章</p>
+        <div class="palette-foot">
+            <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+            <span><kbd>↵</kbd> 打开</span>
+            <span><kbd>Esc</kbd> 关闭</span>
+            <span class="palette-count" data-palette-count></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+<button class="to-top" type="button" data-to-top aria-label="回到顶部"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg></button>
+<script defer src="/js/site.min.5059e7781cfe64e6dbc19023c8869c4b222d811e62adf3edba823df9db17cc68.js" integrity="sha256-UFnneBz&#43;ZObbwZAjyIacSyItgR5irfPtuoI9&#43;dsXzGg=" crossorigin="anonymous"></script>
+<script defer src="/js/palette.min.10442b3f15773d076d801d1c6bcb00d2cb5f67274e568f77f3537309203c9c21.js" integrity="sha256-EEQrPxV3PQdtgB0ca8sA0stfZydOVo9381NzCSA8nCE=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        if (typeof renderMathInElement !== "function") return;
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist", "code-block", "highlight"]
+        });
+    });
+</script>
+
+</body>
+</html>

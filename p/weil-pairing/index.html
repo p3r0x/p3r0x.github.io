@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="no-js" data-theme="dark" data-search-url="/search/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+ 
+(function () {
+    var t = "dark";
+    try { t = localStorage.getItem("perox-theme") === "light" ? "light" : "dark"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
+})();
+ 
+(function () {
+    var d = document.documentElement;
+    d.className = d.className.replace("no-js", "js");
+    if (!d.hasAttribute("data-gate")) return;
+    var unlocked = false;
+    try { unlocked = sessionStorage.getItem("perox-gate") === "1"; } catch (e) {}
+    if (!unlocked) d.classList.add("gate-pending");
+})();
+</script><title>双线性映射与 Weil Pairing · Perox</title>
+<meta name="description" content="双线性映射的三条性质与 Weil 配对的定义：把椭圆曲线上的两点映到 F_{p²} 的 q 阶子群，并附一道配对题。">
+<meta name="author" content="Perox">
+<link rel="canonical" href="https://p3r0x.github.io/p/weil-pairing/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080808"><meta property="og:type" content="article">
+<meta property="og:title" content="双线性映射与 Weil Pairing">
+<meta property="og:description" content="双线性映射的三条性质与 Weil 配对的定义：把椭圆曲线上的两点映到 F_{p²} 的 q 阶子群，并附一道配对题。">
+<meta property="og:url" content="https://p3r0x.github.io/p/weil-pairing/">
+<meta property="og:site_name" content="Perox">
+<meta property="og:locale" content="zh_cn">
+<meta property="article:published_time" content="2026-04-17T19:37:01&#43;08:00">
+<meta property="article:modified_time" content="2026-04-17T19:37:01&#43;08:00"><meta property="article:section" content="Crypto">
+<meta property="og:image" content="https://p3r0x.github.io/og/weil-pairing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="双线性映射与 Weil Pairing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="双线性映射与 Weil Pairing">
+<meta name="twitter:description" content="双线性映射的三条性质与 Weil 配对的定义：把椭圆曲线上的两点映到 F_{p²} 的 q 阶子群，并附一道配对题。"><meta name="twitter:image" content="https://p3r0x.github.io/og/weil-pairing.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://p3r0x.github.io/p/weil-pairing/#article","@type":"BlogPosting","articleSection":"Crypto","author":{"@type":"Person","name":"Perox","url":"https://p3r0x.github.io/"},"dateModified":"2026-04-17T19:37:01+08:00","datePublished":"2026-04-17T19:37:01+08:00","description":"双线性映射的三条性质与 Weil 配对的定义：把椭圆曲线上的两点映到 F_{p²} 的 q 阶子群，并附一道配对题。","headline":"双线性映射与 Weil Pairing","image":["https://p3r0x.github.io/og/weil-pairing.png"],"inLanguage":"zh-cn","keywords":"Crypto","mainEntityOfPage":{"@id":"https://p3r0x.github.io/p/weil-pairing/","@type":"WebPage"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://p3r0x.github.io/og/default.png"},"name":"Perox"},"url":"https://p3r0x.github.io/p/weil-pairing/","wordCount":1483},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://p3r0x.github.io/","name":"首页","position":1},{"@type":"ListItem","item":"https://p3r0x.github.io/archives/","name":"档案","position":2},{"@type":"ListItem","item":"https://p3r0x.github.io/p/weil-pairing/","name":"双线性映射与 Weil Pairing","position":3}]}]}</script>
+<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+
+<link rel="stylesheet" href="/scss/style.min.64cbced3006ea36925f33e5302392391266c7b36fd7d6419127ad52ec6ccea39.css" integrity="sha256-ZMvO0wBuo2kl8z5TAjkjkSZsezb9fWQZEnrVLsbM6jk=" crossorigin="anonymous"><link rel="preload" href="/font/archivo-var.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+</head>
+<body class="k-page">
+<a class="skip" href="#main">跳到正文</a>
+<div class="progress" data-progress aria-hidden="true"></div>
+
+<div class="shell"><header class="topbar" data-topbar>
+    <div class="topbar-in">
+        <a class="wordmark" href="/">Perox</a>
+
+        <nav class="nav" aria-label="主导航">
+            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link is-active" href="/archives/" aria-current="page">归档</a>
+            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/links/">友链</a>
+        </nav>
+
+        <div class="topbar-tools">
+            <button class="tool-btn" type="button" data-palette-open aria-label="搜索文章" title="搜索（Ctrl 或 ⌘ + K）"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg></button>
+            <button class="tool-btn theme-btn" type="button" data-theme-toggle aria-label="切换深浅色" title="切换深浅色">
+                <span class="theme-dot" aria-hidden="true"></span>
+            </button>
+            <button class="tool-btn nav-btn" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel" aria-label="打开导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg></button>
+        </div>
+    </div>
+</header>
+
+<div class="navpanel" id="navpanel" aria-hidden="true">
+    <div class="navpanel-head">
+        <span class="wordmark">Perox</span>
+        <button class="tool-btn" type="button" data-nav-close aria-label="关闭导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>
+    </div>
+    <nav class="navpanel-links" aria-label="站点导航">
+        <a class="" href="/">首页<em></em></a>
+        <a class="is-active" href="/archives/">归档<em>当前</em></a>
+        <a class="" href="/categories/">分类<em></em></a>
+        <a class="" href="/links/">友链<em></em></a>
+        <a href="/search/">搜索<em></em></a>
+    </nav>
+    <div class="navpanel-foot">
+        <span>密码学 / CTF / 数学</span>
+        <span>2026.10.30</span>
+    </div>
+</div>
+
+    <main id="main"><div class="wrap">
+    <header class="ph">
+        <div class="ph-grid"><div class="ph-side" aria-hidden="true">
+            <span class="ph-no">07</span>
+            <span class="ph-of">共 08 篇</span>
+            <span class="ph-yr">2026</span>
+        </div>
+        <div class="ph-inner">
+        <p class="ph-cat"><a href="/categories/crypto/">Crypto</a>
+        </p>
+        <h1 class="ph-title rise">双线性映射与 Weil Pairing</h1>
+        <div class="ph-meta rise" style="--d:140ms">
+            <time datetime="2026-04-17">2026.04.17</time>
+            <span>3 分钟</span>
+            <span>1483 字</span>
+            <button type="button" data-copy-link data-copy-value="https://p3r0x.github.io/p/weil-pairing/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>复制链接
+            </button>
+        </div>
+        </div>
+        </div>
+    </header><div class="post-cols">
+        <aside class="post-side">
+            <span class="side-label">目录</span>
+            <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#定义">定义</a></li>
+    <li><a href="#线性映射">线性映射</a></li>
+    <li><a href="#weil配对">weil配对</a>
+      <ul>
+        <li><a href="#定义-1">定义</a></li>
+      </ul>
+    </li>
+    <li><a href="#题">题</a></li>
+  </ul>
+</nav></nav>
+        </aside>
+
+        <div class="post-body">
+            <details class="toc-m">
+                <summary><span>目录</span><em>5 节</em></summary>
+                <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContentsM">
+  <ul>
+    <li><a href="#定义">定义</a></li>
+    <li><a href="#线性映射">线性映射</a></li>
+    <li><a href="#weil配对">weil配对</a>
+      <ul>
+        <li><a href="#定义-1">定义</a></li>
+      </ul>
+    </li>
+    <li><a href="#题">题</a></li>
+  </ul>
+</nav></nav>
+            </details>
+
+            <div class="prose"><h2 id="定义">定义<a class="anchor" href="#%e5%ae%9a%e4%b9%89" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p>$G_1,G_2为两个q阶循环群，G_1是F_p椭圆曲线上的点群，G_2是F_{p^2}^*的子群，所以$定义了$f:G_1 ×G_2→G_T$，其中$G_1和G_2$为加法群，$G_T$为乘法群</p>
+<p>有$g_1∈G_1,g_2∈G_2,a,b∈Z$，满足：</p>
+<ol>
+<li>
+<p>双线性性：$e(a*g_1,b*g_2)=e(g_1,g_2)^{ab}$​</p>
+<p>或者定义为：$e(P,Q+R)=e(P,Q)*e(P,R) \\ e(P+S,Q)=e(P,Q)*e(S,Q)$</p>
+</li>
+<li>
+<p>非退化性：满足$e(g_1,g_2)≠e_{G_T}$，$e_{G_T}$代表 $G_T$的单位元</p>
+</li>
+<li>
+<p>可计算性：存在有效算法$e(g_1,g_2)$​</p>
+</li>
+</ol>
+<h2 id="线性映射">线性映射<a class="anchor" href="#%e7%ba%bf%e6%80%a7%e6%98%a0%e5%b0%84" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p>线性映射如:
+</p>
+$$
+f(x+y)=f(x)+f(y)\\
+f(ax)=af(x)
+$$<p>对两个变量，分别单独看都是线性的，合在一起就叫双线性</p>
+<p>如果有变量<strong>x,y</strong>，函数<strong>F(x,y)</strong>：</p>
+<ul>
+<li><strong>固定x,变化y</strong>：函数对y是线性的</li>
+<li><strong>固定y,变化x</strong>：函数对x是线性的</li>
+</ul>
+<h2 id="weil配对">weil配对<a class="anchor" href="#weil%e9%85%8d%e5%af%b9" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p><strong>Weil对可将椭圆曲线的挠群上的两个点，映射到一个特殊有限域的乘法子群上，借此可将椭圆曲线离散对数问题（ECDLP）投射到一般的离散对数问题（DLP）</strong></p>
+<p><strong>$n$-torsion点</strong>：如果一个点$P$被“加自己”若干次以后会回到单位元 $\mathcal O$，那它就是torsion点，表现为$nP=\mathcal O$</p>
+<p><strong>$E[n]$</strong>：所有满足$nP=\mathcal O$的点放在一起，形成一个子群，记作$E[n]$</p>
+<p><strong>单位根</strong>：满足$\zeta^n=1$的数叫$n$次单位根，比如复数里$1,-1,i,-i$ 是4次单位根</p>
+<p><strong>除子</strong>：记录函数在哪些点有零、哪些点有极点，以及它们各自重复多少次，记作$\operatorname{div}(f)=n(P)-n(\mathcal O)$，表示在$P$有$n$重零点，在$\mathcal O$有$n$重极点：
+</p>
+$$
+设有理函数f(X) = \frac{a_0 + a_1 X + \cdots + a_n X^n}{b_0 + b_1 X + \cdots + b_m X^m}\\
+在复数范围内进行因子分解：f(X) = \frac{a(X - \alpha_1)^{e_1} (X - \alpha_2)^{e_2} \cdots (X - \alpha_r)^{e_r}}
+{b(X - \beta_1)^{d_1} (X - \beta_2)^{d_2} \cdots (X - \beta_s)^{d_s}}\\
+$$<p>
+可写作：
+$$
+\operatorname{div}(f(X)) \triangleq e_1[\alpha_1] + e_2[\alpha_2] + \cdots + e_r[\alpha_r]</p>
+<ul>
+<li>d_1[\beta_1] - d_2[\beta_2] - \cdots - d_s[\beta_s]
+$$
+表示$e_1$个$$\alpha_1$$零点&hellip;在$d_1$有$\beta_1$个极点&hellip;</li>
+</ul>
+<h3 id="定义-1">定义<a class="anchor" href="#%e5%ae%9a%e4%b9%89-1" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<p>设$P,Q \in E[n]$，选择函数$f_P,f_Q$，满足
+</p>
+$$
+\operatorname{div}(f_P) = n(P) - n(\mathcal O)\\
+\operatorname{div}(f_Q) = n(Q) - n(\mathcal O)
+$$<p>
+可定义为：
+</p>
+$$
+e_n(P,Q) =
+\frac{f_P(Q+S)}{f_P(S)}
+\bigg/
+\frac{f_Q(P-S)}{f_Q(-S)}.
+$$<p>S为辅助点，为E中任意元素，且满足$S \notin \{\mathcal{O}, P,-Q,P,-Q\}\,$</p>
+<p>只要输入的两个点P和Q都是n-torsion点，配对的输出$e_n(P,Q)$满足所有$x^n=1$的集合</p>
+<h2 id="题">题<a class="anchor" href="#%e9%a2%98" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p>红名谷2025</p>
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">pad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="n">numbers</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272555731</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556223</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556437</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556749</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557237</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557459</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557687</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558627</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559523</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559787</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560169</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560343</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560433</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560751</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560969</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272561441</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562103</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562601</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563261</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563297</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563391</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563511</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563711</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pp</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">E</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">qwq</span> <span class="o">=</span> <span class="mh">0x320238b</span>
+</span></span><span class="line"><span class="cl"><span class="n">qaq</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">order</span><span class="p">()</span><span class="o">//</span><span class="n">qwq</span><span class="o">**</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">&#34;flag.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;rb&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag_part</span> <span class="o">=</span> <span class="p">[</span><span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">flag</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">flag_part</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">P1</span> <span class="o">=</span> <span class="n">qaq</span><span class="o">*</span><span class="n">E</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">P2</span> <span class="o">=</span> <span class="n">qaq</span><span class="o">*</span><span class="n">E</span><span class="o">.</span><span class="n">random_element</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">=</span> <span class="n">P1</span><span class="o">.</span><span class="n">weil_pairing</span><span class="p">(</span><span class="n">P2</span><span class="p">,</span> <span class="n">qwq</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">c</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">qaq</span><span class="p">,</span> <span class="n">pp</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+<p>E的阶为qaq*qwq^2^,因为flag_part的每个元素为两个字节，也就是16bit，所以表示的范围为（0，$2^{16}$）</p>
+<div class="code-shell">
+    <span class="code-lang">pytho</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    P1 = qaq*E.random_element()
+</span></span><span class="line"><span class="cl">    P2 = qaq*E.random_element()</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+<p>这两行代码将p1和p2投影到了qwq^2^阶子群，然后对这两个点进行weil配对，所以输出结果应该为qwq次单位根：
+</p>
+$$
+e_{qwq}(p_1,p_2)^{qwq}=1
+$$<p>
+所以$output=(e_{qwq}(p_1,p_2)^3*c)^{qaq} \ mod \ pp$</p>
+<p>两边qwq次幂得到$output^{qwq}=c^{qwq*qaq}$</p>
+<div class="code-shell">
+    <span class="code-lang">python</span>
+    <div class="code-block">
+        <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272555731</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556223</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556437</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272556749</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557237</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557459</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272557687</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272558627</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559239</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559523</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272559787</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560169</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560343</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560433</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560751</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272560969</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272561441</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562103</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272562601</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563261</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563297</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563391</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563511</span><span class="p">,</span> <span class="mi">4002409555221667393417789825735904156556882819939007885332058136124031650490837864442687629129015664037894272563711</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">pp</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">GF</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">E</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">qwq</span> <span class="o">=</span> <span class="mh">0x320238b</span>
+</span></span><span class="line"><span class="cl"><span class="n">qaq</span> <span class="o">=</span> <span class="n">E</span><span class="o">.</span><span class="n">order</span><span class="p">()</span><span class="o">//</span><span class="n">qwq</span><span class="o">**</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2258729984869869545899085887518820011795880892632317458813070773270633871398785757696896679887453336507722151037267</span><span class="p">,</span> <span class="mi">1843407310728065127389586068976768146728145160643439144895915852634291722663455873979176336542780552480617232750208</span><span class="p">,</span> <span class="mi">1107061034832953338095294459542523703297843192927313275050958753437078121375795698115353665062727895555487155331316</span><span class="p">,</span> <span class="mi">460337686287218470707660572908024613140030922587867288532588857547792028112129697850035268228038619747643899804437</span><span class="p">,</span> <span class="mi">1659483062154723617504533638726171721668768657049197025961515070605996080663312140357834824850074607457421362000265</span><span class="p">,</span> <span class="mi">3150528329201636320206556304125544975332446992414777732425647667048147102509308959254762895094589762017857965981432</span><span class="p">,</span> <span class="mi">3338854035461286314545186888372727000962778038359519702308782495912356677650264814573463929190025956045491115654437</span><span class="p">,</span> <span class="mi">3042574495339632074308497406446851120362994432361876743901608172567070991832258762751304397604780567703759317642849</span><span class="p">,</span> <span class="mi">380771388315580393673388198522357440257018642337119013880143084485482127962577943753495690258532782147018511750175</span><span class="p">,</span> <span class="mi">507222017133457507399048159541059729302482262298099528096040456818913085187752925782279385808732260473494863290057</span><span class="p">,</span> <span class="mi">533663958640518878580794848474449572155795564171089765377581587253792204491009275840408579120376539757958097910250</span><span class="p">,</span> <span class="mi">2681145160205204287930367627648683111546318004811732016137828270063753300095675791698398080219566725174890793619305</span><span class="p">,</span> <span class="mi">3259478178021541801713314504097142165241891541242669456591074651894459393333167453811425864198267757724232689747676</span><span class="p">,</span> <span class="mi">3553147298452254907907643059383506744982654808021508866104139240155822133286673657139615950259800036058045049186173</span><span class="p">,</span> <span class="mi">1778776925369812510137824472396145391840300438509021838870105004154301861222612045533034046889878767915343446874895</span><span class="p">,</span> <span class="mi">3409071358092535255033136229525415652816479844958949032220987821989305575696869929136493897719813036034016228268240</span><span class="p">,</span> <span class="mi">571819148781137687997336847709735468532344087614483867682513640750800758034003212746545051127998686475933050072942</span><span class="p">,</span> <span class="mi">2676666310158795770609746651024766841212271213339384335651155407291004834251914242990757216402110096603729617413168</span><span class="p">,</span> <span class="mi">2557670339976470006330058052583841683167706755578266425502679937976714609864257535859316483527764340425703004883241</span><span class="p">,</span> <span class="mi">973319024062640263364951783086923560907216776835485042157036675663719529568519121997200478026304141184810597275543</span><span class="p">,</span> <span class="mi">1189768012357955450386827626693191057999220508190415783719135619271537446794904663649700073564180453068646130539863</span><span class="p">,</span> <span class="mi">790522915783756530835443034667719516913120763875831140857606265058871034793645280121113275798239222760522467771184</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag_part</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">qwq</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">65537</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">pow</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="n">qaq</span><span class="o">*</span><span class="n">qwq</span><span class="p">,</span><span class="n">p</span><span class="p">)</span> <span class="o">==</span> <span class="n">flag_part</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">flag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">long_to_bytes</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+</div>
+</div>
+
+            <section class="comments" id="comments" data-repo="p3r0x/p3r0x.github.io">
+        <h2 class="comments-head">评论</h2>
+        <div class="giscus"></div><noscript><p class="comments-fallback">需要启用 JavaScript 才能加载评论。也可以到 <a href="https://github.com/p3r0x/p3r0x.github.io/discussions" rel="noopener" target="_blank">GitHub Discussions</a> 参与讨论。</p></noscript>
+        <script src="https://giscus.app/client.js"
+            data-repo="p3r0x/p3r0x.github.io"
+            data-repo-id="R_kgDOQxf5tg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOQxf5ts4C0f3D"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_dimmed"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
+    </section>
+
+        </div>
+    </div>
+
+    <nav class="pn" aria-label="上下篇导航">
+        <a class="pn-cell" href="/p/cryptohack-lwe-wp/">
+            <span class="pn-k">← 上一篇</span>
+            <span class="pn-t">CryptoHack LWE 题解</span>
+        </a>
+        <a class="pn-cell pn-cell--next" href="/p/jacobian-coordinates-ecc/">
+            <span class="pn-k">下一篇 →</span>
+            <span class="pn-t">Jacobian 雅可比坐标（ECC）</span>
+        </a>
+    </nav>
+    <section class="related">
+        <header class="sec-head"><h2>相关文章</h2></header>
+        <div class="related-list">
+            <a class="related-row" href="/p/jacobian-coordinates-ecc/">
+                <time datetime="2026-05-19">2026.05.19</time>
+                <span>Jacobian 雅可比坐标（ECC）</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/rsa-common-private-exponent/">
+                <time datetime="2026-03-09">2026.03.09</time>
+                <span>RSA共私钥d攻击</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/lattice-notes-03/">
+                <time datetime="2026-01-14">2026.01.14</time>
+                <span>格密码学习笔记：对偶格</span>
+                <em>Crypto</em>
+            </a>
+        </div>
+    </section>
+</div>
+
+    </main><footer class="foot">
+    <div class="foot-in">
+        <nav class="foot-nav" aria-label="页脚导航">
+            <a href="/archives/">归档</a>
+            <a href="/categories/">分类</a>
+            <a href="/links/">友链</a>
+            <a href="/search/">搜索</a>
+        </nav><a class="foot-mark" href="/" aria-label="Perox">Perox</a>
+    </div>
+
+    <div class="foot-end">
+        <span>© 2026 Perox</span>
+        <span>8 篇文章 · 更新于 2026.05.19</span>
+    </div>
+</footer>
+
+</div><div class="palette" id="palette" hidden>
+    <div class="palette-veil" data-palette-close></div>
+    <div class="palette-panel" role="dialog" aria-modal="true" aria-labelledby="palette-input">
+        <div class="palette-head">
+            <span class="palette-mark" aria-hidden="true">⌘K</span>
+            <input class="palette-input" id="palette-input" type="text" placeholder="搜索文章" autocomplete="off" spellcheck="false" aria-label="搜索文章">
+            <button class="palette-close" type="button" data-palette-close>Esc</button>
+        </div>
+        <ul class="palette-list" id="palette-list" role="listbox" aria-label="搜索结果"></ul>
+        <p class="palette-empty" hidden>没有找到匹配的文章</p>
+        <div class="palette-foot">
+            <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+            <span><kbd>↵</kbd> 打开</span>
+            <span><kbd>Esc</kbd> 关闭</span>
+            <span class="palette-count" data-palette-count></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+<button class="to-top" type="button" data-to-top aria-label="回到顶部"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg></button>
+<script defer src="/js/site.min.5059e7781cfe64e6dbc19023c8869c4b222d811e62adf3edba823df9db17cc68.js" integrity="sha256-UFnneBz&#43;ZObbwZAjyIacSyItgR5irfPtuoI9&#43;dsXzGg=" crossorigin="anonymous"></script>
+<script defer src="/js/palette.min.10442b3f15773d076d801d1c6bcb00d2cb5f67274e568f77f3537309203c9c21.js" integrity="sha256-EEQrPxV3PQdtgB0ca8sA0stfZydOVo9381NzCSA8nCE=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        if (typeof renderMathInElement !== "function") return;
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist", "code-block", "highlight"]
+        });
+    });
+</script>
+
+</body>
+</html>

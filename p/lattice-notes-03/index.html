@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="no-js" data-theme="dark" data-search-url="/search/">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+ 
+(function () {
+    var t = "dark";
+    try { t = localStorage.getItem("perox-theme") === "light" ? "light" : "dark"; } catch (e) {}
+    document.documentElement.setAttribute("data-theme", t);
+})();
+ 
+(function () {
+    var d = document.documentElement;
+    d.className = d.className.replace("no-js", "js");
+    if (!d.hasAttribute("data-gate")) return;
+    var unlocked = false;
+    try { unlocked = sessionStorage.getItem("perox-gate") === "1"; } catch (e) {}
+    if (!unlocked) d.classList.add("gate-pending");
+})();
+</script><title>格密码学习笔记：对偶格 · Perox</title>
+<meta name="description" content="对偶格：定义、对偶基、行列式与最短向量的七条性质，Korkine-Zolotarev 基，以及非满秩格的处理方式。">
+<meta name="author" content="Perox">
+<link rel="canonical" href="https://p3r0x.github.io/p/lattice-notes-03/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#080808"><meta property="og:type" content="article">
+<meta property="og:title" content="格密码学习笔记：对偶格">
+<meta property="og:description" content="对偶格：定义、对偶基、行列式与最短向量的七条性质，Korkine-Zolotarev 基，以及非满秩格的处理方式。">
+<meta property="og:url" content="https://p3r0x.github.io/p/lattice-notes-03/">
+<meta property="og:site_name" content="Perox">
+<meta property="og:locale" content="zh_cn">
+<meta property="article:published_time" content="2026-01-14T15:30:32&#43;08:00">
+<meta property="article:modified_time" content="2026-01-14T15:30:32&#43;08:00"><meta property="article:section" content="Crypto">
+<meta property="og:image" content="https://p3r0x.github.io/og/lattice-notes-03.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="格密码学习笔记：对偶格">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="格密码学习笔记：对偶格">
+<meta name="twitter:description" content="对偶格：定义、对偶基、行列式与最短向量的七条性质，Korkine-Zolotarev 基，以及非满秩格的处理方式。"><meta name="twitter:image" content="https://p3r0x.github.io/og/lattice-notes-03.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@id":"https://p3r0x.github.io/p/lattice-notes-03/#article","@type":"BlogPosting","articleSection":"Crypto","author":{"@type":"Person","name":"Perox","url":"https://p3r0x.github.io/"},"dateModified":"2026-01-14T15:30:32+08:00","datePublished":"2026-01-14T15:30:32+08:00","description":"对偶格：定义、对偶基、行列式与最短向量的七条性质，Korkine-Zolotarev 基，以及非满秩格的处理方式。","headline":"格密码学习笔记：对偶格","image":["https://p3r0x.github.io/og/lattice-notes-03.png"],"inLanguage":"zh-cn","keywords":"Crypto","mainEntityOfPage":{"@id":"https://p3r0x.github.io/p/lattice-notes-03/","@type":"WebPage"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://p3r0x.github.io/og/default.png"},"name":"Perox"},"url":"https://p3r0x.github.io/p/lattice-notes-03/","wordCount":1579},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://p3r0x.github.io/","name":"首页","position":1},{"@type":"ListItem","item":"https://p3r0x.github.io/archives/","name":"档案","position":2},{"@type":"ListItem","item":"https://p3r0x.github.io/p/lattice-notes-03/","name":"格密码学习笔记：对偶格","position":3}]}]}</script>
+<link rel="icon" href="/icon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+
+<link rel="stylesheet" href="/scss/style.min.64cbced3006ea36925f33e5302392391266c7b36fd7d6419127ad52ec6ccea39.css" integrity="sha256-ZMvO0wBuo2kl8z5TAjkjkSZsezb9fWQZEnrVLsbM6jk=" crossorigin="anonymous"><link rel="preload" href="/font/archivo-var.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+</head>
+<body class="k-page">
+<a class="skip" href="#main">跳到正文</a>
+<div class="progress" data-progress aria-hidden="true"></div>
+
+<div class="shell"><header class="topbar" data-topbar>
+    <div class="topbar-in">
+        <a class="wordmark" href="/">Perox</a>
+
+        <nav class="nav" aria-label="主导航">
+            <a class="nav-link" href="/">首页</a>
+            <a class="nav-link is-active" href="/archives/" aria-current="page">归档</a>
+            <a class="nav-link" href="/categories/">分类</a>
+            <a class="nav-link" href="/links/">友链</a>
+        </nav>
+
+        <div class="topbar-tools">
+            <button class="tool-btn" type="button" data-palette-open aria-label="搜索文章" title="搜索（Ctrl 或 ⌘ + K）"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.2" y2="16.2"></line></svg></button>
+            <button class="tool-btn theme-btn" type="button" data-theme-toggle aria-label="切换深浅色" title="切换深浅色">
+                <span class="theme-dot" aria-hidden="true"></span>
+            </button>
+            <button class="tool-btn nav-btn" type="button" data-nav-toggle aria-expanded="false" aria-controls="navpanel" aria-label="打开导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="15" y2="17"></line></svg></button>
+        </div>
+    </div>
+</header>
+
+<div class="navpanel" id="navpanel" aria-hidden="true">
+    <div class="navpanel-head">
+        <span class="wordmark">Perox</span>
+        <button class="tool-btn" type="button" data-nav-close aria-label="关闭导航"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>
+    </div>
+    <nav class="navpanel-links" aria-label="站点导航">
+        <a class="" href="/">首页<em></em></a>
+        <a class="is-active" href="/archives/">归档<em>当前</em></a>
+        <a class="" href="/categories/">分类<em></em></a>
+        <a class="" href="/links/">友链<em></em></a>
+        <a href="/search/">搜索<em></em></a>
+    </nav>
+    <div class="navpanel-foot">
+        <span>密码学 / CTF / 数学</span>
+        <span>2026.10.30</span>
+    </div>
+</div>
+
+    <main id="main"><div class="wrap">
+    <header class="ph">
+        <div class="ph-grid"><div class="ph-side" aria-hidden="true">
+            <span class="ph-no">04</span>
+            <span class="ph-of">共 08 篇</span>
+            <span class="ph-yr">2026</span>
+        </div>
+        <div class="ph-inner">
+        <p class="ph-cat"><a href="/categories/crypto/">Crypto</a>
+        </p>
+        <h1 class="ph-title rise">格密码学习笔记：对偶格</h1>
+        <div class="ph-meta rise" style="--d:140ms">
+            <time datetime="2026-01-14">2026.01.14</time>
+            <span>4 分钟</span>
+            <span>1579 字</span>
+            <button type="button" data-copy-link data-copy-value="https://p3r0x.github.io/p/lattice-notes-03/"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"></path><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"></path></svg>复制链接
+            </button>
+        </div>
+        </div>
+        </div>
+    </header><div class="post-cols">
+        <aside class="post-side">
+            <span class="side-label">目录</span>
+            <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#对偶格">对偶格</a>
+      <ul>
+        <li><a href="#定义">定义</a></li>
+        <li><a href="#对偶基">对偶基</a>
+          <ul>
+            <li><a href="#定义-1">定义</a></li>
+          </ul>
+        </li>
+        <li><a href="#对偶格的性质">对偶格的性质</a>
+          <ul>
+            <li><a href="#定理1">定理1</a></li>
+            <li><a href="#定理2">定理2</a></li>
+            <li><a href="#定理3">定理3</a></li>
+            <li><a href="#证明过程">证明过程</a></li>
+            <li><a href="#定理4">定理4</a></li>
+            <li><a href="#定理5">定理5</a></li>
+            <li><a href="#定理6">定理6</a></li>
+            <li><a href="#定理7">定理7</a></li>
+          </ul>
+        </li>
+        <li><a href="#korkine-zolotarev-bases">Korkine-Zolotarev bases</a>
+          <ul>
+            <li><a href="#定义-2">定义</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></nav>
+        </aside>
+
+        <div class="post-body">
+            <nav class="series" aria-label="系列文章">
+                <p class="series-head"><span>系列</span><b>格密码学习笔记</b><em>共 3 篇</em></p>
+                <ol>
+                    <li>
+                        <a href="/p/lattice-notes-01/"><i>01</i><span>格密码学习笔记：基础定义</span></a>
+                    </li>
+                    <li>
+                        <a href="/p/lattice-notes-02/"><i>02</i><span>格密码学习笔记：LLL 算法</span></a>
+                    </li>
+                    <li class="is-current">
+                        <a href="/p/lattice-notes-03/"><i>03</i><span>格密码学习笔记：对偶格</span></a>
+                    </li>
+                </ol>
+            </nav>
+            <details class="toc-m">
+                <summary><span>目录</span><em>16 节</em></summary>
+                <nav class="toc-nav" aria-label="文章目录"><nav id="TableOfContentsM">
+  <ul>
+    <li><a href="#对偶格">对偶格</a>
+      <ul>
+        <li><a href="#定义">定义</a></li>
+        <li><a href="#对偶基">对偶基</a>
+          <ul>
+            <li><a href="#定义-1">定义</a></li>
+          </ul>
+        </li>
+        <li><a href="#对偶格的性质">对偶格的性质</a>
+          <ul>
+            <li><a href="#定理1">定理1</a></li>
+            <li><a href="#定理2">定理2</a></li>
+            <li><a href="#定理3">定理3</a></li>
+            <li><a href="#证明过程">证明过程</a></li>
+            <li><a href="#定理4">定理4</a></li>
+            <li><a href="#定理5">定理5</a></li>
+            <li><a href="#定理6">定理6</a></li>
+            <li><a href="#定理7">定理7</a></li>
+          </ul>
+        </li>
+        <li><a href="#korkine-zolotarev-bases">Korkine-Zolotarev bases</a>
+          <ul>
+            <li><a href="#定义-2">定义</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ul>
+</nav></nav>
+            </details>
+
+            <div class="prose"><h2 id="对偶格">对偶格<a class="anchor" href="#%e5%af%b9%e5%81%b6%e6%a0%bc" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<h3 id="定义">定义<a class="anchor" href="#%e5%ae%9a%e4%b9%89" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<p>对偶格也叫倒易格，对一个满秩格Λ，定义对偶格为：</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_15-38-02_hu_58467b039f2de69f.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_15-38-02_hu_58467b039f2de69f.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_15-38-02_hu_d89e7e87926f34c1.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="146" alt="满秩格的对偶格定义式" loading="lazy" decoding="async"></p>
+<p>只要y与对偶格的内积为整数就属于对偶格</p>
+<p>一般情况（非满秩）下，</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_15-44-47_hu_702795a67fe0144f.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_15-44-47_hu_702795a67fe0144f.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_15-44-47_hu_481e09e1235c262c.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="87" alt="非满秩格的对偶格定义" loading="lazy" decoding="async"></p>
+<p>span(Λ)是格的张成空间</p>
+<p>几何解释：</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_16-03-00_hu_487dcc74b4f53f6b.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_16-03-00_hu_487dcc74b4f53f6b.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_16-03-00_hu_5f60992eeefe8729.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="332" alt="对偶格的几何解释" loading="lazy" decoding="async"></p>
+<p>固定一个向量x，找出与向量x内积为整数的点，这些点都在同一个超平面（多维空间的平面）上，点之间的距离为1/||x||</p>
+<h3 id="对偶基">对偶基<a class="anchor" href="#%e5%af%b9%e5%81%b6%e5%9f%ba" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<h4 id="定义-1">定义<a class="anchor" href="#%e5%ae%9a%e4%b9%89-1" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_16-08-17_hu_5e812edf3be6e2ae.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_16-08-17_hu_5e812edf3be6e2ae.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_16-08-17_hu_88e516b323edfbe4.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="224" alt="对偶基的定义" loading="lazy" decoding="async"></p>
+<p>对于一个基B(b1,b2&hellip;.bn)，和它的对偶基D(d1,d2,&hellip;.dn)满足两个条件：</p>
+<ol>
+<li>张成空间相同</li>
+<li>B的转置矩阵和D的乘积为I，I就是单位矩阵E所以对角线为1其余为0，也就是&lt;bi,di&gt;=1,&lt;bi,dj&gt;=0</li>
+</ol>
+<p>D是唯一的，在满秩格的情况下，
+</p>
+$$
+D=(B^T)^{-1}
+$$<p>
+一般情况下：
+</p>
+$$
+D=B(B^TB)^{-1}
+$$<h3 id="对偶格的性质">对偶格的性质<a class="anchor" href="#%e5%af%b9%e5%81%b6%e6%a0%bc%e7%9a%84%e6%80%a7%e8%b4%a8" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<h4 id="定理1">定理1<a class="anchor" href="#%e5%ae%9a%e7%90%861" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>一个格的对偶格的基正好是这个格的基的对偶基</p>
+<p>如果D为B的对偶基，那么(L(B))^* =L(D)</p>
+<p>证明过程：</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_16-41-19_hu_c014f9b3a0ec60c1.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_16-41-19_hu_c014f9b3a0ec60c1.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_16-41-19_hu_127d8c505cffb340.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="188" alt="格的基与对偶基的对应关系" loading="lazy" decoding="async"></p>
+<h4 id="定理2">定理2<a class="anchor" href="#%e5%ae%9a%e7%90%862" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>给定一个格Λ，$(Λ^*)^*=Λ$，</p>
+<h4 id="定理3">定理3<a class="anchor" href="#%e5%ae%9a%e7%90%863" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>对偶格的行列式和原本格的行列式满足
+</p>
+$$
+det(Λ^*)=\frac{1}{det(Λ)}
+$$<h4 id="证明过程">证明过程<a class="anchor" href="#%e8%af%81%e6%98%8e%e8%bf%87%e7%a8%8b" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>对于满秩格来说：</p>
+<p>依靠线性代数：矩阵的逆的行列式等于矩阵的行列式的倒数，矩阵的转置的行列式等于矩阵的行列式</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_18-31-27_hu_121ffd08b30b187b.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_18-31-27_hu_121ffd08b30b187b.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_18-31-27_hu_625ab2eb78c6804a.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="88" alt="对偶格行列式等于原格行列式的倒数" loading="lazy" decoding="async"></p>
+<p>对非满秩格：</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_18-32-25_hu_c772dbfedc0829b1.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_18-32-25_hu_c772dbfedc0829b1.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_18-32-25_hu_b802cc296a93dab3.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="287" alt="非满秩格的对偶格行列式" loading="lazy" decoding="async"></p>
+<p>原来的格行列式（体积）越小，对偶格的行列式（体积）就越大，格密度就大，格的分布就越稀</p>
+<h4 id="定理4">定理4<a class="anchor" href="#%e5%ae%9a%e7%90%864" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>对任意秩为n的格Λ：
+</p>
+$$
+λ1(Λ)⋅λ1(Λ^∗)≤n
+$$<p>λ1(Λ)表示最短向量长度</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_18-50-49_hu_d12f6b7f6388e3dc.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_18-50-49_hu_d12f6b7f6388e3dc.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_18-50-49_hu_3f0ddac37cd1d53.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="174" alt="对偶格最短向量长度的估计" loading="lazy" decoding="async"></p>
+<p>上下两个相乘就可以得到这个式子</p>
+<h4 id="定理5">定理5<a class="anchor" href="#%e5%ae%9a%e7%90%865" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>对于任意秩为n的格Λ：
+</p>
+$$
+λ_1(Λ)⋅λ_n(Λ^∗)≥1
+$$<p>
+取原格中的最短向量v，使：
+</p>
+$$
+||v||= \lambda_1(Λ)
+$$<p>
+取对偶格Λ* 中的n给无关向量，x1,x2&hellip;.xn（Λ<em>为秩为n的格），它们不可能全部与v正交，因此存在某个i使得&lt;xi,v&gt;≠0，根据对偶格的定义&lt;xi,v&gt;∈Z，所以
+$$
+||xi||≥ \frac{1}{||v||}
+$$
+因为λn(Λ</em> )肯定&gt;||xi||，所以结果成立</p>
+<p>+++</p>
+<p>对一组基b1,b2&hellip;.bn，让πi投影到空间$span(b_1,…,b_{i−1})^⊥$，特别的，π1b1,π2b2,&hellip;..,πnbn，就是b1,b2,&hellip;,bn正交化后的结果</p>
+<p>⊥叫“正交补”表示与该子空间中的所有向量都正交的向量构成的集合</p>
+<p>+++</p>
+<h4 id="定理6">定理6<a class="anchor" href="#%e5%ae%9a%e7%90%866" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>设B，D为一组对偶基，B’=(πi(bi),&hellip;,πi(bn))和，D’=(di,&hellip;,dn)也是对偶基</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_20-24-49_hu_e0406f2963f33eb4.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_20-24-49_hu_e0406f2963f33eb4.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_20-24-49_hu_915b7c822892b229.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="156" alt="对偶基在正交补上的投影形式" loading="lazy" decoding="async"></p>
+<p>要证明B’和D’为对偶基，需要证明，span(B’)=span(D’)，和$B'^TD'=I$,等价于 ⟨bj,dk⟩=σ_ij</p>
+<p>因为dj与b1,&hellip;.,bn都正交，所以dj∈$span(b_1,…,b_{i−1})^⊥$，D’=(di,&hellip;,dn)，所以span(D’)=$span(b_1,…,b_{i−1})^⊥$</p>
+<p>因为πi(bk)是把bk投影到$span(b_1,…,b_{i−1})^⊥$，所以span(B’)=$span(b_1,…,b_{i−1})^⊥$，所以span(B’)=span(D’)</p>
+<h4 id="定理7">定理7<a class="anchor" href="#%e5%ae%9a%e7%90%867" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>设对偶格基为B,D，B=（b1,b2,&hellip;,bn），D=(d1,d2,&hellip;,dn)</p>
+<p>所以B正交化后=
+</p>
+$$
+\tilde{b}_1,....., \tilde{b}_n
+$$<p>
+D正交化=
+</p>
+$$
+\tilde{d}_1,....., \tilde{d}_n
+$$<p>
+长度满足：
+</p>
+$$
+\tilde{d}_i= \frac{\tilde{b_i}}{||\tilde{b_i}||^2}
+$$<p>
+证明采用对n的归纳法，假设对秩为n-1的格成立，来证明对秩为n的格成立：</p>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-14_21-30-16_hu_b38c795136309732.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-14_21-30-16_hu_b38c795136309732.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-14_21-30-16_hu_c160f6ffdcd06da4.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="202" alt="对偶基存在性的归纳证明" loading="lazy" decoding="async"></p>
+<h3 id="korkine-zolotarev-bases">Korkine-Zolotarev bases<a class="anchor" href="#korkine-zolotarev-bases" aria-hidden="true" tabindex="-1">§</a>
+</h3>
+<h4 id="定义-2">定义<a class="anchor" href="#%e5%ae%9a%e4%b9%89-2" aria-hidden="true" tabindex="-1">§</a>
+</h4>
+<p>对一个秩为n的格Λ，其KZ基b1,b2&hellip;..bn递归定义如下：</p>
+<ol>
+<li>
+<p>令b1为格Λ中的短向量</p>
+</li>
+<li>
+<p>令 Λ′为将Λ投影到span(Λ)中与b1正交的子空间所得的格</p>
+</li>
+<li>
+<p>令c2&hellip;.cn 为Λ′的KZ基</p>
+</li>
+<li>
+<p>定义
+</p>
+$$
+   b_i=c_i+α_ib_i
+   $$<p>
+αi∈（-1/2，1/2]，是让bi∈Λ成立的唯一数</p>
+</li>
+</ol>
+<p><img src="/p/lattice-notes-03/Snipaste_2026-01-16_12-25-18_hu_70f1728a26391fe2.webp" srcset="/p/lattice-notes-03/Snipaste_2026-01-16_12-25-18_hu_70f1728a26391fe2.webp 720w, /p/lattice-notes-03/Snipaste_2026-01-16_12-25-18_hu_ef0ed94c130b5481.webp 1280w" sizes="(max-width: 900px) 92vw, 720px" width="720" height="327" alt="格中向量的唯一系数表示" loading="lazy" decoding="async"></p>
+<h2 id="参考链接">参考链接<a class="anchor" href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" aria-hidden="true" tabindex="-1">§</a>
+</h2>
+<p><a href="https://cims.nyu.edu/~regev/teaching/lattices_fall_2004/">计算机科学中的格（2004 年秋季） &mdash; Lattices in Computer Science (Fall 2004)</a></p>
+</div>
+
+            <section class="comments" id="comments" data-repo="p3r0x/p3r0x.github.io">
+        <h2 class="comments-head">评论</h2>
+        <div class="giscus"></div><noscript><p class="comments-fallback">需要启用 JavaScript 才能加载评论。也可以到 <a href="https://github.com/p3r0x/p3r0x.github.io/discussions" rel="noopener" target="_blank">GitHub Discussions</a> 参与讨论。</p></noscript>
+        <script src="https://giscus.app/client.js"
+            data-repo="p3r0x/p3r0x.github.io"
+            data-repo-id="R_kgDOQxf5tg"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOQxf5ts4C0f3D"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="dark_dimmed"
+            data-lang="zh-CN"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
+    </section>
+
+        </div>
+    </div>
+
+    <nav class="pn" aria-label="上下篇导航">
+        <a class="pn-cell" href="/p/lattice-notes-02/">
+            <span class="pn-k">← 上一篇</span>
+            <span class="pn-t">格密码学习笔记：LLL 算法</span>
+        </a>
+        <a class="pn-cell pn-cell--next" href="/p/rsa-common-private-exponent/">
+            <span class="pn-k">下一篇 →</span>
+            <span class="pn-t">RSA共私钥d攻击</span>
+        </a>
+    </nav>
+    <section class="related">
+        <header class="sec-head"><h2>相关文章</h2></header>
+        <div class="related-list">
+            <a class="related-row" href="/p/jacobian-coordinates-ecc/">
+                <time datetime="2026-05-19">2026.05.19</time>
+                <span>Jacobian 雅可比坐标（ECC）</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/weil-pairing/">
+                <time datetime="2026-04-17">2026.04.17</time>
+                <span>双线性映射与 Weil Pairing</span>
+                <em>Crypto</em>
+            </a>
+            <a class="related-row" href="/p/rsa-common-private-exponent/">
+                <time datetime="2026-03-09">2026.03.09</time>
+                <span>RSA共私钥d攻击</span>
+                <em>Crypto</em>
+            </a>
+        </div>
+    </section>
+</div>
+
+    </main><footer class="foot">
+    <div class="foot-in">
+        <nav class="foot-nav" aria-label="页脚导航">
+            <a href="/archives/">归档</a>
+            <a href="/categories/">分类</a>
+            <a href="/links/">友链</a>
+            <a href="/search/">搜索</a>
+        </nav><a class="foot-mark" href="/" aria-label="Perox">Perox</a>
+    </div>
+
+    <div class="foot-end">
+        <span>© 2026 Perox</span>
+        <span>8 篇文章 · 更新于 2026.05.19</span>
+    </div>
+</footer>
+
+</div><div class="palette" id="palette" hidden>
+    <div class="palette-veil" data-palette-close></div>
+    <div class="palette-panel" role="dialog" aria-modal="true" aria-labelledby="palette-input">
+        <div class="palette-head">
+            <span class="palette-mark" aria-hidden="true">⌘K</span>
+            <input class="palette-input" id="palette-input" type="text" placeholder="搜索文章" autocomplete="off" spellcheck="false" aria-label="搜索文章">
+            <button class="palette-close" type="button" data-palette-close>Esc</button>
+        </div>
+        <ul class="palette-list" id="palette-list" role="listbox" aria-label="搜索结果"></ul>
+        <p class="palette-empty" hidden>没有找到匹配的文章</p>
+        <div class="palette-foot">
+            <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+            <span><kbd>↵</kbd> 打开</span>
+            <span><kbd>Esc</kbd> 关闭</span>
+            <span class="palette-count" data-palette-count></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+<button class="to-top" type="button" data-to-top aria-label="回到顶部"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="6 11 12 5 18 11"></polyline></svg></button>
+<script defer src="/js/site.min.5059e7781cfe64e6dbc19023c8869c4b222d811e62adf3edba823df9db17cc68.js" integrity="sha256-UFnneBz&#43;ZObbwZAjyIacSyItgR5irfPtuoI9&#43;dsXzGg=" crossorigin="anonymous"></script>
+<script defer src="/js/palette.min.10442b3f15773d076d801d1c6bcb00d2cb5f67274e568f77f3537309203c9c21.js" integrity="sha256-EEQrPxV3PQdtgB0ca8sA0stfZydOVo9381NzCSA8nCE=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/katex/katex.min.css">
+<script defer src="/katex/katex.min.js"></script>
+<script defer src="/katex/auto-render.min.js"></script>
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        if (typeof renderMathInElement !== "function") return;
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist", "code-block", "highlight"]
+        });
+    });
+</script>
+
+</body>
+</html>
